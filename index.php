@@ -14,9 +14,10 @@ echo "Attempting to connect to MySql...";
 $servername = "ddc353.encs.concordia.ca";
 $username = "ddc353_1";
 $password = "12pass34";
+$dbname = "ddc353_1";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
