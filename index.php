@@ -11,7 +11,7 @@
 
 <?php
 echo "Attempting to connect to MySql...";
-$servername = "ddc353_1";
+$servername = "ddc353.encs.concordia.ca";
 $username = "ddc353_1";
 $password = "12pass34";
 
