@@ -23,6 +23,12 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully";
+
+echo "<h3>Tables in database</h3>";
+$listdbtables = array_column($conn->query('SHOW TABLES')->fetch_all(),0);
+foreach ($listdbtables as $key => $value)
+    echo "<h3>".$value."</h3>";
+
 ?>
 </body>
 </html>
