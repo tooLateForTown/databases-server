@@ -1,4 +1,17 @@
 body {
-    background-color: dimgray;
-    color: antiquewhite;
+    background-color: lightgrey;
+    color: black;
+}
+
+.debug {
+    color: blue;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+}
+
+.tablename {
+    color: black;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    font-weight: bold;
 }

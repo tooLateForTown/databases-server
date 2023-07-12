@@ -10,6 +10,7 @@
 <h3><?php echo 'hello world'; ?></h3>
 
 <?php
+echo "<div class='debug'>";
 echo "Attempting to connect to MySql...";
 $servername = "ddc353.encs.concordia.ca";
 $username = "ddc353_1";
@@ -24,11 +25,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo "Connected successfully";
+echo "</div>";
 
 echo "<h3>Tables in database</h3>";
-$listdbtables = $conn->query('SHOW TABLES');
-while ($table = mysqli_fetch_array($listdbtables)) {
-    echo "<h3>".$table[0]."</h3>";
+$result= mysqli_query($conn, "SHOW TABLES FROM $dbname");
+$tables = mysqli_fetch_all($result);
+mysqli_free_result($result);
+mysqli_close($conn);
+
+foreach ($tables as $table) {
+    echo "<div class='tablename'>".$table[0]."</div>";
 }
 
 
