@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Comp 353 Project</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
 </head>
 <body>
 <h1>Group Project Test</h1>
