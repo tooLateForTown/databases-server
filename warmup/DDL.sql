@@ -17,9 +17,10 @@ CREATE TABLE Facilities (
     phoneNumber varchar(12),
     web varchar(200),
     capacity int,
-    isManagement bool,
     FOREIGN KEY (ministryID) REFERENCES Ministries(ministryID)
 );
+
+
 
 CREATE TABLE Persons (
     personID int PRIMARY KEY AUTO_INCREMENT,
@@ -27,10 +28,19 @@ CREATE TABLE Persons (
     lastName varchar(100)
 );
 
-CREATE TABLE Employees (
+CREATE TABLE EmploymentRoles (
+    employmentRoleID int AUTO_INCREMENT PRIMARY KEY,
+    title varchar(100),
+    isHead bool DEFAULT false
+);
+
+CREATE TABLE EmploymentContract (
     personID int,
     facilityID int,
-    PRIMARY KEY (personID, facilityID),
+    employmentRoleID int,
+    startDate date,
+    endDate date,
+    PRIMARY KEY (personID, facilityID, employmentRoleID, startDate),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (facilityID) REFERENCES Ministries(ministryID)
 );
@@ -38,6 +48,7 @@ CREATE TABLE Employees (
 CREATE TABLE Students (
     personID int,
     facilityID int,
+    grade varchar(30),
     PRIMARY KEY (personID, facilityID),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (facilityID) REFERENCES Ministries(ministryID)
