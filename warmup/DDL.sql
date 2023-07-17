@@ -17,6 +17,11 @@ CREATE TABLE Facilities (
     phoneNumber varchar(12),
     web varchar(200),
     capacity int,
+    isManagementHeadOffice bool DEFAULT false,
+    isManagementGeneral bool DEFAULT false,
+    isSchoolPrimary bool DEFAULT false,
+    isSchoolMiddle bool DEFAULT false,
+    isSchoolHigh bool DEFAULT false,
     FOREIGN KEY (ministryID) REFERENCES Ministries(ministryID)
 );
 
@@ -25,7 +30,8 @@ CREATE TABLE Facilities (
 CREATE TABLE Persons (
     personID int PRIMARY KEY AUTO_INCREMENT,
     firstName varchar(100),
-    lastName varchar(100)
+    lastName varchar(100),
+    grade varchar(30) # null = not a student
 );
 
 CREATE TABLE EmploymentRoles (
@@ -42,13 +48,12 @@ CREATE TABLE EmploymentContract (
     endDate date,
     PRIMARY KEY (personID, facilityID, employmentRoleID, startDate),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
-    FOREIGN KEY (facilityID) REFERENCES Ministries(ministryID)
+    FOREIGN KEY (facilityID) REFERENCES Facilities(facilityID)
 );
 
-CREATE TABLE Students (
+CREATE TABLE Enrolled (
     personID int,
     facilityID int,
-    grade varchar(30),
     PRIMARY KEY (personID, facilityID),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (facilityID) REFERENCES Ministries(ministryID)
