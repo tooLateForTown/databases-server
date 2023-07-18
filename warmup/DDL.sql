@@ -14,7 +14,7 @@ CREATE TABLE Facilities (
     city varchar(100),
     province char(2),
     postalCode char(6),
-    phoneNumber varchar(12),
+    phoneNumber varchar(14),
     web varchar(200),
     capacity int,
     isManagementHeadOffice bool DEFAULT false,
@@ -34,7 +34,7 @@ CREATE TABLE Persons (
     dateOfBirth date,
     medicare varchar(14) NOT NULL UNIQUE , #example:  BOUF 1234 5678
     medicareExpiryDate date,
-    telephone varchar(14),    #(514) 262-2822
+    phoneNumber varchar(14),    #(514) 262-2822
     address varchar(200),
     city varchar(100),
     province char(2),
@@ -77,19 +77,26 @@ CREATE TABLE EnrollmentContract (
 
 
 # VACCINE AND INFECTION STUFF
+CREATE TABLE Infections (
+    personID int,
+    date date,
+    type varchar(200),
+    PRIMARY KEY (personID, date),
+    FOREIGN KEY (personID) REFERENCES Persons(personID)
+);
+
 
 CREATE TABLE VaccinationTypes (
-    vaccinationTypeID int PRIMARY KEY AUTO_INCREMENT,
+    vaccinationTypeID int PRIMARY KEY,
     name varchar(100)
 );
 
 CREATE TABLE Vaccinations (
-    vaccincationID int PRIMARY KEY AUTO_INCREMENT,
+    personID int,
     date date,
     vaccinationTypeID int,
-    dose decimal(6,2),
-    dosageNumber int,
-    personID int,
+    dose int,
+    PRIMARY KEY (personID, date),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (vaccinationTypeID) REFERENCES VaccinationTypes(vaccinationTypeID)
 );

@@ -40,12 +40,34 @@ INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymen
     VALUES (4,4,'2023-02-16',11);
 
 
-
-
 # Minster
 INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (3,'Bernanrd','Drainville','BDRA 0000 1111');
 INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
     VALUES (3,2,'2018-01-01',1);
+
+# Mintstry Workers
+INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (5,'Alfred','McDonaold>','AMCK 2922 1111');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
+    VALUES (5,2,'1999-01-01',2);
+
+
+# INFECTION Stuff
+# Vaccine Types
+INSERT INTO VaccinationTypes VALUE (1,'Pfizer');
+INSERT INTO VaccinationTypes VALUE (2,'Moderna');
+INSERT INTO VaccinationTypes VALUE (3,'AstraZeneca');
+INSERT INTO VaccinationTypes VALUE (4,'Johnson & Johnson');
+
+# Infections
+INSERT INTO Infections (personID, date, type) VALUES (1,'2021-07-29', 'COVID-19');
+INSERT INTO Infections (personID, date, type) VALUES (2,'2020-01-22', 'SARS-Cov-2 Variant');
+
+#vaccines
+INSERT INTO Vaccinations (personID, date, vaccinationTypeID,dose) VALUES (1,'2020-01-30', 1, 1);
+INSERT INTO Vaccinations (personID, date, vaccinationTypeID,dose) VALUES (1,'2021-01-30', 3, 2);
+INSERT INTO Vaccinations (personID, date, vaccinationTypeID,dose) VALUES (5,'2021-01-20', 1, 1);
+INSERT INTO Vaccinations (personID, date, vaccinationTypeID,dose) VALUES (5,'2022-03-25', 2, 2);
+
 
 
 
