@@ -43,12 +43,17 @@ CREATE TABLE EmploymentRoles (
 CREATE TABLE EmploymentContract (
     personID int,
     facilityID int,
-    employmentRoleID int,
     startDate date,
     endDate date,
-    PRIMARY KEY (personID, facilityID, employmentRoleID, startDate),
+    primaryEmploymentRoleID int NOT NULL,
+    secondaryEmploymentRoleID int,
+    tertiaryEmploymentRoleID int,
+    PRIMARY KEY (personID, facilityID, startDate),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
-    FOREIGN KEY (facilityID) REFERENCES Facilities(facilityID)
+    FOREIGN KEY (facilityID) REFERENCES Facilities(facilityID),
+    FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID),
+    FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID),
+    FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
 CREATE TABLE Enrolled (

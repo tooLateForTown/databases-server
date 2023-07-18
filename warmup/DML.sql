@@ -16,12 +16,26 @@ INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (4,'Security Person
 INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (5,'Other Personnel');
 INSERT INTO EmploymentRoles (employmentRoleID, title, isHead) VALUES (10,'Principle', true);
 INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (11,'Teacher, Elementary');
-INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (12,'Teacher, Secondary Math');
-INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (13,'Teacher, Secondary Science');
-INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (14,'School Counselor');
-INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (15,'Program Director');
-INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (16,'Administrator');
+INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (12,'Teacher, Secondary');
+INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (13,'Math');
+INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (14,'English');
+INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (15,'School Counselor');
+INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (16,'Program Director');
+INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (17,'Administrator');
 
+#People
+# School personnel
+INSERT INTO Persons (personID, firstName, lastName) VALUES (1,'Khaled','Jabobo');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+    VALUES (1,3,'2020-01-01',12,13,15);
+INSERT INTO Persons (personID, firstName, lastName) VALUES (2,'Captain','Underpants');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
+    VALUES (2,3,'2020-01-01',10);
+
+# Minster
+INSERT INTO Persons (personID, firstName, lastName) VALUES (3,'Bernanrd','Drainville');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
+    VALUES (3,2,'2018-01-01',1);
 
 
 
