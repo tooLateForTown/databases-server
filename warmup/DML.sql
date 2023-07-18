@@ -25,15 +25,25 @@ INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (17,'Administrator'
 
 #People
 # School personnel
-INSERT INTO Persons (personID, firstName, lastName) VALUES (1,'Khaled','Jabobo');
+INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (1,'Khaled','Jabobo','KJAB 0000 1111');
 INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
     VALUES (1,3,'2020-01-01',12,13,15);
-INSERT INTO Persons (personID, firstName, lastName) VALUES (2,'Captain','Underpants');
+INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (2,'Captain','Underpants','CUND 0000 1111');
 INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
     VALUES (2,3,'2020-01-01',10);
+INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (4,'Roger','Smith','RSMI 2827 2282');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID, endDate)
+    VALUES (4,4,'2022-01-15',11, '2022-09-15');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID, endDate)
+    VALUES (4,3,'2022-09-16',12, '2023-02-15');
+INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
+    VALUES (4,4,'2023-02-16',11);
+
+
+
 
 # Minster
-INSERT INTO Persons (personID, firstName, lastName) VALUES (3,'Bernanrd','Drainville');
+INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (3,'Bernanrd','Drainville','BDRA 0000 1111');
 INSERT INTO EmploymentContract(personID, facilityID, startDate, primaryEmploymentRoleID)
     VALUES (3,2,'2018-01-01',1);
 

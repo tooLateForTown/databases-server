@@ -28,10 +28,18 @@ CREATE TABLE Facilities (
 
 
 CREATE TABLE Persons (
-    personID int PRIMARY KEY AUTO_INCREMENT,
+    personID int PRIMARY KEY,
     firstName varchar(100),
     lastName varchar(100),
-    grade varchar(30) # null = not a student
+    dateOfBirth date,
+    medicare varchar(14) NOT NULL UNIQUE , #example:  BOUF 1234 5678
+    medicareExpiryDate date,
+    telephone varchar(14),    #(514) 262-2822
+    address varchar(200),
+    city varchar(100),
+    province char(2),
+    citizenship varchar(50),
+    email varchar(200)
 );
 
 CREATE TABLE EmploymentRoles (
@@ -56,11 +64,12 @@ CREATE TABLE EmploymentContract (
     FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
-CREATE TABLE Enrolled (
+CREATE TABLE EnrollmentContract (
     personID int,
     facilityID int,
     startDate date,
     endDate date,
+    grade varchar(50), #eg: secondary 2
     PRIMARY KEY (personID, facilityID, startDate),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (facilityID) REFERENCES Facilities(facilityID)
