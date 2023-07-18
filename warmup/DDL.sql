@@ -2,7 +2,7 @@
 # PERSONS STUFF
 
 CREATE TABLE Ministries (
-    ministryID int PRIMARY KEY AUTO_INCREMENT,
+    ministryID int PRIMARY KEY,
     name varchar(100)
 );
 
@@ -13,7 +13,7 @@ CREATE TABLE Facilities (
     address varchar(100),
     city varchar(100),
     province char(2),
-    postalCode char(6),
+    postalCode varchar(7),
     phoneNumber varchar(14),
     web varchar(200),
     capacity int,
@@ -48,7 +48,7 @@ CREATE TABLE EmploymentRoles (
     isHead bool DEFAULT false
 );
 
-CREATE TABLE EmploymentContract (
+CREATE TABLE Employee (
     personID int,
     facilityID int,
     startDate date,
@@ -64,7 +64,7 @@ CREATE TABLE EmploymentContract (
     FOREIGN KEY (tertiaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
-CREATE TABLE EnrollmentContract (
+CREATE TABLE Student (
     personID int,
     facilityID int,
     startDate date,
