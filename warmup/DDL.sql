@@ -60,8 +60,8 @@ CREATE TABLE EmploymentContract (
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (facilityID) REFERENCES Facilities(facilityID),
     FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID),
-    FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID),
-    FOREIGN KEY (primaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
+    FOREIGN KEY (secondaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID),
+    FOREIGN KEY (tertiaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
 CREATE TABLE EnrollmentContract (
