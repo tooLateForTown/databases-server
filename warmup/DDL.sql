@@ -7,7 +7,7 @@ CREATE TABLE Ministries (
 );
 
 CREATE TABLE Facilities (
-    facilityID int PRIMARY KEY AUTO_INCREMENT,
+    facilityID int PRIMARY KEY,
     ministryID int,
     name varchar(100),
     address varchar(100),
@@ -35,7 +35,7 @@ CREATE TABLE Persons (
 );
 
 CREATE TABLE EmploymentRoles (
-    employmentRoleID int AUTO_INCREMENT PRIMARY KEY,
+    employmentRoleID int PRIMARY KEY,
     title varchar(100),
     isHead bool DEFAULT false
 );
@@ -54,9 +54,11 @@ CREATE TABLE EmploymentContract (
 CREATE TABLE Enrolled (
     personID int,
     facilityID int,
-    PRIMARY KEY (personID, facilityID),
+    startDate date,
+    endDate date,
+    PRIMARY KEY (personID, facilityID, startDate),
     FOREIGN KEY (personID) REFERENCES Persons(personID),
-    FOREIGN KEY (facilityID) REFERENCES Ministries(ministryID)
+    FOREIGN KEY (facilityID) REFERENCES Facilities(facilityID)
 );
 
 
