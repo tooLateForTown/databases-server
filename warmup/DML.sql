@@ -8,38 +8,38 @@ INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, p
 VALUES (3,1,'Laval Secondary School','1200 Blvd. Saint-Laurent','Laval','QC','H197B2','514-222-2222','laval.montreal.educanada.ca',2000,true,true);
 INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
 VALUES (4,1,'Rosemont Elementary School','100 Some Stree','Rosemont','QC','P197B2','514-222-4444','rosemont.montreal.educanada.ca',1000,true);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolHigh)
+VALUES (5,1,'Westmount High School','120 Grosvenor','Westmount','QC','O197B2','514-212-4444','westmount.montreal.educanada.ca',40,true);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolHigh)
+VALUES (6,1,'John Rennie High School','120 I gorget','Pointe Claire','QC','T197B2','514-2s2-4444','rennie.montreal.educanada.ca',40,true);
 INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
-VALUES (5,1,'Westmount High School','120 Grosvenor','Westmount','QC','O197B2','514-212-4444','westmount.montreal.educanada.ca',40,false);
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
-VALUES (6,1,'John Rennie High School','120 I gorget','Pointe Claire','QC','T197B2','514-2s2-4444','rennie.montreal.educanada.ca',40,false);
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
-VALUES (7,1,'Evangeline','100 l\'Acadie','Montreal','QC','H8I1P0','514-212-4444','evangeline.montreal.educanada.ca',40,false);
+VALUES (7,1,'Evangeline','100 l\'Acadie','Montréal','QC','H8I1P0','514-212-4444','evangeline.montreal.educanada.ca',40,true);
 INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
 VALUES (8,1,'Evergreen Elementary','1000 Woodsy Street','Saint Lazazre','QC','J7T3P5','514-212-4444','evergreen.montreal.educanada.ca',40,true);
 INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
-VALUES (9,1,'Hogwarts Elementary','100 Privet Druve','Laval','QC','J7T3P5','514-212-4444','hogwarts.montreal.educanada.ca',40,true);
+VALUES (9,1,'Hogwarts Elementary','100 Privet Druve','Montréal','QC','J7T3P5','514-212-4444','hogwarts.montreal.educanada.ca',40,true);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolHigh)
+VALUES (10,1,'St. Thomas High School','23937 Streetname street','Pointe Claire','QC','J7T3P5','514-212-4444','stthomas.montreal.educanada.ca',40,true);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolMiddle)
+VALUES (77, 1, 'Québec City Middle School', '7700 Maple Road', 'Québec City', 'QC', 'G1X1Y1', '418-222-2222', 'www.quebeccitymiddleschool.qc.ca', 500,true);
+
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolHigh)
+VALUES (78, 1, 'Sherbrooke High School', '7800 Cedar Road', 'Sherbrooke', 'QC', 'G2X2Z2', '819-333-3333', 'www.sherbrookehigh.qc.ca', 1000,true);
+
 INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
-VALUES (10,1,'St. Thomas High School','23937 Streetname street','Pointe Claire','QC','J7T3P5','514-212-4444','stthomas.montreal.educanada.ca',40,false);
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (77, 1, 'Québec City Middle School', '7700 Maple Road', 'Québec City', 'QC', 'G1X1Y1', '418-222-2222', 'www.quebeccitymiddleschool.qc.ca', 500);
+VALUES (79, 1, 'Trois-Rivières Elementary School', '7900 Elm Avenue', 'Trois-Rivières', 'QC', 'G3X3B3', '819-444-4444', 'www.troisriviereselementary.qc.ca', 500, true);
 
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (78, 1, 'Sherbrooke High School', '7800 Cedar Road', 'Sherbrooke', 'QC', 'G2X2Z2', '819-333-3333', 'www.sherbrookehigh.qc.ca', 1000);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolHigh)
+VALUES (80, 1, 'Gatineau Secondary School', '8000 Pine Road', 'Gatineau', 'QC', 'G4X4C4', '819-555-5555', 'www.gatineausecondary.qc.ca', 900, true);
 
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (79, 1, 'Trois-Rivières Elementary School', '7900 Elm Avenue', 'Trois-Rivières', 'QC', 'G3X3B3', '819-444-4444', 'www.troisriviereselementary.qc.ca', 500);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolMiddle)
+VALUES (81, 1, 'Drummondville Middle School', '8100 Elm Road', 'Drummondville', 'QC', 'G5X5D5', '819-666-6666', 'www.drummondvillemiddle.qc.ca', 600, true);
 
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (80, 1, 'Gatineau Secondary School', '8000 Pine Road', 'Gatineau', 'QC', 'G4X4C4', '819-555-5555', 'www.gatineausecondary.qc.ca', 900);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolHigh)
+VALUES (82, 1, 'Saint-Jean-sur-Richelieu High School', '8200 Cedar Road', 'Saint-Jean-sur-Richelieu', 'QC', 'G6X6Z6', '450-777-7777', 'www.saintjeansurrichelieuhigh.qc.ca', 1200, true);
 
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (81, 1, 'Drummondville Middle School', '8100 Elm Road', 'Drummondville', 'QC', 'G5X5D5', '819-666-6666', 'www.drummondvillemiddle.qc.ca', 600);
-
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (82, 1, 'Saint-Jean-sur-Richelieu High School', '8200 Cedar Road', 'Saint-Jean-sur-Richelieu', 'QC', 'G6X6Z6', '450-777-7777', 'www.saintjeansurrichelieuhigh.qc.ca', 1200);
-
-INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity)
-VALUES (83, 1, 'Rimouski Elementary School', '8300 Pine Avenue', 'Rimouski', 'QC', 'G7X7A7', '418-888-8888', 'www.rimouskielementary.qc.ca', 400);
+INSERT INTO Facilities (facilityID, ministryID, name, address, city, province, postalCode, phoneNumber, web, capacity, isSchoolPrimary)
+VALUES (83, 1, 'Rimouski Elementary School', '8300 Pine Avenue', 'Rimouski', 'QC', 'G7X7A7', '418-888-8888', 'www.rimouskielementary.qc.ca', 400, true);
 
 
 #Ontario
@@ -325,6 +325,10 @@ INSERT INTO Employees(personID, facilityID, startDate, primaryEmploymentRoleID, 
     VALUES (4,3,'2022-09-16',12, '2023-02-15');
 INSERT INTO Employees(personID, facilityID, startDate, primaryEmploymentRoleID)
     VALUES (4,4,'2023-02-16',11);
+# Montreal Teachers
+INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (114,'Aiman','Hannah','AHAN 0000 1111');
+INSERT INTO Employees(personID, facilityID, startDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+    VALUES (114,7,'2020-01-01',12,13,15);
 
 
 # Minsters

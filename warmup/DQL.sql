@@ -15,3 +15,14 @@ WHERE Facilities.ministryID = HeadOffices.ministryID
     AND Employees.facilityID = Facilities.facilityID
     AND Employees.endDate IS NULL
 GROUP BY Facilities.ministryID;
+
+# Question 3-2
+SELECT Facilities.name, COUNT(Employees.personID), COUNT(Students.personID)
+FROM Facilities, Employees, Students
+WHERE Facilities.city = 'Montréal'
+    AND (Facilities.isSchoolPrimary = TRUE OR Facilities.isSchoolMiddle = TRUE OR Facilities.isSchoolHigh = TRUE)
+    AND Employees.endDate IS NULL
+    AND Employees.facilityID = Facilities.facilityID
+    AND Students.facilityID = Facilities.facilityID
+    AND Students.endDate IS NULL
+GROUP BY Facilities.facilityID;
