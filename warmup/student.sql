@@ -1,4 +1,4 @@
-#Studentss
+#Students
 #Managment Montreal Branch
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
     VALUES (1,3, '2005-01-01','2017-01-01','Secondary 3')
