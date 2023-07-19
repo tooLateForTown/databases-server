@@ -48,7 +48,7 @@ CREATE TABLE EmploymentRoles (
     isHead bool DEFAULT false
 );
 
-CREATE TABLE Employee (
+CREATE TABLE Employees (
     personID int,
     facilityID int,
     startDate date,
@@ -64,7 +64,7 @@ CREATE TABLE Employee (
     FOREIGN KEY (tertiaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
-CREATE TABLE Student (
+CREATE TABLE Students (
     personID int,
     facilityID int,
     startDate date,
@@ -91,7 +91,7 @@ CREATE TABLE VaccinationTypes (
     name varchar(100)
 );
 
-CREATE TABLE Vaccinations (
+CREATE TABLE Vaccines (
     personID int,
     date date,
     vaccinationTypeID int,
