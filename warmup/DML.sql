@@ -427,6 +427,11 @@ INSERT INTO VaccinationTypes VALUE (2,'Moderna');
 INSERT INTO VaccinationTypes VALUE (3,'AstraZeneca');
 INSERT INTO VaccinationTypes VALUE (4,'Johnson & Johnson');
 
+INSERT INTO InfectionTypes VALUE (1,'COVID-19');
+INSERT INTO InfectionTypes VALUE (2,'SARS-Cov-2 Variant');
+INSERT INTO InfectionTypes VALUE (3,'Other');
+
+
 # # Infections
 # INSERT INTO Infections (personID, date, type) VALUES (1,'2021-07-29', 'COVID-19');
 # INSERT INTO Infections (personID, date, type) VALUES (2,'2020-01-22', 'SARS-Cov-2 Variant');
