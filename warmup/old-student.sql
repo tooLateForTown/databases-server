@@ -1,7 +1,7 @@
 #Students
 #Managment Montreal Branch
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
-    VALUES (1,3, '2005-01-01','2017-01-01','Secondary 3')
+    VALUES (1,3, '2005-01-01','2017-01-01','Secondary 3');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
     VALUES (2, 4, '2006-02-01', '2018-02-01', 'Secondary 3');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
