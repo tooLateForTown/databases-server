@@ -427,15 +427,15 @@ INSERT INTO VaccinationTypes VALUE (2,'Moderna');
 INSERT INTO VaccinationTypes VALUE (3,'AstraZeneca');
 INSERT INTO VaccinationTypes VALUE (4,'Johnson & Johnson');
 
-# Infections
-INSERT INTO Infections (personID, date, type) VALUES (1,'2021-07-29', 'COVID-19');
-INSERT INTO Infections (personID, date, type) VALUES (2,'2020-01-22', 'SARS-Cov-2 Variant');
-
-#vaccines
-INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (1,'2020-01-30', 1, 1);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (1,'2021-01-30', 3, 2);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (5,'2021-01-20', 1, 1);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (5,'2022-03-25', 2, 2);
+# # Infections
+# INSERT INTO Infections (personID, date, type) VALUES (1,'2021-07-29', 'COVID-19');
+# INSERT INTO Infections (personID, date, type) VALUES (2,'2020-01-22', 'SARS-Cov-2 Variant');
+#
+# #vaccines
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (1,'2020-01-30', 1, 1);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (1,'2021-01-30', 3, 2);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (5,'2021-01-20', 1, 1);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID,dose) VALUES (5,'2022-03-25', 2, 2);
 
 
 

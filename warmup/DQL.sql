@@ -17,6 +17,39 @@ WHERE Facilities.ministryID = HeadOffices.ministryID
 GROUP BY Facilities.ministryID;
 
 # Question 3-2
+SELECT Facilities.facilityID, Facilities.name, Teachers.count as Teachers, Students.count as Students
+FROM Facilities,
+    (SELECT Facilities.facilityID,count(Employees.personID) as count
+        FROM Facilities,Employees
+        WHERE
+            Employees.facilityID = Facilities.facilityID
+            AND (Employees.primaryEmploymentRoleID = 11 OR primaryEmploymentRoleID = 12)
+            AND Employees.endDate IS NULL
+        GROUP BY Facilities.facilityID)
+    as Teachers,
+    (SELECT Facilities.facilityID, count(Students.personID) as count
+        FROM Facilities, Students
+        WHERE
+            Students.facilityID = Facilities.facilityID
+            AND Students.endDate IS NULL
+        GROUP BY Facilities.facilityID)
+    as Students
+WHERE
+    Facilities.facilityID = Teachers.facilityID
+    AND Facilities.facilityID = Students.facilityID
+    AND (Facilities.isSchoolPrimary = TRUE OR Facilities.isSchoolMiddle = TRUE OR Facilities.isSchoolHigh = TRUE)
+GROUP BY Facilities.facilityID;
+
+SELECT Facilities.facilityID, count(Students.personID) as count
+FROM Facilities, Students
+WHERE
+    Students.facilityID = Facilities.facilityID
+    AND Students.endDate IS NULL
+GROUP BY Facilities.facilityID
+
+
+
+# original
 SELECT Facilities.name, COUNT(Employees.personID), COUNT(Students.personID)
 FROM Facilities, Employees, Students
 WHERE Facilities.city = 'Montréal'

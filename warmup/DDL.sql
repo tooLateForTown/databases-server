@@ -77,12 +77,20 @@ CREATE TABLE Students (
 
 
 # VACCINE AND INFECTION STUFF
+CREATE TABLE InfectionTypes(
+    infectionTypeID int PRIMARY KEY,
+    name varchar(100)
+);
+
+
 CREATE TABLE Infections (
     personID int,
     date date,
-    type varchar(200),
+    infectionTypeID int,
     PRIMARY KEY (personID, date),
+    FOREIGN KEY (infectionTypeID) REFERENCES InfectionTypes(infectionTypeID),
     FOREIGN KEY (personID) REFERENCES Persons(personID)
+
 );
 
 
