@@ -36,13 +36,6 @@ GROUP BY HeadOffices.ministryID
 ORDER BY Facilities DESC;
 
 
-SELECT Ministries.ministryID, COUNT(Students.personID) as count
-        FROM Ministries, Students, Facilities
-        WHERE Students.facilityID = Facilities.facilityID
-            AND Facilities.ministryID = Ministries.ministryID
-            AND Students.endDate IS NULL
-        GROUP BY Ministries.ministryID
-
 
 
 
