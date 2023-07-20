@@ -108,3 +108,4 @@ CREATE TABLE Vaccines (
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (vaccinationTypeID) REFERENCES VaccinationTypes(vaccinationTypeID)
 );
+
