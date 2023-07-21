@@ -1834,3 +1834,20 @@ INSERT INTO Infections (personID, date, infectionTypeID) VALUES (4665, '2022-05-
 INSERT INTO Infections (personID, date, infectionTypeID) VALUES (4666, '2020-12-04', 3);
 INSERT INTO Infections (personID, date, infectionTypeID) VALUES (4667, '2020-03-16', 1);
 INSERT INTO Infections (personID, date, infectionTypeID) VALUES (4668, '2020-05-03', 2);
+# Add Laval-specific infections
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3001, '2020-05-03', 1);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3001, '2021-04-03', 2);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3001, '2022-02-03', 3);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3003, '2020-05-03', 1);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3003, '2021-05-05', 2);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3003, '2022-05-06', 3);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3017, '2021-01-10', 1);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3017, '2022-05-06', 1);
+# Recent Laval
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3009, '2023-07-17', 1);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3009, '2023-07-19', 2);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3009, '2023-07-21', 3);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3010, '2023-07-18', 1);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3010, '2023-07-20', 2);
+INSERT INTO Infections (personID, date, infectionTypeID) VALUES (3014, '2023-07-21', 1);
+
