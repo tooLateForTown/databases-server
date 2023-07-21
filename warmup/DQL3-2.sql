@@ -22,7 +22,6 @@ FROM Facilities,
             AND Employees.endDate IS NULL
             AND (Employees.primaryEmploymentRoleID = 11 OR primaryEmploymentRoleID = 12)
             AND Infections.personID = Employees.personID
-            AND Infections.infectionTypeID = 1
         GROUP BY Facilities.facilityID)
     AS Covid19Teachers,
     (SELECT DISTINCT Facilities.facilityID, COUNT(Students.personID) as infections
@@ -30,7 +29,6 @@ FROM Facilities,
         WHERE Students.facilityID = Facilities.facilityID
             AND Students.endDate IS NULL
             AND Infections.personID = Students.personID
-            AND Infections.infectionTypeID = 1
         GROUP BY Facilities.facilityID)
     AS Covid19Students,
     (SELECT Facilities.facilityID,COUNT(Employees.personID) as count
