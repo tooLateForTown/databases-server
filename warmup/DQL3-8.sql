@@ -7,3 +7,5 @@ WHERE InfectionTypes.infectionTypeID = Infections.infectionTypeID
     AND Facilities.ministryID = Ministries.ministryID
 GROUP BY InfectionTypes.name, Ministries.name
 ORDER BY InfectionTypes.name ASC, TotalInfections DESC;
+
+#fixme:  Should be number of students, not infections.  Some students are infected more than once.
