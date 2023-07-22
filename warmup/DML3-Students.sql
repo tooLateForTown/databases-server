@@ -67,23 +67,23 @@ INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medic
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3017, 3, '2010-08-22', NULL, 'Secondary 5');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
- VALUES (3018, 'John', 'Hudecek', '1995-02-21', 'OHLK 2138 3181', '2025-03-24', '438-983-3997', '6301 Cottonwood Avenue', 'Cranbrook', 'NB', 'Canadian', 'JohnHudecek@gmail.com');
+ VALUES (3018, 'John', 'Hudecek', '1995-02-21', 'OHLK 2138 3181', '2021-03-24', '438-983-3997', '6301 Cottonwood Avenue', 'Cranbrook', 'NB', 'Canadian', 'JohnHudecek@gmail.com');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3018, 4, '2003-04-01', NULL, 'Primary 4');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
- VALUES (3019, 'Janice', 'Favela', '1961-09-27', 'JUEM 1533 1217', '2024-09-08', '819-337-8821', '2894 Pansy Lane', 'Nanaimo', 'NS', 'Canadian', 'JaniceFavela@gmail.com');
+ VALUES (3019, 'Janice', 'Favela', '1961-09-27', 'JUEM 1533 1217', '2020-09-08', '819-337-8821', '2894 Pansy Lane', 'Nanaimo', 'NS', 'Canadian', 'JaniceFavela@gmail.com');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3019, 4, '2017-11-11', NULL, 'Primary 2');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
- VALUES (3020, 'Russell', 'Eikleberry', '1962-09-19', 'NWGB 2328 3736', '2025-03-09', '873-667-2027', '787 Church Street', 'Penticton', 'NS', 'Canadian', 'RussellEikleberry@gmail.com');
+ VALUES (3020, 'Russell', 'Eikleberry', '1962-09-19', 'NWGB 2328 3736', '2019-03-09', '873-667-2027', '787 Church Street', 'Penticton', 'NS', 'Canadian', 'RussellEikleberry@gmail.com');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3020, 4, '2006-11-19', NULL, 'Primary 3');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
- VALUES (3021, 'Lucille', 'Williams', '1991-03-30', 'UMHT 1975 3550', '2026-02-25', '866-431-5838', '4303 Dahlia Avenue', 'Cranbrook', 'ON', 'Canadian', 'LucilleWilliams@gmail.com');
+ VALUES (3021, 'Lucille', 'Williams', '1991-03-30', 'UMHT 1975 3550', '2022-02-25', '866-431-5838', '4303 Dahlia Avenue', 'Cranbrook', 'ON', 'Canadian', 'LucilleWilliams@gmail.com');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3021, 4, '2018-12-15', NULL, 'Primary 6');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
- VALUES (3022, 'Theodore', 'Duane', '1972-07-09', 'HRSH 4028 6451', '2023-07-25', '416-006-3484', '7981 Sunset Boulevard', 'Fort St. John', 'PE', 'Canadian', 'TheodoreDuane@gmail.com');
+ VALUES (3022, 'Theodore', 'Duane', '1972-07-09', 'HRSH 4028 6451', '2022-07-25', '416-006-3484', '7981 Sunset Boulevard', 'Fort St. John', 'PE', 'Canadian', 'TheodoreDuane@gmail.com');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3022, 4, '2004-06-01', NULL, 'Primary 4');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
@@ -91,7 +91,7 @@ INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medic
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3023, 4, '2020-01-03', NULL, 'Primary 4');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
- VALUES (3024, 'Amy', 'Reason', '1973-01-31', 'SQTT 6862 0083', '2024-12-02', '900-226-8419', '5135 Grove Terrace', 'Victoria', 'NB', 'Canadian', 'AmyReason@gmail.com');
+ VALUES (3024, 'Amy', 'Reason', '1973-01-31', 'SQTT 6862 0083', '2001-12-02', '900-226-8419', '5135 Grove Terrace', 'Victoria', 'NB', 'Canadian', 'AmyReason@gmail.com');
 INSERT INTO Students (personID, facilityID, startDate, endDate, grade)
  VALUES (3024, 4, '2001-08-26', NULL, 'Primary 1');
 INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
