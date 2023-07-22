@@ -5,7 +5,7 @@ SELECT Facilities.name AS FacilityName,
        CONCAT(Persons.firstName, ' ', Persons.lastName) AS PrincipalName
 FROM Facilities, Ministries, Persons, Employees
 WHERE  Facilities.ministryID = Ministries.ministryID   #todo filter for Schools only
-    AND Facilities.facilityID = Persons.personID  #fixme no way this is correct
+    AND Employees.personID = Persons.personID  #fixme no way this is correct
     AND Facilities.facilityID = Employees.facilityID
   AND Facilities.facilityID NOT IN (
       SELECT DISTINCT E.facilityID
