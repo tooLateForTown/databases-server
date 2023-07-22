@@ -9,14 +9,14 @@ INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (19, '2021
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (19, '2022-04-14', 4, 2);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (110, '2021-05-16', 3, 1);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (110, '2022-01-25', 1, 2);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (204, '2021-09-11', 1, 1);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (204, '2022-03-20', 3, 2);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (204, '2021-09-11', 1, 1);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (204, '2022-03-20', 3, 2);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (206, '2021-10-01', 1, 1);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (206, '2022-11-05', 3, 2);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (207, '2021-03-24', 1, 1);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (207, '2022-06-16', 4, 2);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (208, '2021-02-23', 4, 1);
-INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (208, '2022-01-13', 4, 2);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (208, '2021-02-23', 4, 1);
+# INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (208, '2022-01-13', 4, 2);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (211, '2021-07-02', 4, 1);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (212, '2021-01-23', 4, 1);
 INSERT INTO Vaccines (personID, date, vaccinationTypeID, dose) VALUES (215, '2021-10-09', 2, 1);

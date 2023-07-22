@@ -8,7 +8,7 @@ SELECT
 FROM
     Persons P
 JOIN
-    Employees E ON P.personID = E.personID
+    Employees E ON P.personID = E.personID  #todo only use current, ie:  endDate IS NULL
 JOIN
     Facilities F ON E.facilityID = F.facilityID
 JOIN
@@ -20,9 +20,9 @@ WHERE
         FROM
             Infections I
         JOIN
-            InfectionTypes IT ON I.infectionTypeID = IT.name
+            InfectionTypes IT ON I.infectionTypeID = IT.name  #fixme must connect infections.infectiontypeID to InfectionTypes.InfectionTypeId
         WHERE
-            IT.name = 'COVID-19'
+            IT.name = 'COVID-19' # fixme use ID, eg: 1
     )
     AND P.personID NOT IN (
         SELECT
@@ -31,6 +31,12 @@ WHERE
             Vaccines V
     )
 ORDER BY
-    M.name ASC,
-    F.city ASC,
-    F.name ASC;
+    M.name,
+    F.city,
+    F.name;
+
+
+SELECT Employees.personID FROM Employees, Infections
+WHERE endDate IS NULL
+AND Infections.personID = Employees.personID
+AND Infections.infectionTypeID =1
