@@ -1,5 +1,5 @@
 # Question 3-2
-SELECT Facilities.facilityID, Facilities.name, Teachers.count as Teachers, StudentsPerSchool.count as Students, Covid19Teachers.infections as Teachers_Infected, Covid19Students.infections As Students_Infected, VaccinatedTeachers.count as Vaccinated_Teachers, VaccinatedStudents.count as Vaccinated_Students
+SELECT Facilities.name, Teachers.count as Teachers, StudentsPerSchool.count as Students, Covid19Teachers.infections as Teachers_Infected, Covid19Students.infections As Students_Infected, VaccinatedTeachers.count as Vaccinated_Teachers, VaccinatedStudents.count as Vaccinated_Students
 FROM Facilities,
     (SELECT Facilities.facilityID,count(Employees.personID) as count
         FROM Facilities,Employees
