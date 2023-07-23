@@ -11,24 +11,20 @@ FROM
 JOIN (
     SELECT
         S.personID,
-        S.facilityID,
-        MAX(S.startDate) AS latestStartDate  #fixme why are you considering start date?. For current students:  enddate IS NULL
+        S.facilityID
     FROM
         Students S
     WHERE
-        S.facilityID IN (SELECT facilityID FROM Facilities WHERE name = 'Rosemont Elementary School') # fixme should by by facility id number
+        S.facilityID = '4'
+        AND S.endDate IS NULL
     GROUP BY
         S.personID, S.facilityID
-) AS LatestStudents ON P.personID = LatestStudents.personID
-LEFT JOIN
-    Students S ON LatestStudents.personID = S.personID AND LatestStudents.facilityID = S.facilityID AND LatestStudents.latestStartDate = S.startDate  #fixme ignore startdate
-LEFT JOIN
-    Infections I ON P.personID = I.personID
-LEFT JOIN
-    InfectionTypes IT ON I.infectionTypeID = IT.name  # fixme cannot be right
+) LatestStudents ON P.personID = LatestStudents.personID
+LEFT JOIN Infections I ON P.personID = I.personID
+LEFT JOIN InfectionTypes IT ON I.infectionTypeID = IT.name
 WHERE
-    IT.name = 'COVID-19'  # fixme needs to be the id
+    IT.infectionTypeID = '1'
     AND P.medicareExpiryDate < CURDATE()
 ORDER BY
-    P.medicareExpiryDate ASC;
+    P.medicareExpiryDate;
 

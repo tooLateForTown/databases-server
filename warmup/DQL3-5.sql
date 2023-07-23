@@ -8,7 +8,7 @@ SELECT
 FROM
     Persons P
 JOIN
-    Employees E ON P.personID = E.personID  #todo only use current, ie:  endDate IS NULL
+    Employees E ON P.personID = E.personID AND E.endDate IS NULL
 JOIN
     Facilities F ON E.facilityID = F.facilityID
 JOIN
@@ -20,9 +20,9 @@ WHERE
         FROM
             Infections I
         JOIN
-            InfectionTypes IT ON I.infectionTypeID = IT.name  #fixme must connect infections.infectiontypeID to InfectionTypes.InfectionTypeId
+            InfectionTypes IT ON I.infectionTypeID = IT.infectionTypeID
         WHERE
-            IT.name = 'COVID-19' # fixme use ID, eg: 1
+            IT.infectionTypeID = '1'
     )
     AND P.personID NOT IN (
         SELECT
