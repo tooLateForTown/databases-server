@@ -1,3 +1,4 @@
+# Part 3-3
 SELECT
     P.firstName,
     P.lastName,
@@ -7,24 +8,13 @@ SELECT
     P.phoneNumber,
     P.email
 FROM
-    Persons P
-JOIN (
-    SELECT
-        S.personID,
-        S.facilityID
-    FROM
-        Students S
-    WHERE
-        S.facilityID = '4'
-        AND S.endDate IS NULL
-    GROUP BY
-        S.personID, S.facilityID
-) LatestStudents ON P.personID = LatestStudents.personID
-LEFT JOIN Infections I ON P.personID = I.personID
-LEFT JOIN InfectionTypes IT ON I.infectionTypeID = IT.name
-WHERE
-    IT.infectionTypeID = '1'
+    Persons P, Students S, Infections I
+WHERE S.personID = P.personID
+    AND I.personID = P.personID
+    AND S.endDate IS NULL
+    AND S.facilityID = 4
     AND P.medicareExpiryDate < CURDATE()
-ORDER BY
-    P.medicareExpiryDate;
+    AND I.infectionTypeID = 1;
+
+
 

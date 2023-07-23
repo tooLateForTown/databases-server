@@ -1,3 +1,5 @@
+# Part 3-5
+
 SELECT
     M.name AS ministry_name,
     F.name AS facility_name,
@@ -19,10 +21,8 @@ WHERE
             I.personID
         FROM
             Infections I
-        JOIN
-            InfectionTypes IT ON I.infectionTypeID = IT.infectionTypeID
         WHERE
-            IT.infectionTypeID = '1'
+            I.infectionTypeID = 1
     )
     AND P.personID NOT IN (
         SELECT
@@ -34,9 +34,3 @@ ORDER BY
     M.name,
     F.city,
     F.name;
-
-
-SELECT Employees.personID FROM Employees, Infections
-WHERE endDate IS NULL
-AND Infections.personID = Employees.personID
-AND Infections.infectionTypeID =1
