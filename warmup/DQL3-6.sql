@@ -23,8 +23,3 @@ WHERE  Facilities.ministryID = Ministries.ministryID
   )
 GROUP BY Facilities.facilityID, Facilities.name, Ministries.name, Facilities.city, Persons.firstName, Persons.lastName
 ORDER BY Ministries.name ASC, Facilities.city ASC, Facilities.name ASC;
-
-
-# Note: I Removed the infections so 2 schools will show up, Calgary High School and Yorktown Elementary.
-# Fahad: Yorktown students and teachers had infections so i removed the infections and added a principle
-#todo add principals to more schools and remove the students and employee infections
