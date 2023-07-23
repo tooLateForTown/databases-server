@@ -5350,3 +5350,346 @@ INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medic
  VALUES (1538, 'Joe', 'Brandt', '1961-08-26', 'HULK 7667 2922', '2027-05-17', '709-205-5922', '5225 Ivy Terrace', 'Edmundston', 'NL', 'Canadian', 'JoeBrandt@gmail.com');
 INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
  VALUES (1538, 790, '2021-01-01', NULL, 11, NULL, NULL);
+
+
+# Principals
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8001, 'James', 'Rudd', '1998-12-22', 'SYEQ 6456 2395', '2025-06-14', '438-586-0850', '5515 Aster Avenue', 'Fort McMurray', 'QC', 'Canadian', 'JamesRudd@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8001, 3, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8002, 'Jean', 'Redding', '1980-10-01', 'XHJJ 8732 6305', '2024-11-05', '867-014-2976', '8725 Beech Street', 'Burlington', 'NU', 'Canadian', 'JeanRedding@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8002, 4, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8003, 'Curtis', 'Locke', '1998-03-02', 'EPVA 7228 5569', '2024-10-29', '833-996-7882', '7504 Rosewood Lane', 'Miramichi', 'NT', 'Canadian', 'CurtisLocke@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8003, 5, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8004, 'Kelly', 'Jefferson', '1982-03-29', 'PHBW 2046 5284', '2027-03-16', '403-087-9969', '3359 Chives Street', 'Fort McMurray', 'ON', 'Canadian', 'KellyJefferson@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8004, 6, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8005, 'Paulina', 'Lopez', '1984-10-31', 'NTTG 2680 9039', '2026-07-06', '450-422-2064', '3800 Dill Lane', 'Cranbrook', 'NU', 'Canadian', 'PaulinaLopez@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8005, 7, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8006, 'James', 'Larrabee', '1977-11-09', 'CTJZ 4202 1392', '2025-06-20', '944-673-4491', '4471 Windsor Way', 'Lethbridge', 'QC', 'Canadian', 'JamesLarrabee@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8006, 8, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8007, 'Vivian', 'Mccombs', '1981-11-23', 'HTKX 7551 0854', '2023-01-30', '873-805-9862', '3665 Water Street', 'Guelph', 'NB', 'Canadian', 'VivianMccombs@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8007, 9, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8008, 'Helen', 'Jones', '1990-12-10', 'JAZO 6421 4669', '2027-08-28', '833-553-7461', '5848 Yew Way', 'Moncton', 'SK', 'Canadian', 'HelenJones@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8008, 10, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8009, 'Karrie', 'Stone', '1966-06-16', 'HNKF 2844 6938', '2023-04-16', '900-736-1595', '1377 Olive Road', 'Red Deer', 'NB', 'Canadian', 'KarrieStone@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8009, 35, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8010, 'Anthony', 'Mcdermott', '1951-08-03', 'COEV 8055 0633', '2024-09-14', '866-167-2024', '2905 Second Street', 'Kawartha Lakes', 'ON', 'Canadian', 'AnthonyMcdermott@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8010, 77, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8011, 'George', 'Rodgers', '1965-10-26', 'RQHA 3166 6886', '2024-11-08', '873-966-6072', '2654 Broadway Street', 'Chatham-Kent', 'NL', 'Canadian', 'GeorgeRodgers@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8011, 78, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8012, 'Linda', 'Texeira', '1953-10-25', 'TVXR 1681 8708', '2025-07-08', '709-116-9416', '984 Fir Lane', 'Saskatoon', 'NL', 'Canadian', 'LindaTexeira@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8012, 79, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8013, 'Julie', 'Woolwine', '1950-08-12', 'DJWG 0708 8667', '2024-07-30', '888-492-6303', '3640 Orchard Grove', 'Granby', 'QC', 'Canadian', 'JulieWoolwine@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8013, 80, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8014, 'Andrew', 'Zenz', '1966-05-21', 'PDWJ 3582 2503', '2023-05-10', '418-118-4103', '8899 Mulberry Lane', 'Fort St. John', 'NT', 'Canadian', 'AndrewZenz@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8014, 81, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8015, 'Leah', 'Eatmon', '1973-05-29', 'HHRB 2919 4112', '2025-02-04', '943-727-7837', '6706 Cherry Street', 'Vancouver', 'NL', 'Canadian', 'LeahEatmon@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8015, 82, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8016, 'Dulce', 'Gravley', '1981-12-03', 'GVCJ 5489 6958', '2025-05-14', '506-590-9632', '8589 Forest Hill', 'Airdrie', 'PE', 'Canadian', 'DulceGravley@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8016, 83, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8017, 'Edgar', 'Benedict', '1958-03-29', 'VTXK 2888 4394', '2024-03-17', '514-294-0382', '5773 Marjoram Way', 'Fort St. John', 'NL', 'Canadian', 'EdgarBenedict@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8017, 101, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8018, 'Janet', 'Tripp', '1973-05-07', 'ZAOD 1953 9772', '2025-08-31', '204-847-6863', '8856 Broadway Street', 'Regina', 'YT', 'Canadian', 'JanetTripp@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8018, 102, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8019, 'Paul', 'Gehring', '1951-10-25', 'QFLE 0365 5615', '2027-02-08', '800-602-6910', '2938 Redwood Close', 'Norfolk County', 'NS', 'Canadian', 'PaulGehring@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8019, 128, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8020, 'Bessie', 'Payne', '1963-03-03', 'ZVMQ 5815 6523', '2027-12-26', '936-525-9719', '2374 Cinnamon Way', 'Fort St. John', 'NS', 'Canadian', 'BessiePayne@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8020, 129, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8021, 'John', 'Decoteau', '1970-06-14', 'OUZC 5488 4740', '2027-05-22', '604-674-7978', '1985 Daffodil Way', 'Brantford', 'YT', 'Canadian', 'JohnDecoteau@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8021, 130, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8022, 'Sandra', 'Dallas', '1991-05-27', 'FTDL 7217 7751', '2027-06-18', '581-258-7231', '895 Ginger Terrace', 'Sault Ste. Marie', 'BC', 'Canadian', 'SandraDallas@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8022, 131, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8023, 'Leigh', 'Mengel', '1980-03-08', 'ADNL 4719 4056', '2025-08-23', '506-254-7920', '8231 Hyacinth Close', 'Sherbrooke', 'NS', 'Canadian', 'LeighMengel@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8023, 132, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8024, 'April', 'Reeves', '1973-11-26', 'VTAF 6349 5014', '2027-07-30', '931-902-8819', '8643 Main Street', 'Chatham-Kent', 'NS', 'Canadian', 'AprilReeves@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8024, 133, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8025, 'Nicole', 'Powers', '1958-09-20', 'EHDS 0398 5979', '2025-06-05', '877-757-0229', '7505 Ivy Terrace', 'Medicine Hat', 'NL', 'Canadian', 'NicolePowers@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8025, 134, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8026, 'Anna', 'Trent', '1975-01-31', 'DBRG 8145 1608', '2024-09-18', '647-746-2774', '367 Birch Street', 'Fort St. John', 'BC', 'Canadian', 'AnnaTrent@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8026, 163, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8027, 'Ronda', 'Moser', '1958-09-10', 'YPMY 0367 2951', '2024-06-27', '506-573-5554', '1210 Bay Leaf Road', 'Toronto', 'YT', 'Canadian', 'RondaMoser@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8027, 164, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8028, 'Opal', 'Navarro', '1995-03-02', 'QQRG 8257 4454', '2024-01-09', '943-634-6198', '8125 Peach Avenue', 'Sault Ste. Marie', 'NB', 'Canadian', 'OpalNavarro@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8028, 165, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8029, 'James', 'Dacosta', '1992-12-18', 'CTXH 7468 7840', '2027-06-22', '877-519-4266', '5252 Coriander Avenue', 'Granby', 'PE', 'Canadian', 'JamesDacosta@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8029, 166, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8030, 'Lawrence', 'Anderson', '1986-10-04', 'CSSI 3693 5992', '2027-12-16', '873-837-1083', '5787 Aspen Lane', 'Saint-Hyacinthe', 'QC', 'Canadian', 'LawrenceAnderson@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8030, 167, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8031, 'John', 'Lindall', '1954-08-13', 'QZBS 3657 6688', '2026-10-12', '877-685-3654', '1727 Cedar Lane', 'Whitehorse', 'SK', 'Canadian', 'JohnLindall@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8031, 168, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8032, 'Kenya', 'Jacinto', '1978-08-11', 'EUVN 7005 5906', '2026-12-13', '888-089-6026', '4281 Hillcrest Avenue', 'Saint-Hyacinthe', 'NB', 'Canadian', 'KenyaJacinto@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8032, 169, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8033, 'Bessie', 'Hoffman', '1961-06-30', 'QTSV 5450 4644', '2026-01-17', '204-395-3213', '8245 Ivy Terrace', 'Prince Albert', 'MB', 'Canadian', 'BessieHoffman@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8033, 201, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8034, 'John', 'Bensch', '1966-03-01', 'ZCDV 7161 7460', '2024-09-14', '306-480-6803', '8025 Marjoram Way', 'Kawartha Lakes', 'AB', 'Canadian', 'JohnBensch@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8034, 202, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8035, 'David', 'Noble', '1962-05-08', 'VMQI 1748 4342', '2023-09-01', '833-950-4132', '3413 Spruce Court', 'Bradford West Gwillimbury', 'BC', 'Canadian', 'DavidNoble@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8035, 236, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8036, 'Roger', 'Hall', '1952-07-26', 'ZZJH 4953 2773', '2025-01-22', '438-616-6553', '4017 Water Street', 'Penticton', 'NL', 'Canadian', 'RogerHall@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8036, 237, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8037, 'Kelly', 'Johns', '1985-09-28', 'IJKI 5376 0381', '2025-08-15', '941-361-9826', '3206 Cinnamon Way', 'Prince George', 'ON', 'Canadian', 'KellyJohns@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8037, 238, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8038, 'Demetrius', 'Anderson', '1969-10-29', 'YCLD 1056 2619', '2023-01-28', '579-456-8878', '8199 Bluebell Court', 'Kamloops', 'MB', 'Canadian', 'DemetriusAnderson@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8038, 239, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8039, 'Paul', 'Clark', '1962-03-26', 'UTKJ 0534 8373', '2026-03-25', '939-430-0555', '2756 Bamboo Lane', 'New Westminster', 'YT', 'Canadian', 'PaulClark@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8039, 240, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8040, 'Kathleen', 'Mannon', '1970-05-22', 'OUOO 1860 8715', '2024-08-01', '942-503-6230', '5333 Aster Avenue', 'Courtenay', 'ON', 'Canadian', 'KathleenMannon@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8040, 241, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8041, 'Robert', 'Brantley', '1955-07-25', 'KQOO 4842 9920', '2026-08-13', '902-593-0693', '4790 Main Street', 'Timmins', 'ON', 'Canadian', 'RobertBrantley@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8041, 301, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8042, 'Joseph', 'Hill', '1998-11-22', 'GOIY 4576 2912', '2025-10-18', '943-840-0455', '2329 Hawthorn Place', 'Sarnia', 'AB', 'Canadian', 'JosephHill@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8042, 302, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8043, 'Gilbert', 'Jacobson', '1984-10-21', 'GWPW 1250 1027', '2026-07-07', '944-445-7618', '2623 First Avenue', 'Lloydminster', 'QC', 'Canadian', 'GilbertJacobson@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8043, 342, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8044, 'Joseph', 'Howard', '1982-11-16', 'KLWL 8633 4358', '2026-10-24', '204-010-0362', '5190 Windsor Way', 'Sarnia', 'YT', 'Canadian', 'JosephHoward@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8044, 343, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8045, 'Christine', 'Edemann', '1980-03-23', 'ZVOW 9905 6050', '2024-09-04', '873-075-7507', '9565 Acacia Court', 'Fredericton', 'BC', 'Canadian', 'ChristineEdemann@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8045, 344, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8046, 'Kari', 'Villarreal', '1994-05-24', 'OVNJ 5449 4082', '2026-07-23', '639-606-3044', '3146 Yew Way', 'Timmins', 'PE', 'Canadian', 'KariVillarreal@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8046, 345, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8047, 'Bradley', 'Justice', '1971-01-06', 'JMGC 9980 6557', '2026-10-26', '204-145-9140', '4830 Rosemary Terrace', 'Penticton', 'NS', 'Canadian', 'BradleyJustice@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8047, 346, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8048, 'Donald', 'Gee', '1993-12-02', 'GBOZ 8971 3351', '2023-07-27', '855-629-2764', '1146 Cilantro Lane', 'Orillia', 'SK', 'Canadian', 'DonaldGee@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8048, 347, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8049, 'Sherri', 'Mcfarland', '1953-09-07', 'JTQW 1172 4260', '2026-07-04', '778-154-9334', '9919 Palm Crescent', 'Sudbury', 'YT', 'Canadian', 'SherriMcfarland@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8049, 348, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8050, 'Victoria', 'Johnson', '1991-07-02', 'QURZ 1569 9815', '2024-02-03', '431-503-5643', '6389 Cactus Court', 'Calgary', 'NL', 'Canadian', 'VictoriaJohnson@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8050, 401, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8051, 'Page', 'Drewry', '1983-09-20', 'DANW 4256 9639', '2025-04-13', '977-753-3549', '3956 Daffodil Way', 'Windsor', 'NS', 'Canadian', 'PageDrewry@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8051, 402, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8052, 'Brandon', 'Birchler', '1991-05-24', 'HDOR 0864 8550', '2025-01-02', '514-095-0466', '6839 Park Avenue', 'Fredericton', 'NL', 'Canadian', 'BrandonBirchler@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8052, 449, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8053, 'Roberta', 'Hicks', '1980-10-30', 'DJTP 5521 1562', '2023-12-27', '778-114-8252', '8882 Palm Crescent', 'Quebec City', 'AB', 'Canadian', 'RobertaHicks@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8053, 450, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8054, 'Rose', 'Franz', '1951-01-03', 'AWRZ 4660 3345', '2026-01-18', '778-282-2158', '6438 Azalea Avenue', 'Moncton', 'NT', 'Canadian', 'RoseFranz@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8054, 451, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8055, 'Donald', 'Cantwell', '1989-04-04', 'WJYX 0021 0420', '2024-09-04', '905-670-6076', '8323 Juniper Lane', 'Cranbrook', 'YT', 'Canadian', 'DonaldCantwell@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8055, 452, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8056, 'Barbara', 'Contrell', '1964-03-10', 'YJFD 6686 8206', '2027-01-03', '450-247-5938', '907 Forest Hill', 'Victoria', 'BC', 'Canadian', 'BarbaraContrell@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8056, 453, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8057, 'Melinda', 'Gorman', '1985-02-03', 'HTGK 3073 4669', '2027-05-22', '902-572-2312', '8507 Peppermint Court', 'New Westminster', 'NB', 'Canadian', 'MelindaGorman@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8057, 454, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8058, 'Carmen', 'Dufresne', '1967-04-30', 'UQJL 6054 6323', '2023-04-18', '604-846-4505', '4167 Rose Terrace', 'Halifax', 'YT', 'Canadian', 'CarmenDufresne@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8058, 455, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8059, 'Charlie', 'Tompkins', '1958-03-16', 'KKXJ 0312 0001', '2024-10-05', '236-062-0547', '8720 Mulberry Lane', 'Chicoutimi', 'NL', 'Canadian', 'CharlieTompkins@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8059, 501, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8060, 'Carla', 'Sova', '1992-07-04', 'FLZR 5245 0575', '2023-04-01', '418-764-9631', '9666 Daffodil Way', 'Fort McMurray', 'QC', 'Canadian', 'CarlaSova@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8060, 502, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8061, 'James', 'Wass', '1977-12-12', 'KVFC 4358 8933', '2025-05-12', '944-322-8524', '6096 Orchard Grove', 'Saint John', 'NU', 'Canadian', 'JamesWass@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8061, 556, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8062, 'Todd', 'Blume', '1958-06-26', 'QQWY 0374 9066', '2025-05-13', '934-186-5363', '402 Pine Crescent', 'Windsor', 'BC', 'Canadian', 'ToddBlume@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8062, 557, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8063, 'Douglas', 'Vu', '1975-08-28', 'DWZC 9197 0107', '2024-04-23', '866-178-4529', '1401 Broadway Street', 'Winnipeg', 'NS', 'Canadian', 'DouglasVu@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8063, 558, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8064, 'Dean', 'Lundsford', '1960-06-04', 'OEPK 3742 7586', '2025-11-04', '709-463-7784', '6562 Dill Lane', 'Moncton', 'NL', 'Canadian', 'DeanLundsford@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8064, 559, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8065, 'Vincent', 'Penna', '1989-06-14', 'LMQK 4555 3818', '2027-06-09', '514-116-3424', '6125 Jasmine Drive', 'Moose Jaw', 'BC', 'Canadian', 'VincentPenna@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8065, 560, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8066, 'Takisha', 'Zane', '1982-10-28', 'KEHI 8681 4912', '2023-05-08', '941-731-5591', '1837 Orchard Grove', 'Peterborough', 'ON', 'Canadian', 'TakishaZane@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8066, 561, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8067, 'Myra', 'Brown', '1998-08-28', 'LBLR 2103 8388', '2025-05-27', '800-906-9835', '8206 Palm Court', 'Grande Prairie', 'NS', 'Canadian', 'MyraBrown@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8067, 562, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8068, 'Kimber', 'Zack', '1960-07-17', 'FWJM 7864 6558', '2024-12-02', '938-620-9535', '2974 Hibiscus Way', 'Fredericton', 'PE', 'Canadian', 'KimberZack@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8068, 601, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8069, 'James', 'Eaton', '1985-02-02', 'MAUN 6224 9922', '2027-06-30', '888-610-4905', '9086 Marigold Terrace', 'Rimouski', 'NL', 'Canadian', 'JamesEaton@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8069, 602, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8070, 'Timothy', 'Nunez', '1967-06-09', 'XCTJ 2915 8456', '2025-08-08', '800-309-7849', '622 Highland Drive', 'Owen Sound', 'NS', 'Canadian', 'TimothyNunez@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8070, 670, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8071, 'Travis', 'Mendoza', '1985-11-06', 'ZGXA 3560 0617', '2023-03-08', '902-856-3530', '5503 Riverside Drive', 'Victoria', 'NL', 'Canadian', 'TravisMendoza@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8071, 671, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8072, 'Yolanda', 'Elliott', '1953-09-25', 'XXDE 6609 8036', '2027-02-28', '418-897-1168', '9035 Bamboo Lane', 'Orillia', 'MB', 'Canadian', 'YolandaElliott@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8072, 672, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8073, 'Sue', 'Walker', '1964-07-18', 'FVCI 0258 0162', '2026-07-26', '938-871-1773', '3624 Redwood Close', 'Airdrie', 'NB', 'Canadian', 'SueWalker@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8073, 673, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8074, 'June', 'Garrett', '1950-11-24', 'IVZX 9191 5618', '2023-10-06', '977-776-2186', '544 Chives Street', 'Montréal', 'YT', 'Canadian', 'JuneGarrett@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8074, 674, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8075, 'Ronald', 'Braithwaite', '1985-09-05', 'JXQB 5043 8365', '2027-02-11', '873-075-0973', '2949 Ivy Terrace', 'Hamilton', 'NL', 'Canadian', 'RonaldBraithwaite@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8075, 675, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8076, 'Rose', 'Rogers', '1965-03-24', 'XNEJ 3469 9394', '2026-01-22', '579-695-5485', '3271 Violet Street', 'Medicine Hat', 'MB', 'Canadian', 'RoseRogers@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8076, 676, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8077, 'Royce', 'White', '1975-04-15', 'HBMW 1645 5930', '2023-03-17', '418-959-8301', '5498 Daisy Street', 'Red Deer', 'PE', 'Canadian', 'RoyceWhite@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8077, 701, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8078, 'Gerald', 'Zimmerman', '1971-01-20', 'GLAN 1049 7725', '2024-04-04', '940-664-5294', '3321 Riverside Drive', 'Campbell River', 'MB', 'Canadian', 'GeraldZimmerman@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8078, 702, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8079, 'Desiree', 'Malizia', '1978-11-19', 'BQNL 3476 1872', '2027-02-17', '844-841-1175', '730 Aspen Lane', 'Fort St. John', 'QC', 'Canadian', 'DesireeMalizia@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8079, 784, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8080, 'Dion', 'Torres', '1971-08-27', 'OCSM 1473 5030', '2027-06-25', '780-917-3978', '3392 Chives Street', 'Drummondville', 'NT', 'Canadian', 'DionTorres@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8080, 785, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8081, 'Madge', 'Herr', '1970-08-02', 'FXNA 3366 3667', '2026-08-08', '639-298-3978', '6785 Magnolia Drive', 'Barrie', 'QC', 'Canadian', 'MadgeHerr@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8081, 786, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8082, 'Timothy', 'Paul', '1982-03-09', 'JUJD 8769 5726', '2023-06-17', '579-060-6238', '8522 Palm Court', 'Waterloo', 'ON', 'Canadian', 'TimothyPaul@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8082, 787, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8083, 'Kenneth', 'Dulaney', '1991-11-25', 'YDAQ 4129 7688', '2024-12-01', '581-574-3253', '1326 Queen Street', 'Kingston', 'NS', 'Canadian', 'KennethDulaney@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8083, 788, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8084, 'Karin', 'Emerson', '1955-04-18', 'ZGEW 5633 2863', '2023-06-04', '800-811-6827', '7683 Jasmine Drive', 'Regina', 'AB', 'Canadian', 'KarinEmerson@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8084, 789, '2021-01-01', NULL, 10, NULL, NULL);
+INSERT INTO Persons (personID, firstName, lastName, dateOfBirth, medicare, medicareExpiryDate, phoneNumber, address, city, province, citizenship, email)
+ VALUES (8085, 'Thomas', 'Gadbois', '1950-01-22', 'OQGP 2794 7381', '2024-06-15', '943-676-3529', '1850 Fir Lane', 'Granby', 'SK', 'Canadian', 'ThomasGadbois@gmail.com');
+INSERT INTO Employees (personID, facilityID, startDate, endDate, primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID)
+ VALUES (8085, 790, '2021-01-01', NULL, 10, NULL, NULL);
