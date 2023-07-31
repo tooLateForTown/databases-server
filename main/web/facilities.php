@@ -6,8 +6,9 @@
     <link rel="stylesheet" href="style1.css">
 </head>
 <body>
-<h1>Group Project Test</h1>
-
+<h1>Facilities</h1>
+<a href='edit_facility.php?action=create'>Create new Facility</a>
+<p>
 <?php
 echo "<div class='debug'>";
 echo "Attempting to connect to MySql...";
@@ -26,18 +27,26 @@ if ($conn->connect_error) {
 echo "Connected successfully";
 echo "</div>";
 
-echo "<h3>Tables in database</h3>";
-$result= mysqli_query($conn, "SHOW TABLES FROM $dbname");
+echo "<h3>Facilities in Database</h3>";
+$result= mysqli_query($conn, "SELECT facilityID,name FROM Facilities");
 $tables = mysqli_fetch_all($result);
 mysqli_free_result($result);
 mysqli_close($conn);
 
+?>
+<table>
+<?php
 foreach ($tables as $table) {
-    echo "<div class='tablename'>".$table[0]."</div>\n";
+    echo "<tr>";
+    echo "<td><div class='tablename'><a href='edit_facility.php?id=".$table[0]."&action=delete'>".$table[1]."</a></div></td>";
+    echo "<td><a href='edit_facility.php?id=".$table[0]."&action=edit'>edit</a></td>";
+    echo "<td><a href='edit_facility.php?id=".$table[0]."&action=display'>display</a></td>";
+    echo "<td><a href='edit_facility.php?id=".$table[0]."&action=delete'>delete</a></td>";
+    echo "</tr>";
 }
 
-
 ?>
-<a href="./main/web/facilities.php">Facilities</a>
+
+</table>
 </body>
 </html>
