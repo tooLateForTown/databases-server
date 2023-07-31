@@ -10,7 +10,7 @@
 <body>
 <h1>Students</h1>
 <?php
-    generateMasterTable("SELECT facilityID, name FROM Facilities","edit_student.php", 0, 1);
+    generateMasterTable("SELECT personID,CONCAT(firstName, ' ' , lastName)  FROM Students NATURAL JOIN Persons","edit_student.php", 0, 1);
 ?>
 </body>
 </html>

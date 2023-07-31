@@ -15,3 +15,26 @@ body {
     font-size: 12px;
     font-weight: normal;
 }
+.tablerow td {
+    text-align: center;
+}
+
+.tablerow i {
+    color: blue;
+    font-size:14px;
+    text-align: center;
+}
+
+.tableheader {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+        background-color: LightBlue;
+}
+tr:nth-child(odd) {
+        background-color: Lightgrey;
+}

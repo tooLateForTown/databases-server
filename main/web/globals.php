@@ -30,10 +30,10 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1) {
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$idCol]."</td>";
-        echo "<td><a href='" .$consumer."?id=" . $table[$idCol] . "&action=delete'>" . $table[$nameCol] . "</a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=display'>display</a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=edit'>edit</a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'>delete</a></td>";
+        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=delete'>" . $table[$nameCol] . "</a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=display'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</table>";

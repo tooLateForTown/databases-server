@@ -38,8 +38,8 @@ foreach ($tables as $table) {
 
 
 ?>
-<a href="./main/web/ministries.php">Ministries</a>
-<a href="./main/web/facilities.php">Facilities</a>
-
+<a href="./main/web/ministries.php">Ministries</a><br/>
+<a href="./main/web/facilities.php">Facilities</a><br/>
+<a href="./main/web/students.php">Students</a><br/>
 </body>
 </html>
