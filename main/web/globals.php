@@ -25,12 +25,14 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1) {
     mysqli_free_result($result);
     mysqli_close($conn);
 
+    echo "<a href='".$consumer."?id=-1&action=create'><i class='material-icons'>add_box</i> Add new record</a>";
+    echo "<br/><br/>";
     echo "<table>";
     echo "<tr><th>ID</th><th>Name</th><th>View</th><th>Edit</th><th>Delete</th></tr>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$idCol]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=delete'>" . $table[$nameCol] . "</a></td>";
+        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=display'>" . $table[$nameCol] . "</a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=display'><i class='material-icons'>visibility</i></a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'><i class='material-icons'>delete</i></a></td>";

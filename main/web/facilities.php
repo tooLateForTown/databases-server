@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
-<h1>Students</h1>
+<h1>Facilities</h1>
 <?php
-    generateMasterTable("SELECT facilityID, name FROM Facilities","edit_student.php", 0, 1);
+    generateMasterTable("SELECT facilityID, name FROM Facilities","edit_facility.php", 0, 1);
 ?>
 </body>
 </html>

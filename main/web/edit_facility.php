@@ -10,6 +10,7 @@
 <?php
 if (isset($_GET['db'])) {
     print ("SUBMIT!");
+    exit();
 }
 ?>
 
