@@ -38,7 +38,7 @@ mysqli_close($conn);
 <?php
 foreach ($tables as $table) {
     echo "<tr>";
-    echo "<td><div class='tablename'><a href='edit_facility.php?id=".$table[0]."&action=delete'>".$table[1]."</a></div></td>";
+    echo "<td><div class='tablerow'><a href='edit_facility.php?id=" .$table[0]."&action=delete'>".$table[1]."</a></div></td>";
     echo "<td><a href='edit_facility.php?id=".$table[0]."&action=edit'>edit</a></td>";
     echo "<td><a href='edit_facility.php?id=".$table[0]."&action=display'>display</a></td>";
     echo "<td><a href='edit_facility.php?id=".$table[0]."&action=delete'>delete</a></td>";
