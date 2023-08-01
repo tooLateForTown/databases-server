@@ -43,5 +43,52 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     }
     echo "</table>";
 }
+
+
+function generateTableFromQuery($sql, $title) {
+    //    Example consumer:  'edit_facility.php'
+    echo "<div class='debug'>";
+    echo "Attempting to connect to MySql...";
+
+    // Create connection
+    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    echo "Connected successfully";
+    echo "</div>";
+
+    $result= mysqli_query($conn, $sql);
+    $fields = $result->fetch_fields();
+    $cols = $result->field_count;
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    mysqli_close($conn);
+
+    echo "<h1>".$title."</h1>";
+
+    echo "<table>";
+    echo "<tr>";
+    foreach ($fields as $field) {
+        echo "<th>".$field->name."</th>";
+    }
+    echo "</tr>";
+    foreach ($tables as $table) {
+        echo "<tr class='tablerow'>";
+        for ($i = 0; $i < $cols; $i++) {
+            if ($fields[$i]->type == 253) {
+                echo "<td style='text-align:left'>".$table[$i]."</td>";
+            } else {
+                echo "<td>".$table[$i]."</td>";
+            }
+
+        }
+        echo "</tr>\r\n";
+    }
+    echo "</table>";
+
+}
 ?>
 

@@ -32,14 +32,15 @@ $tables = mysqli_fetch_all($result);
 mysqli_free_result($result);
 mysqli_close($conn);
 
-foreach ($tables as $table) {
-    echo "<div class='tablerow'>" .$table[0]."</div>\n";
-}
+//foreach ($tables as $table) {
+//    echo "<div class='tablerow'>" .$table[0]."</div>\n";
+//}
 
 
 ?>
 <a href="./main/web/ministries.php">Ministries</a><br/>
 <a href="./main/web/facilities.php">Facilities</a><br/>
 <a href="./main/web/students.php">Students</a><br/>
+<a href="./main/web/run_query.php">query</a><br/>
 </body>
 </html>
