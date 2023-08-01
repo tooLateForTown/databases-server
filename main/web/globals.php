@@ -5,7 +5,7 @@
     $dbname = "ddc353_1";
 
 
-function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1) {
+function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scalarCol=2) {
     //    Example consumer:  'edit_facility.php'
     echo "<div class='debug'>";
     echo "Attempting to connect to MySql...";
@@ -28,11 +28,14 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1) {
     echo "<a href='".$consumer."?id=-1&action=create'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table>";
-    echo "<tr><th>ID</th><th>Name</th><th>View</th><th>Edit</th><th>Delete</th></tr>";
+    echo "<tr><th>ID</th><th>Name</th><th>Records</th><th>View</th><th>Edit</th><th>Delete</th></tr>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$idCol]."</td>";
         echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=display'>" . $table[$nameCol] . "</a></td>";
+        if ($scalarCol != -1) {
+            echo "<td>" . $table[$scalarCol] . "</td>";
+        }
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=display'><i class='material-icons'>visibility</i></a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
