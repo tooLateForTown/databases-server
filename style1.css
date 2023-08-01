@@ -9,6 +9,14 @@ body {
     font-size: 12px;
 }
 
+.error {
+    color: red;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: lightpink;
+}
+
 .tablerow {
     color: black;
     font-family: Arial, Helvetica, sans-serif;

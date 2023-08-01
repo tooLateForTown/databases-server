@@ -20,7 +20,12 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     echo "Connected successfully";
     echo "</div>";
 
-    $result= mysqli_query($conn, $selectSQL);
+    try {
+        $result= mysqli_query($conn, $selectSQL);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
     $tables = mysqli_fetch_all($result);
     mysqli_free_result($result);
     mysqli_close($conn);
@@ -60,7 +65,13 @@ function generateTableFromQuery($sql, $title) {
     echo "Connected successfully";
     echo "</div>";
 
-    $result= mysqli_query($conn, $sql);
+    try {
+        $result=mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+
     $fields = $result->fetch_fields();
     $cols = $result->field_count;
     $tables = mysqli_fetch_all($result);
@@ -88,7 +99,6 @@ function generateTableFromQuery($sql, $title) {
         echo "</tr>\r\n";
     }
     echo "</table>";
-
 }
 ?>
 
