@@ -1,11 +1,15 @@
+<?php require('./main/web/globals.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Comp 353 Project</title>
-    <link rel="stylesheet" href="style1.css">
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Comp 353 Project</title>-->
+<!--    <link rel="stylesheet" href="style1.css">-->
+    <?php commonHead(); ?>
 </head>
 <body>
+<?php commonNav(); ?>
+
 <h1>Group Project Test</h1>
 
 <?php

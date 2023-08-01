@@ -4,6 +4,27 @@
     $password = "12pass34";
     $dbname = "ddc353_1";
 
+function commonHead() {
+        echo "\t<meta charset='UTF-8'>\r\n";
+        echo "\t<meta name='viewport' content='width=device-width, initial-scale=1'>\r\n";
+        echo "\t<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>\r\n";
+        echo "\t<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>\r\n";
+        echo "\t<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>\r\n";
+        echo "\t<link rel='stylesheet' href='../../style1.css'>\r\n";
+        echo "\t<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>\r\n";
+    }
+function commonNav() {
+    echo "<nav class='navbar navbar-default'>\r\n";
+    echo "\t<div class='container-fluid'>\r\n";
+    echo "\t\t<div class='navbar-header'>\r\n";
+    echo "\t\t\t<a class='navbar-brand' href='#'>EPSTS</a>\r\n";
+    echo "\t\t</div>\r\n";
+    echo "\t\t<ul class='nav navbar-nav'>\r\n";
+    echo "\t\t\t<li class='active'><a href='../../index.php'>Tables</a></li>\r\n";
+    echo "\t\t</ul>\r\n";
+    echo "\t</div>\r\n";
+    echo "</nav>\r\n";
+}
 
 function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scalarCol=2) {
     //    Example consumer:  'edit_facility.php'
@@ -33,7 +54,11 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     echo "<a href='".$consumer."?id=-1&action=create'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table>";
-    echo "<tr><th>ID</th><th>Name</th><th>Records</th><th>View</th><th>Edit</th><th>Delete</th></tr>";
+    echo "<tr><th>ID</th><th>Name</th>";
+    if ($scalarCol != -1) {
+        echo "<th>Records</th>";
+    }
+    echo "<th>View</th><th>Edit</th><th>Delete</th></tr>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$idCol]."</td>";
