@@ -4,6 +4,13 @@
     $password = "12pass34";
     $dbname = "ddc353_1";
 
+enum Actions {
+    case add;
+    case edit;
+    case delete;
+    case view;
+}
+
 function commonHead() {
         echo "\t<meta charset='UTF-8'>\r\n";
         echo "\t<meta name='viewport' content='width=device-width, initial-scale=1'>\r\n";
@@ -62,16 +69,45 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$idCol]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=display'>" . $table[$nameCol] . "</a></td>";
+        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=view'>" . $table[$nameCol] . "</a></td>";
         if ($scalarCol != -1) {
             echo "<td>" . $table[$scalarCol] . "</td>";
         }
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=display'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</table>";
+}
+
+function selectSingleTuple($sql) {
+    // Create connection
+    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    echo "Connected successfully";
+    echo "</div>";
+
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $row = mysqli_fetch_assoc($result);
+//    $rows = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    mysqli_close($conn);
+    if ($row == null) {
+        echo "<div class='error'>Query failed to return a single row: " . $sql . "</div>";
+        exit();
+    } else {
+        return $row;
+    }
 }
 
 
@@ -124,6 +160,22 @@ function generateTableFromQuery($sql, $title) {
         echo "</tr>\r\n";
     }
     echo "</table>";
+}
+
+function listProvinceOptions($selected) {
+    echo "<option value='AB'>Alberta</option>\r\n";
+    echo "<option value='BC'>British Columbia</option>\r\n";
+    echo "<option value='ON'>Ontario</option>\r\n";
+    echo "<option value='MB'>Manitoba</option>\r\n";
+    echo "<option value='NB'>New Brunswick</option>\r\n";
+    echo "<option value='NL'>Newfoundland and Labrador</option>\r\n";
+    echo "<option value='NS'>Nova Scotia</option>\r\n";
+    echo "<option value='NT'>Northwestern Territories</option>\r\n";
+    echo "<option value='NU'>Nunavut</option>\r\n";
+    echo "<option value='PE'>Prince Edward Island</option>\r\n";
+    echo "<option value='QC' ".($selected=="QC"?"selected='selected'":'').">Quebec</option>\r\n";
+    echo "<option value='SK'>Saskatchewan</option>\r\n";
+    echo "<option value='YT'>Yukon</option>\r\n";
 }
 ?>
 
