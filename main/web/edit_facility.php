@@ -12,21 +12,38 @@
     $action = null; // view, delete, add, edit, commit
 
 
-    // *** HANDLE SUBMIT FORM HERE ***
+    // ********   HANDLE SUBMIT FORM HERE ***  ******
     if(isset($_POST['db'])) {
+
+        // ** PART 1: LOAD DATA FROM POST
         $record['id'] = $_POST['id'];
         $record['name'] = $_POST['name'];
         $record['address'] = $_POST['address'];
         $record['city'] = $_POST['city'];
         $record['province'] = $_POST['province'];
-        $isManagementHeadOffice = 0;
-        $isManagementGeneral = 0;
-        $isSchoolPrimary = 0;
-        $isSchoolMiddle = 0;
-        $isSchoolHigh = 0;
+        $record['isManagementGeneral']  = 0;
+        $record['isManagementHeadOffice'] = 0;
+        switch ($_POST['management']) {
+            case 'headoffice':
+                $record['isManagementHeadOffice'] = 1;
+                break;
+            case 'general':
+                $record['isManagementGeneral'] = 1;
+                break;
+        }
+        $isSchoolPrimary = isset($_POST['isSchoolPrimary']) ? 1 : 0;
+        $isSchoolMiddle = isset($_POST['isSchoolMiddle']) ? 1 : 0;
+        $isSchoolHigh = isset($_POST['isSchoolHigh']) ? 1 : 0;
+
+        // ** PART 2: VALIDATE DATA
+        if ($record['isManagementGeneral'] == 1 && $record['isManagementHeadOffice'] == 1) {
+            print("<div class='error'>Cannot be both head office and general office</div>");
+            exit();
+        }
+
     }
 
-    // *** NOT A SUBMIT, HANDLE EDIT/ADD/VIEW HERE
+    // *******NOT A SUBMIT, HANDLE EDIT/ADD/VIEW HERE
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
     }
@@ -131,7 +148,21 @@ if ($row != null) {
     <input type="hidden" name="db" value="commit">
         <tr>
             <td></td>
-            <td><input type="submit" value="submit"></td>
+
+            <td>
+                <?php
+                    switch ($action) {
+                        case "add":
+                            print "<input type='submit' value='Create'>";
+                            break;
+                        case "edit":
+                            print "<input type='submit' value='Update'>";
+                            break;
+                        default:
+                            break;
+                    }
+                ?>
+                </td>
         </tr>
 
 </table>
