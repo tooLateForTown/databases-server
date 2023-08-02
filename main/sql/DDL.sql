@@ -64,6 +64,17 @@ CREATE TABLE Employees (
     FOREIGN KEY (tertiaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
+CREATE TABLE Schedule (
+    workDate date,
+    personID int,
+    facilityID int,
+    startTime int,
+    endTime int,
+    PRIMARY KEY (personID, facilityID, workDate, startTime),
+    FOREIGN KEY (personID) REFERENCES Employees(personID),
+    FOREIGN KEY (facilityID) REFERENCES Employees(facilityID)
+);
+
 CREATE TABLE Students (
     personID int,
     facilityID int,
@@ -109,3 +120,15 @@ CREATE TABLE Vaccines (
     FOREIGN KEY (vaccinationTypeID) REFERENCES VaccinationTypes(vaccinationTypeID)
 );
 
+#Email stuff
+CREATE TABLE Emails (
+    emailID int,
+    emailDate date,
+    senderID int,
+    senderName varchar(100),
+    receiver varchar(60),
+    subject varchar(60),
+    emailBody varchar(80),
+    PRIMARY KEY (emailID),
+    FOREIGN KEY (senderID) REFERENCES Facilities(facilityID)
+);
