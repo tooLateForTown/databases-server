@@ -119,3 +119,16 @@ CREATE TABLE Vaccines (
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (vaccinationTypeID) REFERENCES VaccinationTypes(vaccinationTypeID)
 );
+
+#Email stuff
+CREATE TABLE Emails (
+    emailID int,
+    emailDate date,
+    senderID int,
+    senderName varchar(100),
+    receiver varchar(60),
+    subject varchar(60),
+    emailBody varchar(80),
+    PRIMARY KEY (emailID),
+    FOREIGN KEY (senderID) REFERENCES Facilities(facilityID)
+);
