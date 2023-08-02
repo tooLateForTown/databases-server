@@ -65,11 +65,11 @@ CREATE TABLE Employees (
 );
 
 CREATE TABLE Schedule (
+    workDate date,
     personID int,
     facilityID int,
-    workDate date,
     startTime int,
-    endTime int NOT NULL,
+    endTime int,
     PRIMARY KEY (personID, facilityID, workDate, startTime),
     FOREIGN KEY (personID) REFERENCES Employees(personID),
     FOREIGN KEY (facilityID) REFERENCES Employees(facilityID)
