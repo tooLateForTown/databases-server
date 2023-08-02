@@ -64,6 +64,17 @@ CREATE TABLE Employees (
     FOREIGN KEY (tertiaryEmploymentRoleID) REFERENCES EmploymentRoles(employmentRoleID)
 );
 
+CREATE TABLE Schedule (
+    personID int,
+    facilityID int,
+    workDate date,
+    startTime int,
+    endTime int NOT NULL,
+    PRIMARY KEY (personID, facilityID, workDate, startTime),
+    FOREIGN KEY (personID) REFERENCES Employees(personID),
+    FOREIGN KEY (facilityID) REFERENCES Employees(facilityID)
+);
+
 CREATE TABLE Students (
     personID int,
     facilityID int,
@@ -108,4 +119,3 @@ CREATE TABLE Vaccines (
     FOREIGN KEY (personID) REFERENCES Persons(personID),
     FOREIGN KEY (vaccinationTypeID) REFERENCES VaccinationTypes(vaccinationTypeID)
 );
-
