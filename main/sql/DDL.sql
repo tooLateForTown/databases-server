@@ -7,7 +7,7 @@ CREATE TABLE Ministries (
 );
 
 CREATE TABLE Facilities (
-    facilityID int PRIMARY KEY,
+    facilityID int PRIMARY KEY AUTO_INCREMENT,
     ministryID int,
     name varchar(100),
     address varchar(100),
