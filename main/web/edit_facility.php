@@ -13,9 +13,7 @@
     $table = null;
     $action = null; // view, delete, add, edit, commit
 
-    echo "<div class='debug'>";
-    print_r($_POST);
-    echo "</div>";
+
     // ********   HANDLE SUBMIT FORM HERE ***  ******
     if(isset($_POST['commit'])) {
         $action = $_POST['commit'];
@@ -137,7 +135,11 @@
         $success = commit($sql, $conn);
         if ($success) {
             header("Location: facilities.php");
+
         }
+        echo "<div class='debug'>";
+        print_r($_POST);
+        echo "</div>";
         exit();
 
 
