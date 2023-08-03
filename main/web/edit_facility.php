@@ -146,13 +146,12 @@
         print("</div");
         exit();
     }
-    $readonly = ($action == "view") ? "disabled" : "";
+    if ($action == "view" || $action == "delete") {
+        $readonly = "disabled";
+    } else {
+        $readonly = '';
+    }
 
-
-if (isset($_GET['db'])) {
-    print ("SUBMIT!");
-    exit();
-}
 
 // default values for new record
 $record['id'] = -1;
@@ -166,6 +165,7 @@ $record['isManagementGeneral'] = 0;
 $record['isSchoolPrimary'] = 0;
 $record['isSchoolMiddle'] = 0;
 $record['isSchoolHigh'] = 0;
+
 if ($action != 'add') {
     $row = selectSingleTuple("SELECT * FROM Facilities WHERE facilityID = " . $_GET['id']);
     if ($row != null) {
@@ -225,7 +225,8 @@ if ($action == 'add') {
         <tr>
             <td><label for="province">Province</label></td>
             <td><select name="province" id ="province" <?=$readonly ?> >
-                <?php listProvinceOptions($record['province']); ?></select>
+                <?php listProvinceOptions($record['province']); ?>
+                </select>
             </td>
         </tr>
         <tr>
