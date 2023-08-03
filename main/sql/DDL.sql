@@ -2,7 +2,7 @@
 # PERSONS STUFF
 
 CREATE TABLE Ministries (
-    ministryID int PRIMARY KEY,
+    ministryID int PRIMARY KEY AUTO_INCREMENT,
     name varchar(100)
 );
 
