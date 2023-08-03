@@ -1,18 +1,9 @@
 <?php require('globals.php'); ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Comp 353 Project</title>
-    <?php commonHead(); ?>
-</head>
-<body>
-<main>
-<?php commonNav(); ?>
 <?php
+    // PROCESSING SUBMISSION FROM FORM HERE
     $conn = createConnection();
     $table = null;
     $action = null; // view, delete, add, edit, commit
-
 
     // ********   HANDLE SUBMIT FORM HERE ***  ******
     if(isset($_POST['commit'])) {
@@ -134,15 +125,13 @@
         echo $sql;
         $success = commit($sql, $conn);
         if ($success) {
-            header("Location: facilities.php");
+            header("Location: facilities.php"); // jump away.  Cannot have any html before header command.
 
         }
         echo "<div class='debug'>";
         print_r($_POST);
         echo "</div>";
         exit();
-
-
     }
 
     // *******NOT A SUBMIT, HANDLE EDIT/ADD/VIEW HERE
@@ -163,38 +152,46 @@
     }
 
 
-// default values for new record
-$record['id'] = -1;
-$record['ministryID'] = -1;
-$record['name'] = "";
-$record['address'] = "";
-$record['city'] = "";
-$record['province'] = "QC";
-$record['isManagementHeadOffice'] = 0;
-$record['isManagementGeneral'] = 0;
-$record['isSchoolPrimary'] = 0;
-$record['isSchoolMiddle'] = 0;
-$record['isSchoolHigh'] = 0;
+    // default values for new record
+    $record['id'] = -1;
+    $record['ministryID'] = -1;
+    $record['name'] = "";
+    $record['address'] = "";
+    $record['city'] = "";
+    $record['province'] = "QC";
+    $record['isManagementHeadOffice'] = 0;
+    $record['isManagementGeneral'] = 0;
+    $record['isSchoolPrimary'] = 0;
+    $record['isSchoolMiddle'] = 0;
+    $record['isSchoolHigh'] = 0;
 
-if ($action != 'add') {
-    $row = selectSingleTuple("SELECT * FROM Facilities WHERE facilityID = " . $_GET['id']);
-    if ($row != null) {
-        $record['id'] = $row['facilityID'];
-        $record['ministryID'] = $row['ministryID'];
-        $record['name'] = $row['name'];
-        $record['address'] = $row['address'];
-        $record['city'] = $row['city'];
-        $record['province'] = $row['province'];
-        $record['isManagementHeadOffice'] = $row['isManagementHeadOffice'];
-        $record['isManagementGeneral'] = $row['isManagementGeneral'];
-        $record['isSchoolPrimary'] = $row['isSchoolPrimary'];
-        $record['isSchoolMiddle'] = $row['isSchoolMiddle'];
-        $record['isSchoolHigh'] = $row['isSchoolHigh'];
+    if ($action != 'add') {
+        $row = selectSingleTuple("SELECT * FROM Facilities WHERE facilityID = " . $_GET['id']);
+        if ($row != null) {
+            $record['id'] = $row['facilityID'];
+            $record['ministryID'] = $row['ministryID'];
+            $record['name'] = $row['name'];
+            $record['address'] = $row['address'];
+            $record['city'] = $row['city'];
+            $record['province'] = $row['province'];
+            $record['isManagementHeadOffice'] = $row['isManagementHeadOffice'];
+            $record['isManagementGeneral'] = $row['isManagementGeneral'];
+            $record['isSchoolPrimary'] = $row['isSchoolPrimary'];
+            $record['isSchoolMiddle'] = $row['isSchoolMiddle'];
+            $record['isSchoolHigh'] = $row['isSchoolHigh'];
+        }
     }
-}
-
-
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Comp 353 Project</title>
+    <?php commonHead(); ?>
+</head>
+<body>
+<main>
+<?php commonNav(); ?>
+
 
 <?php
 if ($action == 'add') {
