@@ -18,7 +18,7 @@ main {
 }
 
 .error {
-    color: red;
+    color: darkred;
     font-family: 'Courier New', monospace;
     font-size: 12px;
     font-weight: bold;

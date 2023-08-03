@@ -4,12 +4,6 @@
     $password = "12pass34";
     $dbname = "ddc353_1";
 
-//enum Actions {
-//    case add;
-//    case edit;
-//    case delete;
-//    case view;
-//}
 
 function commonHead() {
         echo "\t<meta charset='UTF-8'>\r\n";
@@ -187,7 +181,9 @@ function commit($sql, $conn=null) {
     try {
         $result=$conn->query($sql);
     } catch (mysqli_sql_exception $e) {
+        echo "<HTML><HEAD><link rel='stylesheet' href='style1.css'></HEAD><BODY>";
         echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        echo "</BODY></HTML>";
         return;
     }
     mysqli_close($conn);
