@@ -212,7 +212,7 @@ if ($action == 'add') {
         </tr>
         <tr>
             <td><label for="name">Name</label></td>
-            <td><input type="text" name="name" maxlength="100" minlength="1" <?=$readonly ?> value="<?= $record['name'] ?? '' ?>"><td>
+            <td><input type="text" name="name" maxlength="100" <?=$readonly ?> value="<?= $record['name'] ?? '' ?>"><td>
         </tr>
         <tr>
             <td><label for="address">Address</label></td>

@@ -50,12 +50,15 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
 
     echo "<a href='".$consumer."?id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
-    echo "<table>";
+    echo "<table class='table'>";
+    echo "<thead>";
     echo "<tr><th>ID</th><th>Name</th>";
     if ($scalarCol != -1) {
         echo "<th>Records</th>";
     }
     echo "<th>View</th><th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$idCol]."</td>";
@@ -68,6 +71,7 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
         echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
+    echo "</tbody>";
     echo "</table>";
 }
 
