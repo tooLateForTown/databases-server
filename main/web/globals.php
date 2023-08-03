@@ -35,18 +35,21 @@ function commonNav() {
 
 function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scalarCol=2) {
     //    Example consumer:  'edit_facility.php'
-    echo "<div class='debug'>";
-    echo "Attempting to connect to MySql...";
+//    echo "<div class='debug'>";
+//    echo "Attempting to connect to MySql...";
+//
+//
+//    // Create connection
+//    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
+//
+//    // Check connection
+//    if ($conn->connect_error) {
+//        die("Connection failed: " . $conn->connect_error);
+//    }
+//    echo "Connected successfully";
+//    echo "</div>";
 
-    // Create connection
-    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    echo "Connected successfully";
-    echo "</div>";
+    $conn = createConnection();
 
     try {
         $result= mysqli_query($conn, $selectSQL);
@@ -58,7 +61,7 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     mysqli_free_result($result);
     mysqli_close($conn);
 
-    echo "<a href='".$consumer."?id=-1&action=create'><i class='material-icons'>add_box</i> Add new record</a>";
+    echo "<a href='".$consumer."?id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table>";
     echo "<tr><th>ID</th><th>Name</th>";
@@ -81,16 +84,29 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     echo "</table>";
 }
 
-function selectSingleTuple($sql) {
+function createConnection() {
     // Create connection
     $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
 
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
+    } else {
+        return $conn;
     }
-    echo "Connected successfully";
-    echo "</div>";
+}
+
+function selectSingleTuple($sql) {
+//    // Create connection
+//    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
+//
+//    // Check connection
+//    if ($conn->connect_error) {
+//        die("Connection failed: " . $conn->connect_error);
+//    }
+
+    $conn = createConnection();
+
 
     try {
         $result= mysqli_query($conn, $sql);
@@ -163,19 +179,29 @@ function generateTableFromQuery($sql, $title) {
 }
 
 function listProvinceOptions($selected) {
-    echo "<option value='AB'>Alberta</option>\r\n";
-    echo "<option value='BC'>British Columbia</option>\r\n";
-    echo "<option value='ON'>Ontario</option>\r\n";
-    echo "<option value='MB'>Manitoba</option>\r\n";
-    echo "<option value='NB'>New Brunswick</option>\r\n";
-    echo "<option value='NL'>Newfoundland and Labrador</option>\r\n";
-    echo "<option value='NS'>Nova Scotia</option>\r\n";
-    echo "<option value='NT'>Northwestern Territories</option>\r\n";
-    echo "<option value='NU'>Nunavut</option>\r\n";
-    echo "<option value='PE'>Prince Edward Island</option>\r\n";
+    echo "<option value='AB' ".($selected=="AB"?"selected='selected'":'').">Alberta</option>\r\n";
+    echo "<option value='BC' ".($selected=="BC"?"selected='selected'":'').">British Columbia</option>\r\n";
+    echo "<option value='ON' ".($selected=="ON"?"selected='selected'":'').">Ontario</option>\r\n";
+    echo "<option value='MB' ".($selected=="MB"?"selected='selected'":'').">Manitoba</option>\r\n";
+    echo "<option value='NB' ".($selected=="NB"?"selected='selected'":'').">New Brunswick</option>\r\n";
+    echo "<option value='NL' ".($selected=="NL"?"selected='selected'":'').">Newfoundland and Labrador</option>\r\n";
+    echo "<option value='NS' ".($selected=="NS"?"selected='selected'":'').">Nova Scotia</option>\r\n";
+    echo "<option value='NT' ".($selected=="NT"?"selected='selected'":'').">Northwestern Territories</option>\r\n";
+    echo "<option value='NU' ".($selected=="NU"?"selected='selected'":'').">Nunavut</option>\r\n";
+    echo "<option value='PE' ".($selected=="PE"?"selected='selected'":'').">Prince Edward Island</option>\r\n";
     echo "<option value='QC' ".($selected=="QC"?"selected='selected'":'').">Quebec</option>\r\n";
-    echo "<option value='SK'>Saskatchewan</option>\r\n";
-    echo "<option value='YT'>Yukon</option>\r\n";
+    echo "<option value='SK' ".($selected=="SK"?"selected='selected'":'').">Saskatchewan</option>\r\n";
+    echo "<option value='YT' ".($selected=="YT"?"selected='selected'":'').">Yukon</option>\r\n";
+}
+
+
+function listMinistryOptions($selected, $conn) {
+    $sql = "SELECT ministryID,name FROM Ministries";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
 }
 ?>
 

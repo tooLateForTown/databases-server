@@ -8,38 +8,75 @@
 <body>
 <?php commonNav(); ?>
 <?php
+    $conn = createConnection();
     $table = null;
     $action = null; // view, delete, add, edit, commit
 
-
+    print_r($_POST);
     // ********   HANDLE SUBMIT FORM HERE ***  ******
-    if(isset($_POST['db'])) {
+    if(isset($_POST['commit'])) {
 
         // ** PART 1: LOAD DATA FROM POST
         $record['id'] = $_POST['id'];
+        $record['ministryID'] = $_POST['ministryID'];
         $record['name'] = $_POST['name'];
         $record['address'] = $_POST['address'];
         $record['city'] = $_POST['city'];
         $record['province'] = $_POST['province'];
         $record['isManagementGeneral']  = 0;
         $record['isManagementHeadOffice'] = 0;
-        switch ($_POST['management']) {
-            case 'headoffice':
-                $record['isManagementHeadOffice'] = 1;
-                break;
-            case 'general':
-                $record['isManagementGeneral'] = 1;
-                break;
+        $isManagement = false;
+        $isSchool = false;
+        if (!isset($_POST['management'])) { // will be not sent if no options selected
+            switch ($_POST['management']) {
+                case 'head':
+                    $record['isManagementHeadOffice'] = 1;
+                    $isManagement = true;
+                    break;
+                case 'general':
+                    $record['isManagementGeneral'] = 1;
+                    $isManagement = true;
+                    break;
+            }
         }
-        $isSchoolPrimary = isset($_POST['isSchoolPrimary']) ? 1 : 0;
-        $isSchoolMiddle = isset($_POST['isSchoolMiddle']) ? 1 : 0;
-        $isSchoolHigh = isset($_POST['isSchoolHigh']) ? 1 : 0;
+
+        $record['isSchoolPrimary'] = isset($_POST['isSchoolPrimary']) ? 1 : 0;
+        $record['isSchoolMiddle'] = isset($_POST['isSchoolMiddle']) ? 1 : 0;
+        $record['isSchoolHigh'] = isset($_POST['isSchoolHigh']) ? 1 : 0;
+        if ($record['isSchoolPrimary'] + $record['isSchoolMiddle'] + $record['isSchoolHigh'] > 0) {
+            $isSchool = true;
+        }
 
         // ** PART 2: VALIDATE DATA
         if ($record['isManagementGeneral'] == 1 && $record['isManagementHeadOffice'] == 1) {
             print("<div class='error'>Cannot be both head office and general office</div>");
             exit();
         }
+        if ($isManagement && $isSchool) {
+            print("<div class='error'>Cannot be both management and school</div>");
+            exit();
+        }
+        if (!$isManagement && !$isSchool) {
+            print("<div class='error'>Must be either management or school</div>");
+            exit();
+        }
+        if ($record['ministryID'] < 0 || $record['ministryID'] == null) {
+            print("<div class='error'>Ministry ID must be set</div>");
+            exit();
+        }
+
+        // ** PART 3: CHECKS PASSED.  COMMIT
+        $action = $_POST['commit'];
+
+//        switch ($action) {
+//            case 'add':
+//                $sql = "UPDATE Facilities SET name=:name, address=:address, city=:city, province=:province, isManagementHeadOffice=:isManagementHeadOffice, isManagementGeneral=:isManagementGeneral, isSchoolPrimary=:isSchoolPrimary, isSchoolMiddle=:isSchoolMiddle, isSchoolHigh=:isSchoolHigh WHERE facilityID=:id";
+//                $stmt = mysqli_prepare($conn, $sql);
+//                $stmt->execute($record);
+//                break;
+//        }
+        echo "READY TO COMMIT $action";
+        exit();
 
     }
 
@@ -64,49 +101,63 @@ if (isset($_GET['db'])) {
 
 // default values for new record
 $record['id'] = -1;
+$record['ministryID'] = -1;
 $record['name'] = "";
 $record['address'] = "";
 $record['city'] = "";
 $record['province'] = "QC";
-$isManagementHeadOffice = 0;
-$isManagementGeneral = 0;
-$isSchoolPrimary = 0;
-$isSchoolMiddle = 0;
-$isSchoolHigh = 0;
-
-$row = selectSingleTuple("SELECT * FROM Facilities WHERE facilityID = " . $_GET['id']);
-print_r($row);
-if ($row != null) {
-    $record['id'] = $row['facilityID'];
-    $record['name'] = $row['name'];
-    $record['address'] = $row['address'];
-    $record['city'] = $row['city'];
-    $record['province'] = $row['province'];
-    $record['isManagementHeadOffice'] = $row['isManagementHeadOffice'];
-    $record['isManagementGeneral'] = $row['isManagementGeneral'];
-    $record['isSchoolPrimary'] = $row['isSchoolPrimary'];
-    $record['isSchoolMiddle'] = $row['isSchoolMiddle'];
-    $record['isSchoolHigh'] = $row['isSchoolHigh'];
-
+$record['isManagementHeadOffice'] = 0;
+$record['isManagementGeneral'] = 0;
+$record['isSchoolPrimary'] = 0;
+$record['isSchoolMiddle'] = 0;
+$record['isSchoolHigh'] = 0;
+if ($action != 'add') {
+    $row = selectSingleTuple("SELECT * FROM Facilities WHERE facilityID = " . $_GET['id']);
+    if ($row != null) {
+        $record['id'] = $row['facilityID'];
+        $record['ministryID'] = $row['ministryID'];
+        $record['name'] = $row['name'];
+        $record['address'] = $row['address'];
+        $record['city'] = $row['city'];
+        $record['province'] = $row['province'];
+        $record['isManagementHeadOffice'] = $row['isManagementHeadOffice'];
+        $record['isManagementGeneral'] = $row['isManagementGeneral'];
+        $record['isSchoolPrimary'] = $row['isSchoolPrimary'];
+        $record['isSchoolMiddle'] = $row['isSchoolMiddle'];
+        $record['isSchoolHigh'] = $row['isSchoolHigh'];
+    }
 }
+
 
 ?>
 
-
-<h1>Facility <?php print $_GET['id']; ?></h1>
-<h1>Action is <?php print $_GET['action']; ?></h1>
+<?php
+if ($action == 'add') {
+    echo "<h1>Add Facility</h1>";
+    } else {
+    echo "<h1>Facility ".$record['id']."</h1>";
+}
+?>
+<div class="debug">Action is <?php print $_GET['action']; ?></div>
 
 
 
 <form action="edit_facility.php" method="post">
     <table>
-        <tr>
+        <tr <?php if ($action=='add') echo 'style="display:none;'?>>
             <td><label for="id">ID</label></td>
-            <td><input type="number" name="id" value="<?= $record['id'] ?>" disabled></td>
+            <td><input type="number" name="id" value="<?= $record['id'] ?>" readonly></td>
+        </tr>
+        <tr>
+            <td><label for="ministryID">Ministry</label></td>
+            <td><select name="ministryID" id="ministryID" <?=$readonly ?>>
+                    <?php listMinistryOptions($record['ministryID'],$conn); ?>
+                </select>
+            </td>
         </tr>
         <tr>
             <td><label for="name">Name</label></td>
-            <td><input type="text" name="name" maxlength="100" <?=$readonly ?> value="<?= $record['name'] ?? '' ?>"><td>
+            <td><input type="text" name="name" maxlength="100" minlength="1" <?=$readonly ?> value="<?= $record['name'] ?? '' ?>"><td>
         </tr>
         <tr>
             <td><label for="address">Address</label></td>
@@ -119,18 +170,19 @@ if ($row != null) {
         <tr>
             <td><label for="province">Province</label></td>
             <td><select name="province" id ="province" <?=$readonly ?> >
-                <?php listProvinceOptions($record['province']); ?></select></td>
+                <?php listProvinceOptions($record['province']); ?></select>
+            </td>
         </tr>
         <tr>
     <tr>
         <td>Management</td>
         <td>
-            <input type="radio" name="management" value="Not Management" id="none" <?=$readonly ?> >
+            <input type="radio" name="management" value="none" id="none" <?=$readonly ?> <?= ($record['isManagementGeneral'] == 0 && $record['isManagementHeadOffice'] == 0) ? "checked" : "" ?>>
             <label for="none">None</label>
-            <input type="radio" name="management" value="Head Office" id="head" <?=$readonly ?> >
+            <input type="radio" name="management" value="head" id="head" <?=$readonly ?> <?= $record['isManagementHeadOffice']==1 ? "checked" : "" ?>>
             <label for="head">Head Office</label>
-            <input type="radio" name="management" value="General Office" id="general" <?=$readonly ?> >
-            <label for="head">General</label>
+            <input type="radio" name="management" value="general" id="general" <?=$readonly ?> <?=$readonly ?> <?= $record['isManagementGeneral']==1 ? "checked" : "" ?>>
+            <label for="general">General</label>
         </td>
     </tr>
     <tr>
@@ -145,7 +197,7 @@ if ($row != null) {
         </td>
     </tr>
 
-    <input type="hidden" name="db" value="commit">
+    <input type="hidden" name="commit" value="<?= $action ?>">
         <tr>
             <td></td>
 
