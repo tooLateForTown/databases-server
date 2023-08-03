@@ -7,6 +7,7 @@
 </head>
 <body>
 <?php commonNav(); ?>
+<main>
 <?php
     $title= $_GET['title'] ?? "Query Results";
     if (isset($_GET['sql'])) {

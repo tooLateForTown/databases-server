@@ -17,7 +17,7 @@ function commonHead() {
         echo "\t<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>\r\n";
         echo "\t<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js'></script>\r\n";
         echo "\t<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js'></script>\r\n";
-        echo "\t<link rel='stylesheet' href='../../style1.css'>\r\n";
+        echo "\t<link rel='stylesheet' href='style1.css'>\r\n";
         echo "\t<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>\r\n";
     }
 function commonNav() {
@@ -27,27 +27,14 @@ function commonNav() {
     echo "\t\t\t<a class='navbar-brand' href='#'>EPSTS</a>\r\n";
     echo "\t\t</div>\r\n";
     echo "\t\t<ul class='nav navbar-nav'>\r\n";
-    echo "\t\t\t<li class='active'><a href='../../index.php'>Tables</a></li>\r\n";
+    echo "\t\t\t<li class='active'><a href='index.php'>Tables</a></li>\r\n";
+    echo "\t\t\t<li class='active'><a href='queries.php'>Queries</a></li>\r\n";
     echo "\t\t</ul>\r\n";
     echo "\t</div>\r\n";
     echo "</nav>\r\n";
 }
 
 function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scalarCol=2) {
-    //    Example consumer:  'edit_facility.php'
-//    echo "<div class='debug'>";
-//    echo "Attempting to connect to MySql...";
-//
-//
-//    // Create connection
-//    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
-//
-//    // Check connection
-//    if ($conn->connect_error) {
-//        die("Connection failed: " . $conn->connect_error);
-//    }
-//    echo "Connected successfully";
-//    echo "</div>";
 
     $conn = createConnection();
 
@@ -123,18 +110,7 @@ function selectSingleTuple($sql, $conn = null) {
 
 function generateTableFromQuery($sql, $title) {
     //    Example consumer:  'edit_facility.php'
-    echo "<div class='debug'>";
-    echo "Attempting to connect to MySql...";
-
-    // Create connection
-    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    echo "Connected successfully";
-    echo "</div>";
+    $conn = createConnection();
 
     try {
         $result=mysqli_query($conn, $sql);

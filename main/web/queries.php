@@ -8,10 +8,8 @@
 <body>
 <?php commonNav(); ?>
 <main>
-<h1>Students</h1>
-<?php
-    generateMasterTable("SELECT personID,CONCAT(firstName, ' ' , lastName)  FROM Students NATURAL JOIN Persons","edit_student.php", 0, 1, -1);
-?>
+<h1>Queries</h1>
+<h3><a href="run_query.php">Generic Query</a></h3>
 </main>
 </body>
 </html>

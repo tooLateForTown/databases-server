@@ -3,6 +3,12 @@ body {
     color: black;
 }
 
+main {
+    background-color: lightsteelblue;
+    color: black;
+    margin: 10px;
+}
+
 .debug {
     color: blue;
     font-family: 'Courier New', monospace;

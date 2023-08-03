@@ -6,6 +6,7 @@
     <?php commonHead(); ?>
 </head>
 <body>
+<main>
 <?php commonNav(); ?>
 <?php
     $conn = createConnection();
@@ -277,6 +278,6 @@ if ($action == 'add') {
 </table>
 </form>
 
-
+</main>
 </body>
 <html>
