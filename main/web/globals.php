@@ -4,12 +4,12 @@
     $password = "12pass34";
     $dbname = "ddc353_1";
 
-enum Actions {
-    case add;
-    case edit;
-    case delete;
-    case view;
-}
+//enum Actions {
+//    case add;
+//    case edit;
+//    case delete;
+//    case view;
+//}
 
 function commonHead() {
         echo "\t<meta charset='UTF-8'>\r\n";
@@ -177,5 +177,22 @@ function listMinistryOptions($selected, $conn) {
         echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
     }
 }
+
+function commit($sql, $conn=null) {
+    if ($conn == null) {
+        $conn = createConnection();
+    }
+
+    $result = true;
+    try {
+        $result=$conn->query($sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    mysqli_close($conn);
+    return $result;
+}
+
 ?>
 

@@ -18,79 +18,82 @@
     echo "</div>";
     // ********   HANDLE SUBMIT FORM HERE ***  ******
     if(isset($_POST['commit'])) {
-
-        // ** PART 1: LOAD DATA FROM POST
-        $record['id'] = $_POST['id'];
-        $record['ministryID'] = $_POST['ministryID'];
-        $record['name'] = trim($_POST['name']);
-        $record['address'] = trim($_POST['address']);
-        $record['city'] = trim($_POST['city']);
-        $record['province'] = $_POST['province'];
-        $record['isManagementGeneral']  = 0;
-        $record['isManagementHeadOffice'] = 0;
-        $isManagement = false;
-        $isSchool = false;
-        if (isset($_POST['management'])) { // will be not sent if no options selected
-            switch ($_POST['management']) {
-                case 'head':
-                    $record['isManagementHeadOffice'] = 1;
-                    $isManagement = true;
-                    break;
-                case 'general':
-                    $record['isManagementGeneral'] = 1;
-                    $isManagement = true;
-                    break;
+        $action = $_POST['commit'];
+        if ($action == 'add' || $action == 'edit') {
+            // PART 1 AND 2 ONLY RUN IF ADDING OR EDITING
+            // ** PART 1: LOAD DATA FROM POST
+            $record['id'] = $_POST['id'];
+            $record['ministryID'] = $_POST['ministryID'];
+            $record['name'] = trim($_POST['name']);
+            $record['address'] = trim($_POST['address']);
+            $record['city'] = trim($_POST['city']);
+            $record['province'] = $_POST['province'];
+            $record['isManagementGeneral'] = 0;
+            $record['isManagementHeadOffice'] = 0;
+            $isManagement = false;
+            $isSchool = false;
+            if (isset($_POST['management'])) { // will be not sent if no options selected
+                switch ($_POST['management']) {
+                    case 'head':
+                        $record['isManagementHeadOffice'] = 1;
+                        $isManagement = true;
+                        break;
+                    case 'general':
+                        $record['isManagementGeneral'] = 1;
+                        $isManagement = true;
+                        break;
+                }
             }
-        }
 
-        $record['isSchoolPrimary'] = isset($_POST['isSchoolPrimary']) ? 1 : 0;
-        $record['isSchoolMiddle'] = isset($_POST['isSchoolMiddle']) ? 1 : 0;
-        $record['isSchoolHigh'] = isset($_POST['isSchoolHigh']) ? 1 : 0;
-        if ($record['isSchoolPrimary'] + $record['isSchoolMiddle'] + $record['isSchoolHigh'] > 0) {
-            $isSchool = true;
-        }
+            $record['isSchoolPrimary'] = isset($_POST['isSchoolPrimary']) ? 1 : 0;
+            $record['isSchoolMiddle'] = isset($_POST['isSchoolMiddle']) ? 1 : 0;
+            $record['isSchoolHigh'] = isset($_POST['isSchoolHigh']) ? 1 : 0;
+            if ($record['isSchoolPrimary'] + $record['isSchoolMiddle'] + $record['isSchoolHigh'] > 0) {
+                $isSchool = true;
+            }
 
-        // ** PART 2: VALIDATE DATA
-        if ($record['isManagementGeneral'] == 1 && $record['isManagementHeadOffice'] == 1) {
-            print("<div class='error'>Cannot be both head office and general office</div>");
-            exit();
-        }
-        if ($isManagement && $isSchool) {
-            print("<div class='error'>Cannot be both management and school</div>");
-            exit();
-        }
-        if (!$isManagement && !$isSchool) {
-            print("<div class='error'>Must be either management or school</div>");
-            exit();
-        }
-        if ($isManagement && $record['isManagementHeadOffice']) {
-            // check if there is already a head office for this ministry
-            $check = selectSingleTuple("SELECT * from Facilities WHERE isManagementHeadOffice=1 AND ministryID=" . $record['ministryID'], $conn);
-            if ($check != null && $check['facilityID'] != $record['id']) {
-                print("<div class='error'>There is already a head office for this ministry</div>");
+            // ** PART 2: VALIDATE DATA
+            if ($record['isManagementGeneral'] == 1 && $record['isManagementHeadOffice'] == 1) {
+                print("<div class='error'>Cannot be both head office and general office</div>");
                 exit();
             }
+            if ($isManagement && $isSchool) {
+                print("<div class='error'>Cannot be both management and school</div>");
+                exit();
+            }
+            if (!$isManagement && !$isSchool) {
+                print("<div class='error'>Must be either management or school</div>");
+                exit();
+            }
+            if ($isManagement && $record['isManagementHeadOffice']) {
+                // check if there is already a head office for this ministry
+                $check = selectSingleTuple("SELECT * from Facilities WHERE isManagementHeadOffice=1 AND ministryID=" . $record['ministryID'], $conn);
+                if ($check != null && $check['facilityID'] != $record['id']) {
+                    print("<div class='error'>There is already a head office for this ministry</div>");
+                    exit();
+                }
 
-        }
-        if ($record['ministryID'] < 0 || $record['ministryID'] == null) {
-            print("<div class='error'>Ministry ID must be set</div>");
-            exit();
-        }
-        if ($record['name'] == null || $record['name'] == "") {
-            print("<div class='error'>Name must be set</div>");
-            exit();
-        }
-        if ($record['address'] == null || $record['address'] == "") {
-            print("<div class='error'>Address must be set</div>");
-            exit();
-        }
-        if ($record['city'] == null || $record['city'] == "") {
-            print("<div class='error'>City must be set</div>");
-            exit();
-        }
+            }
+            if ($record['ministryID'] < 0 || $record['ministryID'] == null) {
+                print("<div class='error'>Ministry ID must be set</div>");
+                exit();
+            }
+            if ($record['name'] == null || $record['name'] == "") {
+                print("<div class='error'>Name must be set</div>");
+                exit();
+            }
+            if ($record['address'] == null || $record['address'] == "") {
+                print("<div class='error'>Address must be set</div>");
+                exit();
+            }
+            if ($record['city'] == null || $record['city'] == "") {
+                print("<div class='error'>City must be set</div>");
+                exit();
+            }
+        } // end of ADD or EDIT
 
         // ** PART 3: CHECKS PASSED.  COMMIT
-        $action = $_POST['commit'];
+
         $sql = "to build";
         switch ($action) {
             case 'add':
@@ -123,7 +126,7 @@
                 $sql .= " WHERE facilityID=" . $record['id'];
                 break;
             case 'delete':
-                $sql = "DELETE FROM Facilities WHERE facilityID=" . $record['id'];
+                $sql = "DELETE FROM Facilities WHERE facilityID=" . $_POST['id'];
                 break;
             case 'view':
                 break; // nothing to do
@@ -131,7 +134,12 @@
         }
         echo "<div class='debug'>READY TO COMMIT $action <br>";
         echo $sql;
+        $success = commit($sql, $conn);
+        if ($success) {
+            header("Location: facilities.php");
+        }
         exit();
+
 
     }
 
