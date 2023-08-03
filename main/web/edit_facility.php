@@ -121,13 +121,14 @@
                 break; // nothing to do
 
         }
-        echo "<div class='debug'>READY TO COMMIT $action <br>";
-        echo $sql;
+
+
         $success = commit($sql, $conn);
         if ($success) {
             header("Location: facilities.php"); // jump away.  Cannot have any html before header command.
-
         }
+        // Commit FAILED!
+        echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
         echo "<div class='debug'>";
         print_r($_POST);
         echo "</div>";
