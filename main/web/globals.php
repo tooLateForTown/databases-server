@@ -96,17 +96,11 @@ function createConnection() {
     }
 }
 
-function selectSingleTuple($sql) {
-//    // Create connection
-//    $conn = new mysqli($GLOBALS['servername'], $GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
-//
-//    // Check connection
-//    if ($conn->connect_error) {
-//        die("Connection failed: " . $conn->connect_error);
-//    }
+function selectSingleTuple($sql, $conn = null) {
 
-    $conn = createConnection();
-
+    if ($conn == null) {
+        $conn = createConnection();
+    }
 
     try {
         $result= mysqli_query($conn, $sql);

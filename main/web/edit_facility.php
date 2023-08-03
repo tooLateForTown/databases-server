@@ -12,22 +12,24 @@
     $table = null;
     $action = null; // view, delete, add, edit, commit
 
+    echo "<div class='debug'>";
     print_r($_POST);
+    echo "</div>";
     // ********   HANDLE SUBMIT FORM HERE ***  ******
     if(isset($_POST['commit'])) {
 
         // ** PART 1: LOAD DATA FROM POST
         $record['id'] = $_POST['id'];
         $record['ministryID'] = $_POST['ministryID'];
-        $record['name'] = $_POST['name'];
-        $record['address'] = $_POST['address'];
-        $record['city'] = $_POST['city'];
+        $record['name'] = trim($_POST['name']);
+        $record['address'] = trim($_POST['address']);
+        $record['city'] = trim($_POST['city']);
         $record['province'] = $_POST['province'];
         $record['isManagementGeneral']  = 0;
         $record['isManagementHeadOffice'] = 0;
         $isManagement = false;
         $isSchool = false;
-        if (!isset($_POST['management'])) { // will be not sent if no options selected
+        if (isset($_POST['management'])) { // will be not sent if no options selected
             switch ($_POST['management']) {
                 case 'head':
                     $record['isManagementHeadOffice'] = 1;
@@ -60,22 +62,74 @@
             print("<div class='error'>Must be either management or school</div>");
             exit();
         }
+        if ($isManagement && $record['isManagementHeadOffice']) {
+            // check if there is already a head office for this ministry
+            $check = selectSingleTuple("SELECT * from Facilities WHERE isManagementHeadOffice=1 AND ministryID=" . $record['ministryID'], $conn);
+            if ($check != null && $check['facilityID'] != $record['id']) {
+                print("<div class='error'>There is already a head office for this ministry</div>");
+                exit();
+            }
+
+        }
         if ($record['ministryID'] < 0 || $record['ministryID'] == null) {
             print("<div class='error'>Ministry ID must be set</div>");
+            exit();
+        }
+        if ($record['name'] == null || $record['name'] == "") {
+            print("<div class='error'>Name must be set</div>");
+            exit();
+        }
+        if ($record['address'] == null || $record['address'] == "") {
+            print("<div class='error'>Address must be set</div>");
+            exit();
+        }
+        if ($record['city'] == null || $record['city'] == "") {
+            print("<div class='error'>City must be set</div>");
             exit();
         }
 
         // ** PART 3: CHECKS PASSED.  COMMIT
         $action = $_POST['commit'];
+        $sql = "to build";
+        switch ($action) {
+            case 'add':
+                $sql = "INSERT INTO Facilities (ministryID, name, address, city, province, isManagementGeneral, isManagementHeadOffice, isSchoolPrimary, isSchoolMiddle, isSchoolHigh)";
+                $sql .= " VALUES(";
+                $sql .= $record['ministryID'] . ",";
+                $sql .= "'" . mysqli_real_escape_string($conn, $record['name']) . "',";
+                $sql .= "'" . mysqli_real_escape_string($conn, $record['address']) . "',";
+                $sql .= "'" . mysqli_real_escape_string($conn, $record['city']) . "',";
+                $sql .= "'" . $record['province'] . "',";
+                $sql .= $record['isManagementGeneral'] . ",";
+                $sql .= $record['isManagementHeadOffice'] . ",";
+                $sql .= $record['isSchoolPrimary'] . ",";
+                $sql .= $record['isSchoolMiddle'] . ",";
+                $sql .= $record['isSchoolHigh'];
+                $sql .= ");";
+                break;
+            case 'edit':
+                $sql = "UPDATE Facilities SET ";
+                $sql .= "ministryID=" . $record['ministryID'] . ",";
+                $sql .= "name='" . mysqli_real_escape_string($conn, $record['name']) . "',";
+                $sql .= "address='" . mysqli_real_escape_string($conn, $record['address']) . "',";
+                $sql .= "city='" . mysqli_real_escape_string($conn, $record['city']) . "',";
+                $sql .= "province='" . $record['province'] . "',";
+                $sql .= "isManagementGeneral=" . $record['isManagementGeneral'] . ",";
+                $sql .= "isManagementHeadOffice=" . $record['isManagementHeadOffice'] . ",";
+                $sql .= "isSchoolPrimary=" . $record['isSchoolPrimary'] . ",";
+                $sql .= "isSchoolMiddle=" . $record['isSchoolMiddle'] . ",";
+                $sql .= "isSchoolHigh=" . $record['isSchoolHigh'];
+                $sql .= " WHERE facilityID=" . $record['id'];
+                break;
+            case 'delete':
+                $sql = "DELETE FROM Facilities WHERE facilityID=" . $record['id'];
+                break;
+            case 'view':
+                break; // nothing to do
 
-//        switch ($action) {
-//            case 'add':
-//                $sql = "UPDATE Facilities SET name=:name, address=:address, city=:city, province=:province, isManagementHeadOffice=:isManagementHeadOffice, isManagementGeneral=:isManagementGeneral, isSchoolPrimary=:isSchoolPrimary, isSchoolMiddle=:isSchoolMiddle, isSchoolHigh=:isSchoolHigh WHERE facilityID=:id";
-//                $stmt = mysqli_prepare($conn, $sql);
-//                $stmt->execute($record);
-//                break;
-//        }
-        echo "READY TO COMMIT $action";
+        }
+        echo "<div class='debug'>READY TO COMMIT $action <br>";
+        echo $sql;
         exit();
 
     }
@@ -209,6 +263,9 @@ if ($action == 'add') {
                             break;
                         case "edit":
                             print "<input type='submit' value='Update'>";
+                            break;
+                        case "delete":
+                            print "<input type='submit' value='CONFIRM DELETE' style='color:red'>";
                             break;
                         default:
                             break;
