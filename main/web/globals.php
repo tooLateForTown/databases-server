@@ -43,10 +43,15 @@ function commonNav() {
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n";
     echo "\t\t\t<li class='dropdown'>\r\n";
+    echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Health<span class='caret'></span></a>\r\n";
+    echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
+    echo "\t\t\t\t\t<li><a href='vaccinations.php'>Vaccinations</a></li>\r\n";
+    echo "\t\t\t\t</ul>\r\n";
+    echo "\t\t\t</li>\r\n";
+    echo "\t\t\t<li class='dropdown'>\r\n";
     echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='queries.php'>Queries<span class='caret'></span></a>\r\n";
     echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
     echo "\t\t\t\t\t<li><a href='run_query.php'>Generic</a></li>\r\n";
-
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n";
     echo "\t\t</ul>\r\n";
@@ -54,7 +59,7 @@ function commonNav() {
     echo "</nav>\r\n";
 }
 
-function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scalarCol=2) {
+function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Records') {
 
     $conn = createConnection();
 
@@ -72,23 +77,23 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
-    echo "<tr><th>ID</th><th>Name</th>";
-    if ($scalarCol != -1) {
-        echo "<th>Records</th>";
+    echo "<tr><th>$col1Name</th><th>$col1Name</th>";
+    if ($col3Index != -1) {
+        echo "<th>$col3Name</th>";
     }
     echo "<th>View</th><th>Edit</th><th>Delete</th></tr>";
     echo "</thead>";
     echo "<tbody>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
-        echo "<td>".$table[$idCol]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$idCol] . "&action=view'>" . $table[$nameCol] . "</a></td>";
-        if ($scalarCol != -1) {
-            echo "<td>" . $table[$scalarCol] . "</td>";
+        echo "<td>".$table[$col1Index]."</td>";
+        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$col1Index] . "&action=view'>" . $table[$col2Index] . "</a></td>";
+        if ($col3Index != -1) {
+            echo "<td>" . $table[$col3Index] . "</td>";
         }
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$idCol] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
@@ -108,9 +113,10 @@ function createConnection() {
 }
 
 function selectSingleTuple($sql, $conn = null) {
-
+    $closeconn = false;
     if ($conn == null) {
         $conn = createConnection();
+        $closeconn=true;
     }
 
     try {
@@ -122,7 +128,10 @@ function selectSingleTuple($sql, $conn = null) {
     $row = mysqli_fetch_assoc($result);
 //    $rows = mysqli_fetch_all($result);
     mysqli_free_result($result);
-    mysqli_close($conn);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+
     if ($row == null) {
         echo "<div class='error'>Query failed to return a single row: " . $sql . "</div>";
         exit();
@@ -198,6 +207,31 @@ function listMinistryOptions($selected, $conn) {
     }
 }
 
+function listPersonOptions($selected, $conn) {
+    $sql = "SELECT personID,CONCAT(firstName,' ', lastName) FROM Persons";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
+
+function listVaccineTypeOptions($selected, $conn) {
+    $sql = "SELECT vaccinationTypeID, name FROM VaccinationTypes";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
+
+function getPersonName($personID, $conn) {
+    $sql = "SELECT CONCAT(firstName,' ', lastName) FROM Persons WHERE personID=".$personID;
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    return $rows[0][0];
+}
+
 function commit($sql, $conn=null) {
     if ($conn == null) {
         $conn = createConnection();
@@ -214,6 +248,47 @@ function commit($sql, $conn=null) {
     }
     mysqli_close($conn);
     return $result;
+}
+
+function generateVaccinationsTable($personID, $conn=null) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $sql="SELECT date,VaccinationTypes.name as type, dose FROM Vaccines, VaccinationTypes WHERE Vaccines.vaccinationTypeID=VaccinationTypes.vaccinationTypeID AND personID=$personID ORDER BY date DESC";
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+
+
+    echo "<a href='edit_vaccination.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Vaccination</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>Date</th><th>Type</th><th>Dose</th>";
+    echo "<th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        echo "<tr class='tablerow'>";
+        echo "<td>".$table[0]."</td>";
+        echo "<td>".$table[1]."</td>";
+        echo "<td>".$table[2]."</td>";
+        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=edit'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=delete'><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
 }
 
 ?>
