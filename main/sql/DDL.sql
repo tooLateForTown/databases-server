@@ -39,7 +39,9 @@ CREATE TABLE Persons (
     city varchar(100),
     province char(2),
     citizenship varchar(50),
-    email varchar(200)
+    email varchar(200),
+    isStudent bool DEFAULT false,
+    isEmployee bool DEFAULT false
 );
 
 CREATE TABLE EmploymentRoles (
@@ -132,3 +134,23 @@ CREATE TABLE Emails (
     PRIMARY KEY (emailID),
     FOREIGN KEY (senderID) REFERENCES Facilities(facilityID)
 );
+
+# TRIGGERS
+DROP TRIGGER IF EXISTS update_isStudent;
+CREATE TRIGGER update_isStudent
+    AFTER INSERT ON Students
+    FOR EACH ROW BEGIN
+        UPDATE Persons
+        SET isStudent = true
+        WHERE personID = NEW.personID;
+    END;
+
+DROP TRIGGER IF EXISTS update_isEmployee;
+CREATE TRIGGER update_isEmployee
+    AFTER INSERT ON Employees
+    FOR EACH ROW BEGIN
+        UPDATE Persons
+        SET isEmployee = true
+        WHERE personID = NEW.personID;
+    END;
+
