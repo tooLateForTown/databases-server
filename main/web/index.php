@@ -7,11 +7,15 @@
 <body>
 <?php commonNav(); ?>
 <main>
-<h1>Group Project Test</h1>
+<h1>COMP 353 Main Project</h1>
+<h3>Summer 2023</h3>
+<h2>Team</h2>
+<p>member 1</p>
+<p>member 1</p>
+<p>member 1</p>
+<p>member 1</p>
 
-<h3><a href="ministries.php">Ministries</a></h3>
-<h3><a href="facilities.php">Facilities</a></h3>
-<h3><a href="students.php">Students</a></h3>
+
 </main>
 </body>
 </html>

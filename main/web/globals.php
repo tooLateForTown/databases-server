@@ -14,15 +14,41 @@ function commonHead() {
         echo "\t<link rel='stylesheet' href='style1.css'>\r\n";
         echo "\t<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>\r\n";
     }
+//function commonNav() {
+//    echo "<nav class='navbar navbar-default'>\r\n";
+//    echo "\t<div class='container-fluid'>\r\n";
+//    echo "\t\t<div class='navbar-header'>\r\n";
+//    echo "\t\t\t<a class='navbar-brand' href='#'>EPSTS</a>\r\n";
+//    echo "\t\t</div>\r\n";
+//    echo "\t\t<ul class='nav navbar-nav'>\r\n";
+//    echo "\t\t\t<li class='active'><a href='index.php'>Tables</a></li>\r\n";
+//    echo "\t\t\t<li class='active'><a href='queries.php'>Queries</a></li>\r\n";
+//    echo "\t\t</ul>\r\n";
+//    echo "\t</div>\r\n";
+//    echo "</nav>\r\n";
+//}
 function commonNav() {
-    echo "<nav class='navbar navbar-default'>\r\n";
+    echo "<nav class='navbar navbar-inverse'>\r\n";
     echo "\t<div class='container-fluid'>\r\n";
     echo "\t\t<div class='navbar-header'>\r\n";
-    echo "\t\t\t<a class='navbar-brand' href='#'>EPSTS</a>\r\n";
+    echo "\t\t\t<a class='navbar-brand' href='index.php'>EPSTS</a>\r\n";
     echo "\t\t</div>\r\n";
     echo "\t\t<ul class='nav navbar-nav'>\r\n";
-    echo "\t\t\t<li class='active'><a href='index.php'>Tables</a></li>\r\n";
-    echo "\t\t\t<li class='active'><a href='queries.php'>Queries</a></li>\r\n";
+    echo "\t\t\t<li class='dropdown'>\r\n";
+    echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='tables.php'>Tables<span class='caret'></span></a>\r\n";
+    echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
+    echo "\t\t\t\t\t<li><a href='ministries.php'>Ministries</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='facilities.php'>Facilities</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='students.php'>Students</a></li>\r\n";
+    echo "\t\t\t\t</ul>\r\n";
+    echo "\t\t\t</li>\r\n";
+    echo "\t\t\t<li class='dropdown'>\r\n";
+    echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='queries.php'>Queries<span class='caret'></span></a>\r\n";
+    echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
+    echo "\t\t\t\t\t<li><a href='run_query.php'>Generic</a></li>\r\n";
+
+    echo "\t\t\t\t</ul>\r\n";
+    echo "\t\t\t</li>\r\n";
     echo "\t\t</ul>\r\n";
     echo "\t</div>\r\n";
     echo "</nav>\r\n";
@@ -44,7 +70,7 @@ function generateMasterTable($selectSQL, $consumer, $idCol=0, $nameCol=1, $scala
 
     echo "<a href='".$consumer."?id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
-    echo "<table class='table'>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
     echo "<tr><th>ID</th><th>Name</th>";
     if ($scalarCol != -1) {
@@ -125,7 +151,7 @@ function generateTableFromQuery($sql, $title) {
 
     echo "<h1>".$title."</h1>";
 
-    echo "<table>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<tr>";
     foreach ($fields as $field) {
         echo "<th>".$field->name."</th>";

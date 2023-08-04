@@ -229,10 +229,10 @@ if ($action != 'add') {
 
 
     <form action="edit_facility.php" method="post">
-        <table>
+        <table class="table table-bordered table-hover table-sm">
             <tr <?php if ($action == 'add') echo 'style="display:none;' ?>>
                 <td><label for="id">ID</label></td>
-                <td><input type="number" name="id" value="<?= $record['id'] ?>" readonly></td>
+                <td><input type="number" name="id" size="4" value="<?= $record['id'] ?>" readonly></td>
             </tr>
             <tr>
                 <td><label for="ministryID">Ministry</label></td>
@@ -243,18 +243,18 @@ if ($action != 'add') {
             </tr>
             <tr>
                 <td><label for="name">Name</label></td>
-                <td><input type="text" name="name" maxlength="100" <?= $readonly ?>
+                <td><input type="text" name="name" maxlength="100" size="40" <?= $readonly ?>
                            value="<?= $record['name'] ?? '' ?>">
-                <td>
+                </td>
             </tr>
             <tr>
                 <td><label for="address">Address</label></td>
-                <td><input type="text" name="address" maxlength="100" <?= $readonly ?>
+                <td><input type="text" name="address" maxlength="100" size="40" <?= $readonly ?>
                            value="<?= $record['address'] ?? '' ?>"></td>
             </tr>
             <tr>
                 <td><Label for="city">City</Label></td>
-                <td><input type="text" name="city" maxlength="100"" <?= $readonly ?> value="<?= $record['city'] ?? '' ?>
+                <td><input type="text" name="city" maxlength="100" size="40" <?= $readonly ?> value="<?= $record['city'] ?? '' ?>
                     ">
                 </td>
             </tr>
@@ -268,25 +268,25 @@ if ($action != 'add') {
             <tr>
                 <td><Label for="postalcode">Postal Code</Label></td>
                 <td>
-                    <input type="text" name="postalcode" maxlength="7" <?= $readonly ?> value="<?= $record['postalcode'] ?? '' ?>">
+                    <input type="text" name="postalcode" maxlength="7" size="20" <?= $readonly ?> value="<?= $record['postalcode'] ?? '' ?>">
                 </td>
             </tr>
             <tr>
                 <td><Label for="phone">Phone</Label></td>
                 <td>
-                    <input type="text" name="phone" maxlength="14" <?= $readonly ?> value="<?= $record['phone'] ?? '' ?>">
+                    <input type="text" name="phone" maxlength="14" size="20" <?= $readonly ?> value="<?= $record['phone'] ?? '' ?>">
                 </td>
             </tr>
             <tr>
                 <td><Label for="web">Website</Label></td>
                 <td>
-                    <input type="text" name="web" maxlength="200" <?= $readonly ?> value="<?= $record['web'] ?? '' ?>">
+                    <input type="text" name="web" maxlength="200" size="60" <?= $readonly ?> value="<?= $record['web'] ?? '' ?>">
                 </td>
             </tr>
             <tr>
                 <td><Label for="capacity">Capacity</Label></td>
                 <td>
-                    <input type="number" name="capacity" min="0" <?= $readonly ?> value="<?= $record['capacity'] ?? '' ?>">
+                    <input type="number" name="capacity" min="0" size="10" <?= $readonly ?> value="<?= $record['capacity'] ?? '' ?>">
                 </td>
             </tr>
 

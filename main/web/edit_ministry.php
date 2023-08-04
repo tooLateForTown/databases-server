@@ -112,16 +112,16 @@ if ($action != 'add') {
 
 
     <form action="edit_ministry.php" method="post">
-        <table>
+        <table class="table table-bordered table-hover table-sm">
             <tr <?php if ($action == 'add') echo 'style="display:none;' ?>>
                 <td><label for="id">ID</label></td>
                 <td><input type="number" name="id" value="<?= $record['id'] ?>" readonly></td>
             </tr>
             <tr>
                 <td><label for="name">Name</label></td>
-                <td><input type="text" name="name" maxlength="100" <?= $readonly ?>
+                <td><input type="text" name="name" maxlength="100" size="40" <?= $readonly ?>
                            value="<?= $record['name'] ?? '' ?>">
-                <td>
+                </td>
             </tr>
             <input type="hidden" name="commit" value="<?= $action ?>">
             <tr>
