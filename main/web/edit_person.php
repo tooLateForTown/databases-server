@@ -4,13 +4,11 @@
 $conn = createConnection();
 $table = null;
 $action = null; // view, delete, add, edit, commit
-$mode = null;
-
-$mode = isset($_GET['mode']) ? $_GET['mode'] : null;
+$mode = null; // will be student or employee
 
 // ********   HANDLE SUBMIT FORM HERE ***  ******
 if (isset($_POST['commit'])) {
-    
+    $mode = $_POST['mode'];
 
     $action = $_POST['commit'];
     if ($mode == 'student') {
@@ -35,11 +33,11 @@ if (isset($_POST['commit'])) {
 
             // ** PART 2: VALIDATE DATA
 
-            if (empty($record['medicare'])) {
-                // Student does not have valid Medicare card number
-                print("<div class='error> Student must have valid Medicare card number.</div>");
-                exit();
-            }
+//            if (empty($record['medicare'])) {
+//                // Student does not have valid Medicare card number
+//                print("<div class='error> Student must have valid Medicare card number.</div>");
+//                exit();
+//            }
 
             if ($record['firstName'] == null || $record['lastName'] == "") {
                 print("<div class='error'>Name must be set</div>");
@@ -120,17 +118,6 @@ if (isset($_POST['commit'])) {
 
         }
 
-
-        $success = commit($sql, $conn);
-        if ($success) {
-            header("Location: students.php"); // jump away.  Cannot have any html before header command.
-        }
-        // Commit FAILED!
-        echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
-        echo "<div class='debug'>";
-        print_r($_POST);
-        echo "</div>";
-        exit();
     } elseif ($mode == 'employee') // end of ADD or EDITif (($action == 'add' || $action == 'edit') && $mode == 'student' ) 
     {
         if (($action == 'add' || $action == 'edit')) {
@@ -262,20 +249,27 @@ if (isset($_POST['commit'])) {
         }
 
 
-        $success = commit($sql, $conn);
-        if ($success) {
-            header("Location: students.php"); // jump away.  Cannot have any html before header command.
-        }
-        // Commit FAILED!
-        echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
-        echo "<div class='debug'>";
-        print_r($_POST);
-        echo "</div>";
-        exit();
     }
+    // $sql will be filled by either student or employee mode at this point
+
+    print("sql is " .$sql);
+
+//        $success = commit($sql, $conn);
+//        if ($success) {
+//            header("Location: students.php"); // jump away.  Cannot have any html before header command.
+//        }
+//        // Commit FAILED!
+//        echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
+//        echo "<div class='debug'>";
+//        print_r($_POST);
+//        echo "</div>";
+//        exit();
+
 }
 
 // *******NOT A SUBMIT, HANDLE EDIT/ADD/VIEW HERE
+
+$mode = isset($_GET['mode']) ? $_GET['mode'] : null;
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
@@ -294,26 +288,23 @@ if ($action == "view" || $action == "delete") {
 
 
 // default values for new record
+$record['personID'] = -1;
+$record['firstName'] = "";
+$record['lastName'] = "";
+$record['address'] = "";
+$record['medicare'] = "";
+$record['city'] = "";
+$record['province'] = "QC";
+$record['facilityID'] = -1;
+$record['startDate'] = null;
+$record['endDate'] = null;
+
 if ($mode == 'student') {
-    $record['personID'] = -1;
-    $record['firstName'] = "";
-    $record['lastName'] = "";
-    $record['address'] = "";
-    $record['medicare'] = "";
-    $record['city'] = "";
-    $record['province'] = "QC";
-    $record['facilityID'] = -1;
+    $record['isEmployee'] = 0;
+    $record['isStudent'] = 1;
 } elseif ($mode == 'employee') {
-    $record['personID'] = -1;
-    $record['firstName'] = "";
-    $record['lastName'] = "";
-    $record['address'] = "";
-    $record['medicare'] = "";
-    $record['city'] = "";
-    $record['province'] = "QC";
-    $record['facilityID'] = -1;
-    $record['startDate'] = null;
-    $record['endDate'] = null;
+    $record['isEmployee'] = 1;
+    $record['isStudent'] = 0;
 }
 
 
@@ -396,7 +387,7 @@ if ($action != 'add' && $mode == 'student') {
                     </tr>
                     <tr>
                         <td><label for="medicare">Medicare</label></td>
-                        <td><input type="text" name="medicare" maxlength="14" pattern="[A-Z]{4} [0-9]{4} [0-9]{4}" <?= $readonly ?> value="<?= $record['medicare'] ?? '' ?>"></td>
+                        <td><input type="text" name="medicare" maxlength="14"  <?= $readonly ?> value="<?= $record['medicare'] ?? '' ?>"></td>
                     </tr>
                     <tr>
                         <td><label for="address">Address</label></td>
@@ -443,6 +434,7 @@ if ($action != 'add' && $mode == 'student') {
                 </table>
                 
             <input type="hidden" name="commit" value="<?= $action ?>">
+            <input type="hidden" name="mode" value="<?= $_GET['mode'] ?>">
             <tr>
                 <td></td>
 

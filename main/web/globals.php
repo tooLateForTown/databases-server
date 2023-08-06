@@ -60,7 +60,7 @@ function commonNav() {
     echo "</nav>\r\n";
 }
 
-function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare') {
+function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare',$isStudent=false, $isEmployee=false) {
 
     $conn = createConnection();
 
@@ -74,35 +74,44 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     mysqli_free_result($result);
     mysqli_close($conn);
 
-    if ($consumer === 'edit_person.php?mode=student' || $consumer === 'edit_person.php?mode=employee'){
-        echo "<a href='".$consumer."&id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
-    echo "<br/><br/>";
-    echo "<table class='table table-bordered table-hover table-sm'>";
-    echo "<thead>";
-    echo "<tr><th>$col1Name</th><th>$col2Name</th>";
-    if ($col3Index != -1) {
-        echo "<th>$col3Name</th>";
-    }
-    echo "<th>View</th><th>Edit</th><th>Delete</th></tr>";
-    echo "</thead>";
-    echo "<tbody>";
-    foreach ($tables as $table) {
-        echo "<tr class='tablerow'>";
-        echo "<td>".$table[$col1Index]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."&id=" . $table[$col1Index] . "&action=view'>" . $table[$col2Index] . "</a></td>";
-        if ($col3Index != -1) {
-            echo "<td>" . $table[$col3Index] . "</td>";
-        }
-        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
-        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
-        echo "</tr>\r\n";
-    }
-    echo "</tbody>";
-    echo "</table>";
-    }else{
+//    if ($consumer === 'edit_person.php?mode=student' || $consumer === 'edit_person.php?mode=employee'){
+//        echo "<a href='".$consumer."&id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
+//    echo "<br/><br/>";
+//    echo "<table class='table table-bordered table-hover table-sm'>";
+//    echo "<thead>";
+//    echo "<tr><th>$col1Name</th><th>$col2Name</th>";
+//    if ($col3Index != -1) {
+//        echo "<th>$col3Name</th>";
+//    }
+//    echo "<th>View</th><th>Edit</th><th>Delete</th></tr>";
+//    echo "</thead>";
+//    echo "<tbody>";
+//    foreach ($tables as $table) {
+//        echo "<tr class='tablerow'>";
+//        echo "<td>".$table[$col1Index]."</td>";
+//        echo "<td style='text-align:left'><a href='" .$consumer."&id=" . $table[$col1Index] . "&action=view'>" . $table[$col2Index] . "</a></td>";
+//        if ($col3Index != -1) {
+//            echo "<td>" . $table[$col3Index] . "</td>";
+//        }
+//        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
+//        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
+//        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
+//        echo "</tr>\r\n";
+//    }
+//    echo "</tbody>";
+//    echo "</table>";
+//    }else{
 
-    echo "<a href='".$consumer."?id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
+    $handle_mode = "";
+    if ($isStudent) {
+        $handle_mode = "&mode=student";
+    }
+    if ($isEmployee) {
+        $handle_mode = "&mode=employee";
+    }
+
+
+    echo "<a href='".$consumer."?id=-1&action=add".$handle_mode."'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
@@ -116,19 +125,19 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
         echo "<td>".$table[$col1Index]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$col1Index] . "&action=view'>" . $table[$col2Index] . "</a></td>";
+        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$col1Index] . "&action=view' .$handle_mode>" . $table[$col2Index] . "</a></td>";
         if ($col3Index != -1) {
             echo "<td>" . $table[$col3Index] . "</td>";
         }
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=view".$handle_mode."'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=edit".$handle_mode."'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=delete".$handle_mode."'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
     echo "</table>";
 }
-}
+//}
 
 function createConnection() {
     // Create connection
