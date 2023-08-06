@@ -332,66 +332,66 @@ INSERT INTO EmploymentRoles (employmentRoleID, title) VALUES (17,'Administrator'
 
 
 # Minsters
-INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (3,'Bernanrd','Drainville','BDRA 0000 1111');
+INSERT INTO Persons (personID, firstName, lastName, medicare,city) VALUES (3,'Bernanrd','Drainville','BDRA 0000 1111','Quebec');
 INSERT INTO Employees(personID, facilityID, startDate, primaryEmploymentRoleID)
     VALUES (3,2,'2018-01-01',1);
 -- Ontario (ON)
-INSERT INTO Persons (personID, firstName, lastName, medicare) VALUES (6,'Joe','Ontario','JONT 2922 1111');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city) VALUES (6,'Joe','Ontario','JONT 2922 1111', 'Toronto');
 
 INSERT INTO Employees(personID, facilityID, startDate, primaryEmploymentRoleID)
     VALUES (6,11,'2022-08-09',1);
 
 -- Alberta (AB)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (14, 'Jessica', 'Anderson', 'JAND 1111 2222');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (14, 'Jessica', 'Anderson', 'JAND 1111 2222', 'Calgary');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
-VALUES (14, 100, '2019-03-15', 2);
+VALUES (14, 100, '2019-03-15', 1);
 
 
 -- British Columbia (BC)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (15, 'Michael', 'Taylor', 'MTAY 2222 3333');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (15, 'Michael', 'Taylor', 'MTAY 2222 3333', 'Victoria' );
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
 VALUES (15, 200, '2020-07-10', 1);
 
 
 -- Manitoba (MB)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (16, 'Stephanie', 'Miller', 'SMIL 3333 4444');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (16, 'Stephanie', 'Miller', 'SMIL 3333 4444', 'Winnipeg');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
 VALUES (16, 300, '2017-06-25', 1);
 
 
 -- Newfoundland and Labrador (NL)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (17, 'David', 'Baker', 'DBAK 4444 5555');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (17, 'David', 'Baker', 'DBAK 4444 5555', 'St. Johns');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
-VALUES (17, 400, '2018-11-20', 2);
+VALUES (17, 400, '2018-11-20', 1);
 
 
 -- Nova Scotia (NS)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (18, 'Jennifer', 'Clark', 'JCLA 5555 6666');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (18, 'Jennifer', 'Clark', 'JCLA 5555 6666', 'Halifax');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
 VALUES (18, 500, '2021-02-05', 1);
 
 
 -- Ontario (ON)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (19, 'Matthew', 'Walker', 'MWAL 6666 7777');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (19, 'Matthew', 'Walker', 'MWAL 6666 7777', 'Toronto');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
 VALUES (19, 12, '2019-09-10', 2);
 
 
 -- Prince Edward Island (PE)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (110, 'Emily', 'Campbell', 'ECAM 7777 8888');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (110, 'Emily', 'Campbell', 'ECAM 7777 8888', 'Charlottetown');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
 VALUES (110, 600, '2020-12-01', 1);
@@ -406,8 +406,8 @@ VALUES (111, 4, '2019-08-15', 2);
 
 
 -- Saskatchewan (SK)
-INSERT INTO Persons (personID, firstName, lastName, medicare)
-VALUES (112, 'Sophia', 'Murphy', 'SMUR 9999 0000');
+INSERT INTO Persons (personID, firstName, lastName, medicare, city)
+VALUES (112, 'Sophia', 'Murphy', 'SMUR 9999 0000', 'Regina');
 
 INSERT INTO Employees (personID, facilityID, startDate, primaryEmploymentRoleID)
 VALUES (112, 700, '2022-04-01', 1);
