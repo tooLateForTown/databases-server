@@ -40,6 +40,7 @@ function commonNav() {
     echo "\t\t\t\t\t<li><a href='ministries.php'>Ministries</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='facilities.php'>Facilities</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='students.php'>Students</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='employees.php'>Employees</a></li>\r\n";
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n";
     echo "\t\t\t<li class='dropdown'>\r\n";
@@ -59,7 +60,7 @@ function commonNav() {
     echo "</nav>\r\n";
 }
 
-function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Records') {
+function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare') {
 
     $conn = createConnection();
 
@@ -72,6 +73,34 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     $tables = mysqli_fetch_all($result);
     mysqli_free_result($result);
     mysqli_close($conn);
+
+    if ($consumer === 'edit_person.php?mode=student' || $consumer === 'edit_person.php?mode=employee'){
+        echo "<a href='".$consumer."&id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>$col1Name</th><th>$col2Name</th>";
+    if ($col3Index != -1) {
+        echo "<th>$col3Name</th>";
+    }
+    echo "<th>View</th><th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        echo "<tr class='tablerow'>";
+        echo "<td>".$table[$col1Index]."</td>";
+        echo "<td style='text-align:left'><a href='" .$consumer."&id=" . $table[$col1Index] . "&action=view'>" . $table[$col2Index] . "</a></td>";
+        if ($col3Index != -1) {
+            echo "<td>" . $table[$col3Index] . "</td>";
+        }
+        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='".$consumer."&id=" . $table[$col1Index] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
+    }else{
 
     echo "<a href='".$consumer."?id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
@@ -98,6 +127,7 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     }
     echo "</tbody>";
     echo "</table>";
+}
 }
 
 function createConnection() {
@@ -207,6 +237,14 @@ function listMinistryOptions($selected, $conn) {
     }
 }
 
+function listFacilityOptions($selected, $conn) {
+    $sql = "SELECT FacilityID, name FROM Facilities";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
 function listPersonOptions($selected, $conn) {
     $sql = "SELECT personID,CONCAT(firstName,' ', lastName) FROM Persons";
     $result = mysqli_query($conn, $sql);
