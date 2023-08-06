@@ -1,10 +1,14 @@
-SELECT Ministries.name, firstName, lastName, Persons.city
+SELECT Ministries.name, firstName, lastName, Presidents.city
 FROM Ministries
 JOIN Facilities ON Ministries.ministryID = Facilities.ministryID
-JOIN Employees ON Facilities.facilityID = Employees.facilityID
-JOIN Persons ON Employees.personID = Persons.personID
+LEFT JOIN ( SELECT *
+            FROM Employees
+                        JOIN Persons ON Employees.personID = Persons.personID
+            WHERE primaryEmploymentRoleID = 1
+) as Presidents
+
 WHERE Facilities.isManagementHeadOffice = TRUE
-    AND Employees.primaryEmploymentRoleID=1;
+
 
 
 

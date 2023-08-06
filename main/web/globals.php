@@ -291,4 +291,44 @@ function generateVaccinationsTable($personID, $conn=null) {
     echo "</table>";
 }
 
+//function generateInfectionsTable($personID, $conn=null) {
+//    $closeconn = false;
+//    if ($conn == null) {
+//        $conn = createConnection();
+//        $closeconn=true;
+//    }
+//    $sql="SELECT date,InfectionTypes.name as type, dose FROM Infections, InfectionTypes WHERE Infections.InfectypeTypeID=InfectioTypes.InfectionTypeID AND personID=$personID ORDER BY date DESC";
+//    try {
+//        $result= mysqli_query($conn, $sql);
+//    } catch (mysqli_sql_exception $e) {
+//        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+//        return;
+//    }
+//    $tables = mysqli_fetch_all($result);
+//    mysqli_free_result($result);
+//    if ($closeconn) {
+//        mysqli_close($conn);
+//    }
+//
+//
+//    echo "<a href='edit_vaccination.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Vaccination</a>";
+//    echo "<br/><br/>";
+//    echo "<table class='table table-bordered table-hover table-sm'>";
+//    echo "<thead>";
+//    echo "<tr><th>Date</th><th>Type</th><th>Dose</th>";
+//    echo "<th>Edit</th><th>Delete</th></tr>";
+//    echo "</thead>";
+//    echo "<tbody>";
+//    foreach ($tables as $table) {
+//        echo "<tr class='tablerow'>";
+//        echo "<td>".$table[0]."</td>";
+//        echo "<td>".$table[1]."</td>";
+//        echo "<td>".$table[2]."</td>";
+//        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=edit'><i class='material-icons'>edit</i></a></td>";
+//        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=delete'><i class='material-icons'>delete</i></a></td>";
+//        echo "</tr>\r\n";
+//    }
+//    echo "</tbody>";
+//    echo "</table>";
+//}
 ?>

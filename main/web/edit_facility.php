@@ -58,7 +58,7 @@ if (isset($_POST['commit'])) {
             print("<div class='error'>Must be either management or school</div>");
             exit();
         }
-        if ($isManagement && $record['isManagementHeadOffice']) {
+        if ($isManagement && $record['isManagementHeadOffice']) { // fixme doesnb't work
             // check if there is already a head office for this ministry
             $check = selectSingleTuple("SELECT * from Facilities WHERE isManagementHeadOffice=1 AND ministryID=" . $record['ministryID'], $conn);
             if ($check != null && $check['facilityID'] != $record['id']) {

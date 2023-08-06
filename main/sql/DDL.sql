@@ -73,9 +73,12 @@ CREATE TABLE Schedule (
     startTime int,
     endTime int,
     PRIMARY KEY (personID, facilityID, workDate, startTime),
-    FOREIGN KEY (personID) REFERENCES Employees(personID),
-    FOREIGN KEY (facilityID) REFERENCES Employees(facilityID)
+    FOREIGN KEY (personID, facilityID) REFERENCES Employees(personID, facilityID)
+#     FOREIGN KEY (personID) REFERENCES Employees(personID),
+#     FOREIGN KEY (facilityID) REFERENCES Employees(facilityID)
 );
+
+
 
 CREATE TABLE Students (
     personID int,
