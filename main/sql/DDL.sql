@@ -130,7 +130,6 @@ CREATE TABLE Emails (
     emailID int,
     emailDate date,
     senderID int,
-    senderName varchar(100),
     receiver varchar(60),
     subject varchar(60),
     emailBody varchar(80),
