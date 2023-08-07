@@ -58,7 +58,7 @@ function commonNav() {
     echo "</nav>\r\n";
 }
 
-function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare',$isStudent, $isEmployee) {
+function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare',$isStudent=false, $isEmployee=false) {
 
     $conn = createConnection();
 
@@ -309,6 +309,15 @@ function listFacilityOptions($selected, $conn) {
         echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
     }
 }
+
+function listSchoolOptions($selected, $conn) {
+    $sql = "SELECT FacilityID, name FROM Facilities WHERE isSchoolHigh=1 OR isSchoolPrimary=1 OR isSchoolMiddle=1";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
 function listPersonOptions($selected, $conn) {
     $sql = "SELECT personID,CONCAT(firstName,' ', lastName) FROM Persons";
     $result = mysqli_query($conn, $sql);
@@ -329,6 +338,13 @@ function listVaccineTypeOptions($selected, $conn) {
 
 function getPersonName($personID, $conn) {
     $sql = "SELECT CONCAT(firstName,' ', lastName) FROM Persons WHERE personID=".$personID;
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    return $rows[0][0];
+}
+
+function getFacilityName($facilityID, $conn) {
+    $sql = "SELECT name FROM Facilities WHERE facilityID=".$facilityID;
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_all($result);
     return $rows[0][0];
@@ -370,8 +386,6 @@ function generateVaccinationsTable($personID, $conn=null) {
     if ($closeconn) {
         mysqli_close($conn);
     }
-
-
     echo "<a href='edit_vaccination.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Vaccination</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
@@ -401,5 +415,50 @@ function show_error($msg)
     commonNav();
     echo "<div class='error'>$msg</div>";
     echo "</BODY></HTML>";
+}
+
+function generateEnrollmentTable($personID, $conn=null) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $sql = "SELECT * FROM Students WHERE personID=$personID ORDER BY startDate DESC";
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    echo "<a href='edit_enrollment.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Enrollment</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>startDate</th><th>endDate</th><th>School</th><th>Grade</th>";
+    echo "<th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        $facilityID = $table[1];
+        $startDate= $table[2];
+        $endDate = $table[3];
+        $grade = $table[4];
+        $facilityName = getFacilityName($facilityID, $conn);
+        echo "<tr class='tablerow'>";
+        echo "<td>".$startDate."</td>";
+        echo "<td>".$endDate."</td>";
+        echo "<td>".$facilityName."</td>";
+        echo "<td>".$grade."</td>";
+        echo "<td><a href=\"edit_enrollment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=edit\"><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href=\"edit_enrollment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=delete\"><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
 }
 ?>
