@@ -63,7 +63,7 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     $conn = createConnection();
 
     try {
-        $result= mysqli_query($conn, $selectSQL);
+        $result = mysqli_query($conn, $selectSQL);
     } catch (mysqli_sql_exception $e) {
         echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
         return;
@@ -81,11 +81,11 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     }
 
 
-    echo "<a href='".$consumer."?id=-1&action=add".$handle_mode."'><i class='material-icons'>add_box</i> Add new record</a>";
+    echo "<a href='" . $consumer . "?id=-1&action=add" . $handle_mode . "'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
-    echo "<tr><th>$col1Name</th><th>$col1Name</th>";
+    echo "<tr><th>$col1Name</th><th>$col2Name</th>";
     if ($col3Index != -1) {
         echo "<th>$col3Name</th>";
     }
@@ -94,14 +94,17 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     echo "<tbody>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
-        echo "<td>".$table[$col1Index]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$col1Index] . "&action=view' .$handle_mode>" . $table[$col2Index] . "</a></td>";
+        echo "<td>" . $table[$col1Index] . "</td>";
+        
+        echo "<td style='text-align:left'><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=view" . $handle_mode . "'>" . $table[$col2Index] . "</a></td>";
+
+    
         if ($col3Index != -1) {
             echo "<td>" . $table[$col3Index] . "</td>";
         }
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=view".$handle_mode."'><i class='material-icons'>visibility</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=edit".$handle_mode."'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=delete".$handle_mode."'><i class='material-icons'>delete</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=view" . $handle_mode . "'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=edit" . $handle_mode . "'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=delete" . $handle_mode . "'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
@@ -147,6 +150,70 @@ function selectSingleTuple($sql, $conn = null) {
     } else {
         return $row;
     }
+}
+
+// function getNewID($conn, $tableName, $attributName){
+//     $sql = "SELECT MAX($attributName) FROM $tableName";
+//     $result = mysqli_query($conn, $sql);
+//     $rows = mysqli_fetch_all($result);
+//     $newID = $rows[0][0] + 1;
+//     return $newID;
+
+// }
+
+
+//create a function to validate time that it's 24 hour format like 1630, 100, 200
+
+
+
+function validateTime($time) {
+    // Check if the time string is empty
+
+    $time = trim($time);
+
+    if (empty($time)) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the time string contains only digits
+    if (!ctype_digit($time)) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the time string has a length of 3 or 4 characters
+    $length = strlen($time);
+    if ($length < 3 || $length > 4) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the time is within the valid range
+    $timeInt = (int)$time;
+    if ($timeInt < 100 || $timeInt > 2359) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the hours are within the valid range
+    $hours = (int)($timeInt / 100);
+    if ($hours > 23) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the minutes are within the valid range
+    $minutes = $timeInt % 100;
+    if ($minutes > 59) {
+        echo("false");
+        return false;
+        
+    }
+
+    // If all checks passed, the time is valid
+    echo("true");
+    return true;
 }
 
 
@@ -207,6 +274,24 @@ function listProvinceOptions($selected) {
 }
 
 
+
+function listCitizenshipOptions($selected){
+    echo "<option value='Canadian' ".($selected=="Canadian"?"selected='selected'":'').">Canadian</option>\r\n";
+    echo "<option value='American' ".($selected=="American"?"selected='selected'":'').">American</option>\r\n";
+    echo "<option value='British' ".($selected=="British"?"selected='selected'":'').">British</option>\r\n";
+    echo "<option value='French' ".($selected=="French"?"selected='selected'":'').">French</option>\r\n";
+    echo "<option value='German' ".($selected=="German"?"selected='selected'":'').">German</option>\r\n";
+    echo "<option value='Italian' ".($selected=="Italian"?"selected='selected'":'').">Italian</option>\r\n";
+    echo "<option value='Chinese' ".($selected=="Chinese"?"selected='selected'":'').">Chinese</option>\r\n";
+    echo "<option value='Indian' ".($selected=="Indian"?"selected='selected'":'').">Indian</option>\r\n";
+    echo "<option value='Japanese' ".($selected=="Japanese"?"selected='selected'":'').">Japanese</option>\r\n";
+    echo "<option value='Korean' ".($selected=="Korean"?"selected='selected'":'').">Korean</option>\r\n";
+    echo "<option value='Mexican' ".($selected=="Mexican"?"selected='selected'":'').">Mexican</option>\r\n";
+    echo "<option value='Russian' ".($selected=="Russian"?"selected='selected'":'').">Russian</option>\r\n";
+    echo "<option value='Spanish' ".($selected=="Spanish"?"selected='selected'":'').">Spanish</option>\r\n";
+}
+
+
 function listMinistryOptions($selected, $conn) {
     $sql = "SELECT ministryID,name FROM Ministries";
     $result = mysqli_query($conn, $sql);
@@ -218,6 +303,15 @@ function listMinistryOptions($selected, $conn) {
 
 function listFacilityOptions($selected, $conn) {
     $sql = "SELECT FacilityID, name FROM Facilities";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
+
+function listSchoolOptions($selected, $conn) {
+    $sql = "SELECT FacilityID, name FROM Facilities WHERE isSchoolHigh=1 OR isSchoolPrimary=1 OR isSchoolMiddle=1";
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_all($result);
     foreach ($rows as $row) {
@@ -244,6 +338,13 @@ function listVaccineTypeOptions($selected, $conn) {
 
 function getPersonName($personID, $conn) {
     $sql = "SELECT CONCAT(firstName,' ', lastName) FROM Persons WHERE personID=".$personID;
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    return $rows[0][0];
+}
+
+function getFacilityName($facilityID, $conn) {
+    $sql = "SELECT name FROM Facilities WHERE facilityID=".$facilityID;
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_all($result);
     return $rows[0][0];
@@ -285,8 +386,6 @@ function generateVaccinationsTable($personID, $conn=null) {
     if ($closeconn) {
         mysqli_close($conn);
     }
-
-
     echo "<a href='edit_vaccination.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Vaccination</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
@@ -316,5 +415,50 @@ function show_error($msg)
     commonNav();
     echo "<div class='error'>$msg</div>";
     echo "</BODY></HTML>";
+}
+
+function generateEnrollmentTable($personID, $conn=null) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $sql = "SELECT * FROM Students WHERE personID=$personID ORDER BY startDate DESC";
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    echo "<a href='edit_enrollment.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Enrollment</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>startDate</th><th>endDate</th><th>School</th><th>Grade</th>";
+    echo "<th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        $facilityID = $table[1];
+        $startDate= $table[2];
+        $endDate = $table[3];
+        $grade = $table[4];
+        $facilityName = getFacilityName($facilityID, $conn);
+        echo "<tr class='tablerow'>";
+        echo "<td>".$startDate."</td>";
+        echo "<td>".$endDate."</td>";
+        echo "<td>".$facilityName."</td>";
+        echo "<td>".$grade."</td>";
+        echo "<td><a href=\"edit_enrollment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=edit\"><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href=\"edit_enrollment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=delete\"><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
 }
 ?>
