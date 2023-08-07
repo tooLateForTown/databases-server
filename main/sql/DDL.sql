@@ -28,7 +28,7 @@ CREATE TABLE Facilities (
 
 
 CREATE TABLE Persons (
-    personID int PRIMARY KEY,
+    personID int PRIMARY KEY AUTO_INCREMENT,
     firstName varchar(100),
     lastName varchar(100),
     dateOfBirth date,

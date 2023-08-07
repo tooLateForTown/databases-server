@@ -32,10 +32,7 @@ if (isset($_POST['commit'])) {
 
         // write a way to assign new Unique  ID to new record
 
-        if ($action == 'add') {
-            $record['personID'] = getNewID($conn, 'Persons', 'personID');
-            
-        }
+        
 
 
 
@@ -74,8 +71,7 @@ if (isset($_POST['commit'])) {
         case 'add':
             $sql = "INSERT INTO Persons (personID, firstName, lastName, address, city, province, citizenship,medicare, phoneNumber, email, isStudent, isEmployee)";
             $sql .= " VALUES(";
-            $sql .= $record['personID'] . ",";
-            $sql .= "'" . mysqli_real_escape_string($conn, $record['firstName']) . "',";
+            $sql .= mysqli_real_escape_string($conn, $record['firstName']) . "',";
             $sql .= "'" . mysqli_real_escape_string($conn, $record['lastName']) . "',";
             $sql .= "'" . mysqli_real_escape_string($conn, $record['address']) . "',";
             $sql .= "'" . mysqli_real_escape_string($conn, $record['city']) . "',";
@@ -101,7 +97,7 @@ if (isset($_POST['commit'])) {
             $sql .= "citizenship='" . mysqli_real_escape_string($conn,$record['citizenship']) . "',";
             $sql .= "isStudent=" . $record['isStudent'] . ",";
             $sql .= "isEmployee=" . $record['isEmployee'];
-            $sql .= " WHERE personID=" . $record['personID'];
+            $sql .= " WHERE personID=" . $_POST['id'];
             break;
         case 'delete':
             $sql = "DELETE FROM Person WHERE personID=" . $_POST['id'];
@@ -147,7 +143,7 @@ if ($action == "view" || $action == "delete") {
 
 // default values for new record
 $mode = $_GET['mode'];
-
+$record['personID'] = -1;
 $record['firstName'] = "";
 $record['lastName'] = "";
 $record['address'] = "";

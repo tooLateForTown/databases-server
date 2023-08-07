@@ -152,14 +152,70 @@ function selectSingleTuple($sql, $conn = null) {
     }
 }
 
-function getNewID($conn, $tableName, $attributName){
-    $sql = "SELECT MAX($attributName) FROM $tableName";
-    $result = mysqli_query($conn, $sql);
-    $rows = mysqli_fetch_all($result);
-    $newID = $rows[0][0] + 1;
-    return $newID;
+// function getNewID($conn, $tableName, $attributName){
+//     $sql = "SELECT MAX($attributName) FROM $tableName";
+//     $result = mysqli_query($conn, $sql);
+//     $rows = mysqli_fetch_all($result);
+//     $newID = $rows[0][0] + 1;
+//     return $newID;
 
+// }
+
+
+//create a function to validate time that it's 24 hour format like 1630, 100, 200
+
+
+
+function validateTime($time) {
+    // Check if the time string is empty
+
+    $time = trim($time);
+
+    if (empty($time)) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the time string contains only digits
+    if (!ctype_digit($time)) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the time string has a length of 3 or 4 characters
+    $length = strlen($time);
+    if ($length < 3 || $length > 4) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the time is within the valid range
+    $timeInt = (int)$time;
+    if ($timeInt < 100 || $timeInt > 2359) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the hours are within the valid range
+    $hours = (int)($timeInt / 100);
+    if ($hours > 23) {
+        echo("false");
+        return false;
+    }
+
+    // Check if the minutes are within the valid range
+    $minutes = $timeInt % 100;
+    if ($minutes > 59) {
+        echo("false");
+        return false;
+        
+    }
+
+    // If all checks passed, the time is valid
+    echo("true");
+    return true;
 }
+
 
 function generateTableFromQuery($sql, $title) {
     //    Example consumer:  'edit_facility.php'
