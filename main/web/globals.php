@@ -58,12 +58,12 @@ function commonNav() {
     echo "</nav>\r\n";
 }
 
-function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare',$isStudent=false, $isEmployee=false) {
+function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare',$isStudent, $isEmployee) {
 
     $conn = createConnection();
 
     try {
-        $result= mysqli_query($conn, $selectSQL);
+        $result = mysqli_query($conn, $selectSQL);
     } catch (mysqli_sql_exception $e) {
         echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
         return;
@@ -81,11 +81,11 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     }
 
 
-    echo "<a href='".$consumer."?id=-1&action=add".$handle_mode."'><i class='material-icons'>add_box</i> Add new record</a>";
+    echo "<a href='" . $consumer . "?id=-1&action=add" . $handle_mode . "'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
-    echo "<tr><th>$col1Name</th><th>$col1Name</th>";
+    echo "<tr><th>$col1Name</th><th>$col2Name</th>";
     if ($col3Index != -1) {
         echo "<th>$col3Name</th>";
     }
@@ -94,14 +94,17 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     echo "<tbody>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
-        echo "<td>".$table[$col1Index]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$col1Index] . "&action=view' .$handle_mode>" . $table[$col2Index] . "</a></td>";
+        echo "<td>" . $table[$col1Index] . "</td>";
+        
+        echo "<td style='text-align:left'><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=view" . $handle_mode . "'>" . $table[$col2Index] . "</a></td>";
+
+    
         if ($col3Index != -1) {
             echo "<td>" . $table[$col3Index] . "</td>";
         }
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=view".$handle_mode."'><i class='material-icons'>visibility</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=edit".$handle_mode."'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=delete".$handle_mode."'><i class='material-icons'>delete</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=view" . $handle_mode . "'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=edit" . $handle_mode . "'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=delete" . $handle_mode . "'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
@@ -149,6 +152,14 @@ function selectSingleTuple($sql, $conn = null) {
     }
 }
 
+function getNewID($conn, $tableName, $attributName){
+    $sql = "SELECT MAX($attributName) FROM $tableName";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    $newID = $rows[0][0] + 1;
+    return $newID;
+
+}
 
 function generateTableFromQuery($sql, $title) {
     //    Example consumer:  'edit_facility.php'
@@ -204,6 +215,24 @@ function listProvinceOptions($selected) {
     echo "<option value='QC' ".($selected=="QC"?"selected='selected'":'').">Quebec</option>\r\n";
     echo "<option value='SK' ".($selected=="SK"?"selected='selected'":'').">Saskatchewan</option>\r\n";
     echo "<option value='YT' ".($selected=="YT"?"selected='selected'":'').">Yukon</option>\r\n";
+}
+
+
+
+function listCitizenshipOptions($selected){
+    echo "<option value='Canadian' ".($selected=="Canadian"?"selected='selected'":'').">Canadian</option>\r\n";
+    echo "<option value='American' ".($selected=="American"?"selected='selected'":'').">American</option>\r\n";
+    echo "<option value='British' ".($selected=="British"?"selected='selected'":'').">British</option>\r\n";
+    echo "<option value='French' ".($selected=="French"?"selected='selected'":'').">French</option>\r\n";
+    echo "<option value='German' ".($selected=="German"?"selected='selected'":'').">German</option>\r\n";
+    echo "<option value='Italian' ".($selected=="Italian"?"selected='selected'":'').">Italian</option>\r\n";
+    echo "<option value='Chinese' ".($selected=="Chinese"?"selected='selected'":'').">Chinese</option>\r\n";
+    echo "<option value='Indian' ".($selected=="Indian"?"selected='selected'":'').">Indian</option>\r\n";
+    echo "<option value='Japanese' ".($selected=="Japanese"?"selected='selected'":'').">Japanese</option>\r\n";
+    echo "<option value='Korean' ".($selected=="Korean"?"selected='selected'":'').">Korean</option>\r\n";
+    echo "<option value='Mexican' ".($selected=="Mexican"?"selected='selected'":'').">Mexican</option>\r\n";
+    echo "<option value='Russian' ".($selected=="Russian"?"selected='selected'":'').">Russian</option>\r\n";
+    echo "<option value='Spanish' ".($selected=="Spanish"?"selected='selected'":'').">Spanish</option>\r\n";
 }
 
 
