@@ -1,4 +1,6 @@
 <?php
+
+    require 'queries.php';
     $servername = "ddc353.encs.concordia.ca";
     $username = "ddc353_1";
     $password = "12pass34";
@@ -14,20 +16,11 @@ function commonHead() {
         echo "\t<link rel='stylesheet' href='style1.css'>\r\n";
         echo "\t<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>\r\n";
     }
-//function commonNav() {
-//    echo "<nav class='navbar navbar-default'>\r\n";
-//    echo "\t<div class='container-fluid'>\r\n";
-//    echo "\t\t<div class='navbar-header'>\r\n";
-//    echo "\t\t\t<a class='navbar-brand' href='#'>EPSTS</a>\r\n";
-//    echo "\t\t</div>\r\n";
-//    echo "\t\t<ul class='nav navbar-nav'>\r\n";
-//    echo "\t\t\t<li class='active'><a href='index.php'>Tables</a></li>\r\n";
-//    echo "\t\t\t<li class='active'><a href='queries.php'>Queries</a></li>\r\n";
-//    echo "\t\t</ul>\r\n";
-//    echo "\t</div>\r\n";
-//    echo "</nav>\r\n";
-//}
+
 function commonNav() {
+
+    global $queries;
+
     echo "<nav class='navbar navbar-inverse'>\r\n";
     echo "\t<div class='container-fluid'>\r\n";
     echo "\t\t<div class='navbar-header'>\r\n";
@@ -40,6 +33,7 @@ function commonNav() {
     echo "\t\t\t\t\t<li><a href='ministries.php'>Ministries</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='facilities.php'>Facilities</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='students.php'>Students</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='employees.php'>Employees</a></li>\r\n";
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n";
     echo "\t\t\t<li class='dropdown'>\r\n";
@@ -52,6 +46,11 @@ function commonNav() {
     echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='queries.php'>Queries<span class='caret'></span></a>\r\n";
     echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
     echo "\t\t\t\t\t<li><a href='run_query.php'>Generic</a></li>\r\n";
+
+    foreach ($queries as $q) {
+        echo "\t\t\t\t\t<li><a href='run_query.php?queryID=".$q->id."'>Query ".$q->id.": " . $q->brief_title."</a></li>\r\n";
+    }
+
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n";
     echo "\t\t</ul>\r\n";
@@ -59,12 +58,12 @@ function commonNav() {
     echo "</nav>\r\n";
 }
 
-function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Records') {
+function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, $col3Index=2, $col1Name='ID', $col2Name='Name', $col3Name='Medicare',$isStudent, $isEmployee) {
 
     $conn = createConnection();
 
     try {
-        $result= mysqli_query($conn, $selectSQL);
+        $result = mysqli_query($conn, $selectSQL);
     } catch (mysqli_sql_exception $e) {
         echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
         return;
@@ -73,11 +72,20 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     mysqli_free_result($result);
     mysqli_close($conn);
 
-    echo "<a href='".$consumer."?id=-1&action=add'><i class='material-icons'>add_box</i> Add new record</a>";
+    $handle_mode = "";
+    if ($isStudent) {
+        $handle_mode = "&mode=student";
+    }
+    if ($isEmployee) {
+        $handle_mode = "&mode=employee";
+    }
+
+
+    echo "<a href='" . $consumer . "?id=-1&action=add" . $handle_mode . "'><i class='material-icons'>add_box</i> Add new record</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
-    echo "<tr><th>$col1Name</th><th>$col1Name</th>";
+    echo "<tr><th>$col1Name</th><th>$col2Name</th>";
     if ($col3Index != -1) {
         echo "<th>$col3Name</th>";
     }
@@ -86,19 +94,23 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     echo "<tbody>";
     foreach ($tables as $table) {
         echo "<tr class='tablerow'>";
-        echo "<td>".$table[$col1Index]."</td>";
-        echo "<td style='text-align:left'><a href='" .$consumer."?id=" . $table[$col1Index] . "&action=view'>" . $table[$col2Index] . "</a></td>";
+        echo "<td>" . $table[$col1Index] . "</td>";
+        
+        echo "<td style='text-align:left'><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=view" . $handle_mode . "'>" . $table[$col2Index] . "</a></td>";
+
+    
         if ($col3Index != -1) {
             echo "<td>" . $table[$col3Index] . "</td>";
         }
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=view'><i class='material-icons'>visibility</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=edit'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='".$consumer."?id=" . $table[$col1Index] . "&action=delete'><i class='material-icons'>delete</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=view" . $handle_mode . "'><i class='material-icons'>visibility</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=edit" . $handle_mode . "'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='" . $consumer . "?id=" . $table[$col1Index] . "&action=delete" . $handle_mode . "'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
     echo "</table>";
 }
+//}
 
 function createConnection() {
     // Create connection
@@ -140,6 +152,14 @@ function selectSingleTuple($sql, $conn = null) {
     }
 }
 
+function getNewID($conn, $tableName, $attributName){
+    $sql = "SELECT MAX($attributName) FROM $tableName";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    $newID = $rows[0][0] + 1;
+    return $newID;
+
+}
 
 function generateTableFromQuery($sql, $title) {
     //    Example consumer:  'edit_facility.php'
@@ -198,6 +218,24 @@ function listProvinceOptions($selected) {
 }
 
 
+
+function listCitizenshipOptions($selected){
+    echo "<option value='Canadian' ".($selected=="Canadian"?"selected='selected'":'').">Canadian</option>\r\n";
+    echo "<option value='American' ".($selected=="American"?"selected='selected'":'').">American</option>\r\n";
+    echo "<option value='British' ".($selected=="British"?"selected='selected'":'').">British</option>\r\n";
+    echo "<option value='French' ".($selected=="French"?"selected='selected'":'').">French</option>\r\n";
+    echo "<option value='German' ".($selected=="German"?"selected='selected'":'').">German</option>\r\n";
+    echo "<option value='Italian' ".($selected=="Italian"?"selected='selected'":'').">Italian</option>\r\n";
+    echo "<option value='Chinese' ".($selected=="Chinese"?"selected='selected'":'').">Chinese</option>\r\n";
+    echo "<option value='Indian' ".($selected=="Indian"?"selected='selected'":'').">Indian</option>\r\n";
+    echo "<option value='Japanese' ".($selected=="Japanese"?"selected='selected'":'').">Japanese</option>\r\n";
+    echo "<option value='Korean' ".($selected=="Korean"?"selected='selected'":'').">Korean</option>\r\n";
+    echo "<option value='Mexican' ".($selected=="Mexican"?"selected='selected'":'').">Mexican</option>\r\n";
+    echo "<option value='Russian' ".($selected=="Russian"?"selected='selected'":'').">Russian</option>\r\n";
+    echo "<option value='Spanish' ".($selected=="Spanish"?"selected='selected'":'').">Spanish</option>\r\n";
+}
+
+
 function listMinistryOptions($selected, $conn) {
     $sql = "SELECT ministryID,name FROM Ministries";
     $result = mysqli_query($conn, $sql);
@@ -207,6 +245,14 @@ function listMinistryOptions($selected, $conn) {
     }
 }
 
+function listFacilityOptions($selected, $conn) {
+    $sql = "SELECT FacilityID, name FROM Facilities";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
 function listPersonOptions($selected, $conn) {
     $sql = "SELECT personID,CONCAT(firstName,' ', lastName) FROM Persons";
     $result = mysqli_query($conn, $sql);
@@ -291,44 +337,13 @@ function generateVaccinationsTable($personID, $conn=null) {
     echo "</table>";
 }
 
-//function generateInfectionsTable($personID, $conn=null) {
-//    $closeconn = false;
-//    if ($conn == null) {
-//        $conn = createConnection();
-//        $closeconn=true;
-//    }
-//    $sql="SELECT date,InfectionTypes.name as type, dose FROM Infections, InfectionTypes WHERE Infections.InfectypeTypeID=InfectioTypes.InfectionTypeID AND personID=$personID ORDER BY date DESC";
-//    try {
-//        $result= mysqli_query($conn, $sql);
-//    } catch (mysqli_sql_exception $e) {
-//        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
-//        return;
-//    }
-//    $tables = mysqli_fetch_all($result);
-//    mysqli_free_result($result);
-//    if ($closeconn) {
-//        mysqli_close($conn);
-//    }
-//
-//
-//    echo "<a href='edit_vaccination.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Vaccination</a>";
-//    echo "<br/><br/>";
-//    echo "<table class='table table-bordered table-hover table-sm'>";
-//    echo "<thead>";
-//    echo "<tr><th>Date</th><th>Type</th><th>Dose</th>";
-//    echo "<th>Edit</th><th>Delete</th></tr>";
-//    echo "</thead>";
-//    echo "<tbody>";
-//    foreach ($tables as $table) {
-//        echo "<tr class='tablerow'>";
-//        echo "<td>".$table[0]."</td>";
-//        echo "<td>".$table[1]."</td>";
-//        echo "<td>".$table[2]."</td>";
-//        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=edit'><i class='material-icons'>edit</i></a></td>";
-//        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=delete'><i class='material-icons'>delete</i></a></td>";
-//        echo "</tr>\r\n";
-//    }
-//    echo "</tbody>";
-//    echo "</table>";
-//}
+function show_error($msg)
+{
+    echo "<HTML><HEAD>";
+    commonHead();
+    echo "</HEAD><BODY>";
+    commonNav();
+    echo "<div class='error'>$msg</div>";
+    echo "</BODY></HTML>";
+}
 ?>

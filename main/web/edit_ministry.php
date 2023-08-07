@@ -17,7 +17,7 @@ if (isset($_POST['commit'])) {
         // ** PART 2: VALIDATE DATA
 
         if ($record['name'] == null || $record['name'] == "") {
-            print("<div class='error'>Name must be set</div>");
+            show_error('Name must be set');
             exit();
         }
 
