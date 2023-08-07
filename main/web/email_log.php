@@ -146,6 +146,7 @@ Emails
 JOIN Facilities ON Emails.senderID = Facilities.facilityID
 JOIN Employees ON Emails.receiver = Employees.personID
 JOIN Persons ON Employees.personID = Persons.personID;
+ORDER BY Emails.emailDate ASC
 ";
     generateMasterTableEmail($sql);
 ?> 
