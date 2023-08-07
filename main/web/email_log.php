@@ -16,13 +16,14 @@
 date_default_timezone_set('America/Montreal');
 
 // Check if today is Sunday
-if (date('w') == 1) {
+
     // Connect to the database
     $conn = createConnection();
 
-    // Get the start and end dates for the coming week
-    $startDate = date('Y-m-d', strtotime('next Monday'));
-    $endDate = date('Y-m-d', strtotime('next Sunday'));
+    // Get the start today and end dates one week from now 
+    $startDate = date('Y-m-d');
+    $endDate = date('Y-m-d', strtotime('+1 week'));
+    
 
     // Get all employees and their facilities
     $employees = mysqli_query($conn, "
@@ -127,7 +128,7 @@ if (date('w') == 1) {
     // Close the database connection
     mysqli_close($conn);
 
-}
+    echo "<div class='success'>Emails generated successfully!</div>";
 
 ?>
 
