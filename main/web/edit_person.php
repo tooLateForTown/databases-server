@@ -325,7 +325,11 @@ if ($action != 'add') {
     </form>
 
     <?php if ($action =='view') {
-        generateVaccinationsTable($record['personID']);
+        generateVaccinationsTable($record['personID'],$conn);
+        if ($_GET['mode'] == "student") {
+            generateEnrollmentTable($record['personID'],$conn);
+        }
+
     }
     ?>
 
