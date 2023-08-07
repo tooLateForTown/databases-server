@@ -14,7 +14,7 @@ JOIN
 JOIN
     Facilities f ON e.facilityID = f.facilityID
 WHERE
-    I.infectionTypeID = 1
+    i.infectionTypeID = 1
     AND i.date >= DATE_SUB(CURDATE(), INTERVAL 2 WEEK)
 
 ORDER BY
