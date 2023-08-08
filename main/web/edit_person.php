@@ -97,10 +97,10 @@ if (isset($_POST['commit'])) {
             $sql .= "citizenship='" . mysqli_real_escape_string($conn,$record['citizenship']) . "',";
             $sql .= "isStudent=" . $record['isStudent'] . ",";
             $sql .= "isEmployee=" . $record['isEmployee'];
-            $sql .= " WHERE personID=" . $_POST['id'];
+            $sql .= " WHERE personID=" . $_POST['personID'];
             break;
         case 'delete':
-            $sql = "DELETE FROM Person WHERE personID=" . $_POST['id'];
+            $sql = "DELETE FROM Persons WHERE personID=" . $_POST['personID'];
             break;
         case 'view':
             break; // nothing to do
@@ -320,9 +320,13 @@ if ($action != 'add') {
     <?php if ($action =='view') {
         generateVaccinationsTable($record['personID'],$conn, $_GET['mode']);
         generateInfectionTable($record['personID'],$conn, $_GET['mode']);
-        if ($_GET['mode'] == "student") {
+        if ($_GET['mode'] == "student")
             generateEnrollmentTable($record['personID'],$conn);
+        if ($_GET['mode'] == "employee") {
+            generateEmploymentTable($record['personID'], $conn);
+            generateScheduleTable($record['personID'], $conn);
         }
+
 
     }
     ?>

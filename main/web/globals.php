@@ -34,20 +34,19 @@ function commonNav() {
     echo "\t\t\t\t\t<li><a href='facilities.php'>Facilities</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='students.php'>Students</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='employees.php'>Employees</a></li>\r\n";
-    echo "\t\t\t\t\t<li><a href='emails.php'>Emails Generation</a></li>\r\n";
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n"; 
     echo "\t\t\t<li class='dropdown'>\r\n";
-    echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Health<span class='caret'></span></a>\r\n";
+    echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Emails<span class='caret'></span></a>\r\n";
     echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
-    echo "\t\t\t\t\t<li><a href='vaccinations.php'>Vaccinations</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='emails.php'>Weekly Report</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='emails_view.php'>Email Log</a></li>\r\n";
     echo "\t\t\t\t</ul>\r\n";
     echo "\t\t\t</li>\r\n";
     echo "\t\t\t<li class='dropdown'>\r\n";
     echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='queries.php'>Queries<span class='caret'></span></a>\r\n";
     echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
     echo "\t\t\t\t\t<li><a href='run_query.php'>Generic</a></li>\r\n";
-
 
     foreach ($queries as $q) {
         echo "\t\t\t\t\t<li><a href='run_query.php?queryID=".$q->id."'>Query ".$q->id.": " . $q->brief_title."</a></li>\r\n";
@@ -129,7 +128,7 @@ function generateMasterTableEmail($selectSQL){
         mysqli_free_result($result);
         mysqli_close($conn);
 
-        echo "<a href='emails.php'>Generate Email</a>";
+//        echo "<a href='emails.php'>Generate Email</a>";
         echo "<br/><br/>";
         echo "<table class='table table-bordered table-hover table-sm'>";
         echo "<thead>";
@@ -395,6 +394,15 @@ function listInfectionTypeOptions($selected, $conn) {
         echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
     }
 }
+function listEmploymentRoleOptions($selected, $conn) {
+    $sql = "SELECT employmentRoleID, title FROM EmploymentRoles";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    echo "<option value='-1' ".($selected==null?"selected='selected'":'').">None</option>\r\n";
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
 
 function getPersonName($personID, $conn) {
     $sql = "SELECT CONCAT(firstName,' ', lastName) FROM Persons WHERE personID=".$personID;
@@ -565,5 +573,128 @@ function generateInfectionTable($personID, $conn=null, $returnmode= null) {
     }
     echo "</tbody>";
     echo "</table>";
+}
+
+function generateScheduleTable($personID, $conn=null) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $sql = "SELECT workDate, facilityID, startTime, endTime, name  FROM Schedule NATURAL JOIN Facilities WHERE personID=$personID ORDER BY workDate DESC, startTime";
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    echo "<h3>Schedule</h3>";
+    echo "<a href='edit_schedule.php?personID=$personID&action=add'><i class='material-icons'>add_box</i>Add Schedule</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>Facility</th><th>workDate</th><th>startTime</th><th>endTime</th>";
+    echo "<th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        $workDate=$table[0];
+        $facilityID = $table[1];
+        $startTime= $table[2];
+        $endTime = $table[3];
+        $facilityName = $table[4];
+        echo "<tr class='tablerow'>";
+        echo "<td>".$facilityName."</td>";
+        echo "<td>".$workDate."</td>";
+        echo "<td>".$startTime."</td>";
+        echo "<td>".$endTime."</td>";
+        echo "<td><a href=\"edit_schedule.php?personID=$personID&workDate=".$workDate."&facilityID=$facilityID&startTime=$startTime\"><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href=\"edit_schedule.php?personID=$personID&workDate=".$workDate."&facilityID=$facilityID&startTime=$startTime&action=delete\"><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
+}
+
+function generateEmploymentTable($personID, $conn=null) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $sql = "SELECT facilityID, startDate, endDate,name,primaryEmploymentRoleID, secondaryEmploymentRoleID, tertiaryEmploymentRoleID  FROM Employees NATURAL JOIN Facilities WHERE personID=$personID ORDER BY startDate DESC";
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+
+    // Load Employment Roles
+    $sql = "SELECT * FROM EmploymentRoles";
+    $result= mysqli_query($conn, $sql);
+    $roles = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+
+
+
+    echo "<h3>Employed At</h3>";
+    echo "<a href='edit_employment.php?personID=$personID&action=add'><i class='material-icons'>add_box</i>Add Employment record</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>Facility</th><th>startDate</th><th>endDate</th><th>Roles</th>";
+    echo "<th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        $facilityID = $table[0];
+        $startDate=$table[1];
+        $endDate = $table[2];
+        $facilityName = $table[3];
+        $role1 = $table[4];
+        $role2 = $table[5];
+        $role3 = $table[6];
+
+        $roletotal = "";
+        foreach ($roles as $role)
+            if ($role[0]==$role1)
+                $roletotal = $roletotal . $role[1] . ", ";
+        foreach ($roles as $role)
+            if ($role[0]==$role2)
+                $roletotal = $roletotal . $role[1] . ", ";
+        foreach ($roles as $role)
+            if ($role[0]==$role3)
+                $roletotal = $roletotal . $role[1] . ", ";
+
+        echo "<tr class='tablerow'>";
+        echo "<td>".$facilityName."</td>";
+        echo "<td>".$startDate."</td>";
+        echo "<td>".$endDate."</td>";
+        echo "<td>".$roletotal."</td>";
+        echo "<td><a href=\"edit_employment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=edit\"><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href=\"edit_employment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=delete\"><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
+}
+
+function nullOrValue($val) {
+    if ($val == null)
+        return "NULL";
+    else
+        return $val;
 }
 ?>

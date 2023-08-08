@@ -8,9 +8,9 @@
 <body>
 <?php commonNav(); ?>
 <main>
-<h1>Email Generation</h1>
+<h1>Email Weekly Schedule</h1>
 <button>
-    <a href="email_log.php">Generate Email</a>
+    <a href="email_log.php">Generate Emails</a>
 </button>
 </main>
 </body>
