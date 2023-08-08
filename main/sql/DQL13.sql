@@ -3,8 +3,8 @@ SELECT
     Persons.firstName,
     Persons.lastName,
     CASE
-        WHEN EmploymentRoles.title = 'Elementary Teacher' THEN 'Elementary'
-        WHEN EmploymentRoles.title = 'Secondary Teacher' THEN 'Secondary'
+        WHEN EmploymentRoles.employmentRoleID = 11 THEN 'Elementary'
+        WHEN EmploymentRoles.employmentRoleID = 12 THEN 'Secondary'
         ELSE 'Other'
     END AS role
 FROM
