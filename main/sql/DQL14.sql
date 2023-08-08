@@ -1,7 +1,8 @@
 SELECT 
     Persons.firstName, 
     Persons.lastName, 
-    SUM(TIMESTAMPDIFF(HOUR, Schedule.startTime, Schedule.endTime)) AS totalHours
+   SUM(TIMESTAMPDIFF(HOUR, MAKETIME(Schedule.startTime DIV 100, Schedule.startTime MOD 100, 0), 
+   MAKETIME(Schedule.endTime DIV 100, Schedule.endTime MOD 100, 0))) AS totalHours
 FROM 
     Schedule
     JOIN Employees ON Schedule.personID = Employees.personID AND Schedule.facilityID = Employees.facilityID
