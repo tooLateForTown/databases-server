@@ -125,7 +125,7 @@ $queries[] = $q;
 $q = new Query();
 $q->id = 13;
 $q->sql="SELECT
-Persons.firstName,
+DISTINCT Persons.firstName,
 Persons.lastName,
 CASE
     WHEN EmploymentRoles.title = 'Elementary Teacher' THEN 'Elementary'
@@ -138,7 +138,7 @@ JOIN Employees ON Schedule.personID = Employees.personID AND Schedule.facilityID
 JOIN Persons ON Employees.personID = Persons.personID
 JOIN EmploymentRoles ON Employees.primaryEmploymentRoleID = EmploymentRoles.employmentRoleID
 WHERE
-Schedule.facilityID = :facilityID AND #input facilityID
+Schedule.facilityID = 79 AND #input facilityID
 Schedule.workDate BETWEEN DATE_SUB(NOW(), INTERVAL 2 WEEK) AND NOW()
 ORDER BY
 role ASC,
@@ -162,8 +162,8 @@ Schedule
 JOIN Employees ON Schedule.personID = Employees.personID AND Schedule.facilityID = Employees.facilityID
 JOIN Persons ON Employees.personID = Persons.personID
 WHERE 
-Schedule.facilityID = :facilityID AND #input facilityID
-Schedule.workDate BETWEEN :startDate AND :endDate # input startDate and endDate
+Schedule.facilityID = 3 AND #input facilityID
+Schedule.workDate BETWEEN '2018-01-01' AND '2023-08-08' # input startDate and endDate
 GROUP BY 
 Persons.firstName,
 Persons.lastName
