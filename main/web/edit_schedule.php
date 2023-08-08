@@ -7,6 +7,8 @@ $action = null; // view, delete, add, edit, commit
 
 // ********   HANDLE SUBMIT FORM HERE ***  ******
 if (isset($_POST['commit'])) {
+    print('Commit');
+    print_r($_POST);
     $action = $_POST['commit'];
     if ($action == 'add' || $action == 'edit') {
         // PART 1 AND 2 ONLY RUN IF ADDING OR EDITING
