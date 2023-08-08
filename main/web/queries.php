@@ -216,8 +216,9 @@ JOIN Persons P ON E.personID = P.personID
 WHERE E.primaryEmploymentRoleID = 1
 GROUP BY M.ministryID, P.firstName, P.lastName, P.city
 ORDER BY P.city ASC, TotalEducationalFacilities DESC;";
-$q->title = "Number of infections in schools in the last 2 weeks";
-$q->brief_title = "Infections in schools";
+$q->title = "Total number of educational facilities that the minister is
+currently administering.";
+$q->brief_title = "Adminstering Number of Ministries";
 $queries[] = $q;
 
 # *** Query 17
