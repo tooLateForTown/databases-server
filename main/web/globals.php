@@ -34,8 +34,9 @@ function commonNav() {
     echo "\t\t\t\t\t<li><a href='facilities.php'>Facilities</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='students.php'>Students</a></li>\r\n";
     echo "\t\t\t\t\t<li><a href='employees.php'>Employees</a></li>\r\n";
+    echo "\t\t\t\t\t<li><a href='emails.php'>Emails Generation</a></li>\r\n";
     echo "\t\t\t\t</ul>\r\n";
-    echo "\t\t\t</li>\r\n";
+    echo "\t\t\t</li>\r\n"; 
     echo "\t\t\t<li class='dropdown'>\r\n";
     echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Health<span class='caret'></span></a>\r\n";
     echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
@@ -46,6 +47,7 @@ function commonNav() {
     echo "\t\t\t\t<a class='dropdown-toggle' data-toggle='dropdown' href='queries.php'>Queries<span class='caret'></span></a>\r\n";
     echo "\t\t\t\t<ul class='dropdown-menu'>\r\n";
     echo "\t\t\t\t\t<li><a href='run_query.php'>Generic</a></li>\r\n";
+
 
     foreach ($queries as $q) {
         echo "\t\t\t\t\t<li><a href='run_query.php?queryID=".$q->id."'>Query ".$q->id.": " . $q->brief_title."</a></li>\r\n";
@@ -110,7 +112,55 @@ function generateMasterTable($selectSQL, $consumer, $col1Index=0, $col2Index=1, 
     echo "</tbody>";
     echo "</table>";
 }
-//}
+
+function generateMasterTableEmail($selectSQL){
+    
+
+        $conn = createConnection();
+    
+        try {
+            $result = mysqli_query($conn, $selectSQL);
+        } catch (mysqli_sql_exception $e) {
+
+            echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+            return;
+        }
+        $tables = mysqli_fetch_all($result);
+        mysqli_free_result($result);
+        mysqli_close($conn);
+
+        echo "<a href='emails.php'>Generate Email</a>";
+        echo "<br/><br/>";
+        echo "<table class='table table-bordered table-hover table-sm'>";
+        echo "<thead>";
+        echo "<tr><th>Email ID</th><th>Email Date</th>";
+        echo "<th>Sender</th>";
+        echo "<th>Reciever</th><th>Subject</th>";
+        echo "<th>Body</th>";
+        echo "</thead>";
+
+    
+        foreach ($tables as $table) {
+            echo "<tr class='tablerow'>";
+            echo "<td>" . $table[0] . "</td>";
+            echo "<td>" . $table[1] . "</td>";
+            echo "<td>" . $table[2] . "</td>";
+            echo "<td>" . $table[3] . "</td>";
+            echo "<td>" . $table[4] . "</td>";
+            echo "<td>" . $table[5] . "</td>";
+            
+    
+    
+        
+           
+            echo "</tr>\r\n";
+        }
+        echo "</tbody>";
+        echo "</table>";
+    
+    
+}
+
 
 function createConnection() {
     // Create connection
@@ -152,14 +202,15 @@ function selectSingleTuple($sql, $conn = null) {
     }
 }
 
-// function getNewID($conn, $tableName, $attributName){
-//     $sql = "SELECT MAX($attributName) FROM $tableName";
-//     $result = mysqli_query($conn, $sql);
-//     $rows = mysqli_fetch_all($result);
-//     $newID = $rows[0][0] + 1;
-//     return $newID;
-
-// }
+//create a function to generate new email ID
+function generateEmailID($conn){
+    $sql = "SELECT MAX(emailID) AS maxID FROM Emails";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $maxID = $row['maxID'];
+    $newID = $maxID + 1;
+    return $newID;
+}
 
 
 //create a function to validate time that it's 24 hour format like 1630, 100, 200
