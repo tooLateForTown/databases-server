@@ -213,57 +213,75 @@ function generateEmailID($conn){
 
 
 //create a function to validate time that it's 24 hour format like 1630, 100, 200
-
-
-
 function validateTime($time) {
     // Check if the time string is empty
-
     $time = trim($time);
-
     if (empty($time)) {
-        echo("false");
         return false;
     }
-
     // Check if the time string contains only digits
     if (!ctype_digit($time)) {
-        echo("false");
         return false;
     }
-
     // Check if the time string has a length of 3 or 4 characters
     $length = strlen($time);
-    if ($length < 3 || $length > 4) {
-        echo("false");
+    if ($length < 1 || $length > 4) {
         return false;
     }
-
     // Check if the time is within the valid range
     $timeInt = (int)$time;
-    if ($timeInt < 100 || $timeInt > 2359) {
-        echo("false");
+    if ($timeInt < 0 || $timeInt > 2359) {
         return false;
     }
-
     // Check if the hours are within the valid range
     $hours = (int)($timeInt / 100);
     if ($hours > 23) {
-        echo("false");
+//        echo("false");
         return false;
     }
-
     // Check if the minutes are within the valid range
     $minutes = $timeInt % 100;
     if ($minutes > 59) {
-        echo("false");
         return false;
-        
+    }
+    // If all checks passed, the time is valid
+    return true;
+}
+
+function validateNoTimeOverlap($time1Start,$time1End,$time2Start,$time2End) {
+    if ($time1Start >= $time2Start && $time1Start <= $time2End)
+        return false;
+    if ($time1End >= $time2Start && $time1End <= $time2End)
+        return false;
+    if ($time2Start >= $time1Start && $time2Start <= $time1End)
+        return false;
+    if ($time2End >= $time1Start && $time2End <= $time1End)
+        return false;
+    return true;
+}
+
+function timeIntToString($time) {
+    if ($time == null) {
+        return '';
+    }
+    $time = (int)$time;
+    $hours = (int)($time / 100);
+    $minutes = $time % 100;
+    $hours = str_pad($hours, 2, '0', STR_PAD_LEFT);
+    $minutes = str_pad($minutes, 2, '0', STR_PAD_LEFT);
+    return $hours . ':' . $minutes;
+}
+
+function timeStringToInt($time) {
+    if ($time == null) {
+        return null;
+    }
+    $time = str_replace(':', '', $time);
+    if (!ctype_digit($time)) {
+        return 'Invalid time format';
     }
 
-    // If all checks passed, the time is valid
-    echo("true");
-    return true;
+    return (int)$time;
 }
 
 
@@ -353,6 +371,14 @@ function listMinistryOptions($selected, $conn) {
 
 function listFacilityOptions($selected, $conn) {
     $sql = "SELECT FacilityID, name FROM Facilities";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
+function listFacilityWhereWorkingOptions($selected, $conn, $personID) {
+    $sql = "SELECT FacilityID, name FROM Facilities NATURAL JOIN Employees WHERE endDate IS NULL AND personID=".$personID;
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_fetch_all($result);
     foreach ($rows as $row) {
@@ -611,9 +637,9 @@ function generateScheduleTable($personID, $conn=null) {
         echo "<tr class='tablerow'>";
         echo "<td>".$facilityName."</td>";
         echo "<td>".$workDate."</td>";
-        echo "<td>".$startTime."</td>";
-        echo "<td>".$endTime."</td>";
-        echo "<td><a href=\"edit_schedule.php?personID=$personID&workDate=".$workDate."&facilityID=$facilityID&startTime=$startTime\"><i class='material-icons'>edit</i></a></td>";
+        echo "<td>".timeIntToString($startTime)."</td>";
+        echo "<td>".timeIntToString($endTime)."</td>";
+        echo "<td><a href=\"edit_schedule.php?personID=$personID&workDate=".$workDate."&facilityID=$facilityID&startTime=$startTime&action=edit\"><i class='material-icons'>edit</i></a></td>";
         echo "<td><a href=\"edit_schedule.php?personID=$personID&workDate=".$workDate."&facilityID=$facilityID&startTime=$startTime&action=delete\"><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
