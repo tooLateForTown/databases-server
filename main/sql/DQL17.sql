@@ -1,4 +1,4 @@
-# Question 17
+# Question 17 - Fahad
 SELECT P.firstName,
        P.lastName,
        E.startDate AS FirstDayOfWork,
