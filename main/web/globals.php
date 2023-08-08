@@ -201,6 +201,21 @@ function selectSingleTuple($sql, $conn = null) {
     }
 }
 
+function executeQueryAndReturnTable($sql, $conn) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    return $rows;
+}
+
 //create a function to generate new email ID
 function generateEmailID($conn){
     $sql = "SELECT MAX(emailID) AS maxID FROM Emails";
@@ -723,4 +738,6 @@ function nullOrValue($val) {
     else
         return $val;
 }
+
+
 ?>

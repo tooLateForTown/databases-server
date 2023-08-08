@@ -17,15 +17,10 @@ if (isset($_POST['commit'])) {
         $record['startTime'] = timeStringToInt($_POST['startTime']);
         $record['endTime'] = timeStringToInt($_POST['endTime']);
     } // end of ADD or EDIT
-//    if ($action == 'delete') {
-//        $record['personID'] = $_POST['personID'];
-//        $record['sDate'] = $_POST['originalStartDate'];
-//        $record['facilityID'] = $_POST['originalFacilityID'];
-//        $record['endDate'] = $_POST['originalEndDate'];
-//    }
+
 
 //    ** PART 2:  Validation */
-    if ($action=='add' || $action =='edit' ) {
+    if ($action == 'add' || $action == 'edit') {
         if (validateTime($record['startTime']) == false) {
             show_error("Start time invalid.  Must be between 00:00 and 23:59");
             exit();
@@ -39,28 +34,81 @@ if (isset($_POST['commit'])) {
             exit();
         }
 
-        //todo validate no conflict with any other schedules
+        // check to see the time range is within the employee's employment record
+        $sql = "SELECT startDate, endDate FROM Employees WHERE personID=" . $record['personID'] . " AND facilityID=" . $record['facilityID'];
+        $employment_records = executeQueryAndReturnTable($sql, $conn);
+        if ($employment_records == null) {
+            show_error("Employee is not employed at this facility");
+            exit();
+        }
+        $valid = false;
+        foreach ($employment_records as $rec) {
+            if ($record['workDate'] >= $rec[0]) {
+                if ($rec[1] == null) {
+                    $valid = true;
+                } else if ($record['workDate'] <= $rec[1]) {
+                    $valid = true;
+                }
+            }
+        }
+        if (!$valid) {
+            show_error("Employee is not employed at this facility on this date");
+            exit();
+        }
+
+        // check for overlap with other schedules for this person on this date
+        $sql = "SELECT facilityID, startTime, endTime FROM Schedule WHERE personID=" . $record['personID'] . " AND workDate='" . $record['workDate'] . "'";
+        $otherSchedules = executeQueryAndReturnTable($sql, $conn);
+        $hour_gap_valid = true;
+        foreach ($otherSchedules as $sch) {
+            $facilityID = $sch[0];
+            $startTime = $sch[1];
+            $endTime = $sch[2];
+            if ($facilityID == $record['facilityID'] && $startTime == $_POST['originalStartTime']) {
+                continue;  // we hit the record we are editing, so skip it
+            }
+            if (!validateNoTimeOverlap($record['startTime'], $record['endTime'], $startTime, $endTime)) {
+                show_error("Schedule conflicts with another schedule for this person on this date");
+                exit();
+            }
+            if ($record['startTime'] - $endTime < 100) {
+                $hour_gap_valid = false;
+            }
+        }
+        if (!$hour_gap_valid) {
+            show_error("Schedule must be at least 1 hour after the end of any previous schedule");
+            exit();
+        }
+        // check that workDate is not more than 4 weeks from today
+        $today = date("Y-m-d");
+        $fourWeeks = date("Y-m-d", strtotime("+4 weeks"));
+        if ($record['workDate'] > $fourWeeks) {
+            show_error("Cannot schedule more than 4 weeks in advance");
+            exit();
+        }
+
+        // check to see that the employee was not infected in the last two weeks
+        $sql = "SELECT MAX(date) as last FROM Infections WHERE personID=" . $record['personID'] . " AND date > DATE_SUB(NOW(), INTERVAL 2 WEEK)";
+        $last_infection = selectSingleTuple($sql, $conn);
+        if ($last_infection['last'] != null) {
+            $two_weeks_later = date('Y-m-d', strtotime($last_infection['last'] . ' + 14 days'));
+            if ($record['workDate'] <= $two_weeks_later) {
+                show_error("Cannot schedule. Employee has been infected in the two weeks prior to this date.");
+                exit();
+            }
+        }
+
+
+        // check to see that the employee has received a vacccine in the last 6 months
+        $sql = "SELECT * FROM Vaccines WHERE personID=" . $record['personID'] . " AND date > DATE_SUB('".$record['workDate'] ."', INTERVAL 6 MONTH)";
+        $vaccines = executeQueryAndReturnTable($sql, $conn);
+        if ($vaccines == null) {
+            show_error("Cannot schedule. Employee has not received a vaccine in 6 months prior to the new schedule date.  Nasty stuff going around.");
+            exit();
+        }
+        exit();
 
     }
-
-//    if ($action != 'delete') {
-//        if ($record['primaryEmploymentRoleID'] == null) {
-//            show_error("Primary role must be set");
-//            exit();
-//        }
-//        if ($record['secondaryEmploymentRoleID'] == null && $record['tertiaryEmploymentRoleID'] != null) {
-//            show_error("Secondary role must be set before tertiary role");
-//            exit();
-//        }
-//    }
-//
-//    if ($action=='add' || $action=='edit') {
-//        if ($record['startDate'] == null || $record['startDate'] == "") {
-//            show_error("Start date must be set");
-//            exit();
-//        }
-//    }
-
 
 
     // ** PART 3: CHECKS PASSED.  COMMIT
@@ -80,13 +128,13 @@ if (isset($_POST['commit'])) {
         case 'edit':
             $sql = "UPDATE Schedule SET ";
             $sql .= "workDate='" . $record['workDate'] . "',";
-            $sql .= "facilityID=" . $record['facilityID'].",";
-            $sql .= "startTime=" . $record['startTime'].",";
+            $sql .= "facilityID=" . $record['facilityID'] . ",";
+            $sql .= "startTime=" . $record['startTime'] . ",";
             $sql .= "endTime=" . $record['endTime'];
-            $sql .= " WHERE personID=" . $record['personID'] . " AND workDate='" . $_POST['originalWorkDate'] . "' AND facilityID=". $_POST['originalFacilityID']." AND startTime=".$_POST['originalStartTime'].";";
+            $sql .= " WHERE personID=" . $record['personID'] . " AND workDate='" . $_POST['originalWorkDate'] . "' AND facilityID=" . $_POST['originalFacilityID'] . " AND startTime=" . $_POST['originalStartTime'] . ";";
             break;
         case 'delete':
-            $sql = "DELETE FROM Schedule WHERE personID=" . $_POST['personID'] . " AND workDate='" . $_POST['originalWorkDate'] . "' AND facilityID=". $_POST['originalFacilityID']." AND startTime=".$_POST['originalStartTime'].";";
+            $sql = "DELETE FROM Schedule WHERE personID=" . $_POST['personID'] . " AND workDate='" . $_POST['originalWorkDate'] . "' AND facilityID=" . $_POST['originalFacilityID'] . " AND startTime=" . $_POST['originalStartTime'] . ";";
             break;
         case 'view':
             break; // nothing to do
@@ -95,7 +143,7 @@ if (isset($_POST['commit'])) {
 
     $success = commit($sql, $conn);
     if ($success) {
-        header("Location: edit_person.php?id=".$_POST['personID']."&action=view&mode=employee"); // jump away.  Cannot have any html before header command.
+        header("Location: edit_person.php?id=" . $_POST['personID'] . "&action=view&mode=employee"); // jump away.  Cannot have any html before header command.
     }
     // Commit FAILED!
     echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
@@ -127,13 +175,13 @@ if ($action == "view" || $action == "delete") {
 $record['personID'] = $_GET['personID'];
 $record['workDate'] = date('Y-m-d'); // current date
 $record['facilityID'] = null;
-$record['startTime']=900;
-$record['endTime']=1700;
+$record['startTime'] = 900;
+$record['endTime'] = 1700;
 $personname = getPersonName($record['personID'], $conn);
 
 
 if ($action != 'add') {
-    $row = selectSingleTuple("SELECT * FROM Schedule WHERE personID=" . $_GET['personID'] . " AND facilityID=" . $_GET['facilityID'] . " AND workDate='" . $_GET['workDate'] . "' AND startTime=".$_GET['startTime'].";", $conn);
+    $row = selectSingleTuple("SELECT * FROM Schedule WHERE personID=" . $_GET['personID'] . " AND facilityID=" . $_GET['facilityID'] . " AND workDate='" . $_GET['workDate'] . "' AND startTime=" . $_GET['startTime'] . ";", $conn);
     $record['personID'] = $row['personID'];
     $record['workDate'] = $row['workDate'];
     $record['facilityID'] = $row['facilityID'];
@@ -173,7 +221,7 @@ if ($action != 'add') {
             <tr>
                 <td><label for="facilityID">Facility</label></td>
                 <td><select name="facilityID" id="facilityID" <?= $readonly ?> >
-                        <?php listFacilityWhereWorkingOptions($record['facilityID'], $conn,$_GET['personID']); ?>
+                        <?php listFacilityWhereWorkingOptions($record['facilityID'], $conn, $_GET['personID']); ?>
                     </select>
                 </td>
             </tr>
@@ -186,13 +234,16 @@ if ($action != 'add') {
 
             <tr>
                 <td><label for="startTime">Start Time</label></td>
-                <td><input type="text" name="startTime" minlength="5" maxlength="5" <?= $readonly ?> value="<?= timeIntToString($record['startTime']) ?? '' ?>"> HH:MM</td>
+                <td><input type="text" name="startTime" minlength="5" maxlength="5" <?= $readonly ?>
+                           value="<?= timeIntToString($record['startTime']) ?? '' ?>"> HH:MM
+                </td>
             </tr>
             <tr>
                 <td><label for="endTime">End Time</label></td>
-                <td><input type="text" name="endTime" minlength="5" maxlength="5" <?= $readonly ?> value="<?= timeIntToString($record['endTime']) ?? '' ?>"> HH:MM</td>
+                <td><input type="text" name="endTime" minlength="5" maxlength="5" <?= $readonly ?>
+                           value="<?= timeIntToString($record['endTime']) ?? '' ?>"> HH:MM
+                </td>
             </tr>
-
 
 
             <input type="hidden" name="commit" value="<?= $action ?>">
