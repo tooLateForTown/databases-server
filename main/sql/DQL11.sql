@@ -18,4 +18,4 @@ WHERE
     AND i.date >= DATE_SUB(CURDATE(), INTERVAL 2 WEEK)
 
 ORDER BY
-    f.name ASC, p.firstName ASC;
+    f.name , p.firstName ;
