@@ -264,14 +264,7 @@ if ($action != 'add') {
             </tr>
 
 
-<!--            --><?php //if ($)
-//            <tr>
-//                <td><label for="facilityID">Facility</label></td>
-//                <td><select name="facilityID" id="facilityID" <?= $readonly ?><!-->-->
-<!--                        --><?php //listFacilityOptions($record['facilityID'], $conn); ?>
-<!--                    </select>-->
-<!--                </td>-->
-<!--            </tr>-->
+
 
             
             <tr>
@@ -325,7 +318,8 @@ if ($action != 'add') {
     </form>
 
     <?php if ($action =='view') {
-        generateVaccinationsTable($record['personID'],$conn);
+        generateVaccinationsTable($record['personID'],$conn, $_GET['mode']);
+        generateInfectionTable($record['personID'],$conn, $_GET['mode']);
         if ($_GET['mode'] == "student") {
             generateEnrollmentTable($record['personID'],$conn);
         }

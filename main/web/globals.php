@@ -336,6 +336,15 @@ function listVaccineTypeOptions($selected, $conn) {
     }
 }
 
+function listInfectionTypeOptions($selected, $conn) {
+    $sql = "SELECT infectionTypeID, name FROM InfectionTypes";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    foreach ($rows as $row) {
+        echo "<option value='".$row[0]."' ".($selected==$row[0]?"selected='selected'":'').">".$row[1]."</option>\r\n";
+    }
+}
+
 function getPersonName($personID, $conn) {
     $sql = "SELECT CONCAT(firstName,' ', lastName) FROM Persons WHERE personID=".$personID;
     $result = mysqli_query($conn, $sql);
@@ -368,7 +377,7 @@ function commit($sql, $conn=null) {
     return $result;
 }
 
-function generateVaccinationsTable($personID, $conn=null) {
+function generateVaccinationsTable($personID, $conn=null, $returnmode= null) {
     $closeconn = false;
     if ($conn == null) {
         $conn = createConnection();
@@ -386,7 +395,8 @@ function generateVaccinationsTable($personID, $conn=null) {
     if ($closeconn) {
         mysqli_close($conn);
     }
-    echo "<a href='edit_vaccination.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Vaccination</a>";
+    echo "<h3>Vaccinations</h3>";
+    echo "<a href='edit_vaccination.php?personID=$personID&action=add".($returnmode != null? "&returnmode=$returnmode" : "")."'><i class='material-icons'>add_box</i>Add Vaccination</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
     echo "<thead>";
@@ -399,8 +409,8 @@ function generateVaccinationsTable($personID, $conn=null) {
         echo "<td>".$table[0]."</td>";
         echo "<td>".$table[1]."</td>";
         echo "<td>".$table[2]."</td>";
-        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=edit'><i class='material-icons'>edit</i></a></td>";
-        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=delete'><i class='material-icons'>delete</i></a></td>";
+        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=edit".($returnmode != null? "&returnmode=$returnmode" : "")."'><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href='edit_vaccination.php?personID=$personID&date=".$table[0]."&action=delete".($returnmode != null? "&returnmode=$returnmode" : "")."'><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
@@ -435,6 +445,7 @@ function generateEnrollmentTable($personID, $conn=null) {
     if ($closeconn) {
         mysqli_close($conn);
     }
+    echo "<h3>Enrollment</h3>";
     echo "<a href='edit_enrollment.php?personID=$personID&action=add'><i class='material-icons'>add_box</i> Add Enrollment</a>";
     echo "<br/><br/>";
     echo "<table class='table table-bordered table-hover table-sm'>";
@@ -456,6 +467,49 @@ function generateEnrollmentTable($personID, $conn=null) {
         echo "<td>".$grade."</td>";
         echo "<td><a href=\"edit_enrollment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=edit\"><i class='material-icons'>edit</i></a></td>";
         echo "<td><a href=\"edit_enrollment.php?personID=$personID&startDate=".$startDate."&facilityID=$facilityID&action=delete\"><i class='material-icons'>delete</i></a></td>";
+        echo "</tr>\r\n";
+    }
+    echo "</tbody>";
+    echo "</table>";
+}
+
+function generateInfectionTable($personID, $conn=null, $returnmode= null) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $sql = "SELECT personID, date, InfectionTypes.name as type FROM Infections 
+            JOIN InfectionTypes ON Infections.infectionTypeID = InfectionTypes.infectionTypeID
+            WHERE personID=$personID ORDER BY date DESC";
+    try {
+        $result= mysqli_query($conn, $sql);
+    } catch (mysqli_sql_exception $e) {
+        echo "<div class='error'>MySQl returned error evaluating : " . $sql . "<br>Message: " . $e->getMessage() . "</div>";
+        return;
+    }
+    $tables = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    echo "<h3>Infections</h3>";
+    echo "<a href='edit_infection.php?personID=$personID&action=add".($returnmode != null? "&returnmode=$returnmode" : "")."'><i class='material-icons'>add_box</i>Add Infection</a>";
+    echo "<br/><br/>";
+    echo "<table class='table table-bordered table-hover table-sm'>";
+    echo "<thead>";
+    echo "<tr><th>date</th><th>Type</th>";
+    echo "<th>Edit</th><th>Delete</th></tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($tables as $table) {
+        $date= $table[1];
+        $type= $table[2];
+        echo "<tr class='tablerow'>";
+        echo "<td>".$date."</td>";
+        echo "<td>".$type."</td>";
+        echo "<td><a href=\"edit_infection.php?personID=$personID&date=".$date."&action=edit".($returnmode != null? "&returnmode=$returnmode" : "")."\"><i class='material-icons'>edit</i></a></td>";
+        echo "<td><a href=\"edit_infection.php?personID=$personID&date=".$date."&action=delete".($returnmode != null? "&returnmode=$returnmode" : "")."\"><i class='material-icons'>delete</i></a></td>";
         echo "</tr>\r\n";
     }
     echo "</tbody>";
