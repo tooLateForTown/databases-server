@@ -778,7 +778,6 @@ function triggerAfterTeacherInfection($personID, $date,$conn=null) {
     $sql = "SELECT facilityID FROM Employees NATURAL JOIN Facilities
     WHERE personID=$personID AND startDate <= '$date' AND endDate IS NULL
         AND (isSchoolPrimary = 1 OR isSchoolMiddle = 1 OR isSchoolHigh = 1)";
-    print($sql);
     $result = mysqli_query($conn, $sql);
     $schools = mysqli_fetch_all($result);
     mysqli_free_result($result);

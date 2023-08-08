@@ -1,4 +1,5 @@
-SELECT 
+# Question 14 - Sam
+SELECT
     Persons.firstName, 
     Persons.lastName, 
    SUM(TIMESTAMPDIFF(HOUR, MAKETIME(Schedule.startTime DIV 100, Schedule.startTime MOD 100, 0), 

@@ -60,7 +60,6 @@ if (isset($_POST['commit'])) {
         $returnto="";
         if (isset($_POST['returnmode']))
             $returnto="&mode=".$_POST['returnmode'];
-//        exit(); // todo REMOVE THIS
         header("Location: edit_person.php?id=".$_POST['personID']."&action=view".$returnto); // jump away.  Cannot have any html before header command.  todo fix this
     }
     // Commit FAILED!

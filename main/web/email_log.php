@@ -98,7 +98,7 @@ date_default_timezone_set('America/Montreal');
             $body .= "\n";
         }
 
-        $body = substr($body, 0, 80);
+        $body = substr($body, 0, 900);
 
         $sender=$employee['facilityName'];
         $receiver=$employee['firstName'] . ' ' . $employee['lastName'];
