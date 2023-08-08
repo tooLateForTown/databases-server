@@ -738,6 +738,4 @@ function nullOrValue($val) {
     else
         return $val;
 }
-
-
 ?>
