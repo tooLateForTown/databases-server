@@ -15,7 +15,7 @@
     LEFT OUTER JOIN Employees ON Facilities.facilityID = Employees.facilityID
     WHERE Students.endDate IS NULL and Employees.endDate IS NULL 
     GROUP BY Facilities.facilityID";
-    generateMasterTable($sql,"edit_facility.php", 0,1,2,"ID","Name","Record";
+    generateMasterTable($sql,"edit_facility.php", 0,1,2,"ID","Name","Record");
 ?>
 </main>
 </body>
