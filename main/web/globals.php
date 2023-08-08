@@ -130,7 +130,7 @@ function generateMasterTableEmail($selectSQL){
 
 //        echo "<a href='emails.php'>Generate Email</a>";
         echo "<br/><br/>";
-        echo "<table class='table table-bordered table-hover table-sm'>";
+        echo "<table class='table table-bordered table-hover table-sm table-email'>";
         echo "<thead>";
         echo "<tr><th>Email ID</th><th>Email Date</th>";
         echo "<th>Sender</th>";
@@ -738,4 +738,5 @@ function nullOrValue($val) {
     else
         return $val;
 }
+
 ?>
