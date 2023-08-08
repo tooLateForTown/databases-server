@@ -100,7 +100,7 @@ date_default_timezone_set('America/Montreal');
 
         $body = substr($body, 0, 900);
 
-        $sender=$employee['facilityName'];
+        $sender=$employee['facilityID'];
         $receiver=$employee['firstName'] . ' ' . $employee['lastName'];
 
         sendEmail($sender, $receiver, $subject, $body,$conn);

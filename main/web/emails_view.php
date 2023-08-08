@@ -24,7 +24,9 @@
 //JOIN Persons ON Employees.personID = Persons.personID
 //ORDER BY Emails.emailDate ASC;
 //";
-$sql = "SELECT * FROM Emails ORDER BY emailID DESC";
+$sql = "SELECT emailID, emailDate as Date, Facilities.name, receiver, subject, emailBody FROM Emails
+         JOIN Facilities ON Emails.senderID = Facilities.facilityID
+         ORDER BY emailID DESC";
     generateMasterTableEmail($sql);
 ?>
 </main>

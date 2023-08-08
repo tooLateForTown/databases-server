@@ -226,7 +226,7 @@ function generateEmailID($conn){
     return $newID;
 }
 
-function sendEmail($sender, $receiver, $subject, $body, $conn) {
+function sendEmail($senderID, $receiver, $subject, $body, $conn) {
 //    print "Sending email from $sender to $receiver with subject $subject and body $body<br>";
 //    return;
 //    $closeconn = false;
@@ -234,9 +234,9 @@ function sendEmail($sender, $receiver, $subject, $body, $conn) {
 //        $conn = createConnection();
 //        $closeconn=true;
 //    }
-    $sql = "INSERT INTO Emails (sender, receiver, emailDate, subject, emailBody)";
+    $sql = "INSERT INTO Emails (senderID, receiver, emailDate, subject, emailBody)";
     $sql .= " VALUES(";
-    $sql .= "'".mysqli_real_escape_string($conn,$sender)."',";
+    $sql .= $senderID . ",";
     $sql .= "'".mysqli_real_escape_string($conn,$receiver)."',";
     $sql .= "NOW(),";
     $sql .= "'" . mysqli_real_escape_string($conn, $subject) . "',";
@@ -788,7 +788,7 @@ function triggerAfterTeacherInfection($personID, $date,$conn=null) {
         $result = mysqli_query($conn, $sql);
         $principal = mysqli_fetch_assoc($result);
         $principalName = $principal['firstName'] . " " . $principal['lastName'];
-        sendEmail('EPSTS Monitor',$principalName,'Warning',$infected_name. ' who works at your school has been infected with COVID-19 on ' .$date, $conn);
+        sendEmail($school[0],$principalName,'Warning',$infected_name. ' who works at your school has been infected with COVID-19 on ' .$date, $conn);
     }
     // Now we cancel their schedules for two seeks from the date of infection
     $sql = "DELETE FROM Schedule WHERE personID=$personID AND workDate >= '$date' AND workDate <= DATE_ADD('$date', INTERVAL 14 DAY)";
