@@ -1,4 +1,4 @@
-#Question 10
+#Question 10 - Fahad
 SELECT F.name AS FacilityName,
        DATE_FORMAT(S.workDate, '%Y-%m-%d') AS DayOfYear,
        S.startTime,
