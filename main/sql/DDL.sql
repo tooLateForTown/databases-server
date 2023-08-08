@@ -128,8 +128,8 @@ CREATE TABLE Vaccines (
 CREATE TABLE Emails (
     emailID int PRIMARY KEY AUTO_INCREMENT,
     emailDate date,
-    sender varchar(200), # facility Name
-    receiver varchar(200),# first and last name
+    senderID int REFERENCES Facilities(facilityID) ON DELETE CASCADE,
+    receiver varchar(200),# first and last name or email
     subject varchar(200),
     emailBody varchar(1000)
 );
