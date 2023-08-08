@@ -766,30 +766,34 @@ function nullOrValue($val) {
         return $val;
 }
 
-function triggerAfterTeacherInfection($personID, $date,$conn) {
+function triggerAfterTeacherInfection($personID, $date,$conn=null) {
     $closeconn = false;
     if ($conn == null) {
         $conn = createConnection();
         $closeconn=true;
     }
+    $infected_name=getPersonName($personID,$conn);
     //we've been alerted that a person has an infection
     //we need to check if that person works in a school
     $sql = "SELECT facilityID FROM Employees NATURAL JOIN Facilities
-    WHERE personID=$personID AND startDate <= $date AND endDate IS NULL
+    WHERE personID=$personID AND startDate <= '$date' AND endDate IS NULL
         AND (isSchoolPrimary = 1 OR isSchoolMiddle = 1 OR isSchoolHigh = 1)";
+    print($sql);
     $result = mysqli_query($conn, $sql);
     $schools = mysqli_fetch_all($result);
     mysqli_free_result($result);
     foreach($schools as $school) {
         //get the principal of the school
         $sql ="SELECT personID, firstName, lastName, email FROM Employees NATURAL JOIN Persons
-                WHERE facilityID=".$school[0]." AND startDate <= $date AND endDate IS NULL AND primaryEmploymentRoleID=1";
+                WHERE facilityID=".$school[0]." AND startDate <= '$date' AND endDate IS NULL AND primaryEmploymentRoleID=10";
         $result = mysqli_query($conn, $sql);
         $principal = mysqli_fetch_assoc($result);
-
-
+        $principalName = $principal['firstName'] . " " . $principal['lastName'];
+        sendEmail('EPSTS Monitor',$principalName,'Warning',$infected_name. ' who works at your school has been infected with COVID-19 on ' .$date, $conn);
     }
-
+    // Now we cancel their schedules for two seeks from the date of infection
+    $sql = "DELETE FROM Schedule WHERE personID=$personID AND workDate >= '$date' AND workDate <= DATE_ADD('$date', INTERVAL 14 DAY)";
+    mysqli_query($conn, $sql);
 
     if ($closeconn) {
         mysqli_close($conn);
