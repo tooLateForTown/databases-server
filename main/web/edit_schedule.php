@@ -7,8 +7,6 @@ $action = null; // view, delete, add, edit, commit
 
 // ********   HANDLE SUBMIT FORM HERE ***  ******
 if (isset($_POST['commit'])) {
-    print('Commit');
-    print_r($_POST);
     $action = $_POST['commit'];
     if ($action == 'add' || $action == 'edit') {
         // PART 1 AND 2 ONLY RUN IF ADDING OR EDITING
@@ -108,8 +106,6 @@ if (isset($_POST['commit'])) {
             show_error("Cannot schedule. Employee has not received a vaccine in 6 months prior to the new schedule date.  Nasty stuff going around.");
             exit();
         }
-        exit();
-
     }
 
 
@@ -142,7 +138,6 @@ if (isset($_POST['commit'])) {
             break; // nothing to do
 
     }
-    print($sql);
     $success = commit($sql, $conn);
     if ($success) {
         header("Location: edit_person.php?id=" . $_POST['personID'] . "&action=view&mode=employee"); // jump away.  Cannot have any html before header command.
