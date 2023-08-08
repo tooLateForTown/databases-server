@@ -47,44 +47,45 @@ if (isset($_POST['commit'])) {
 
         // ** PART 2: VALIDATE DATA
         if ($record['isManagementGeneral'] == 1 && $record['isManagementHeadOffice'] == 1) {
-            print("<div class='error'>Cannot be both head office and general office</div>");
+            show_error("Cannot be both head office and general office");
             exit();
+
         }
         if ($isManagement && $isSchool) {
-            print("<div class='error'>Cannot be both management and school</div>");
+            show_error("Cannot be both management and school");
             exit();
         }
         if (!$isManagement && !$isSchool) {
-            print("<div class='error'>Must be either management or school</div>");
+            show_error("Must be either management or school");
             exit();
         }
         if ($isManagement && $record['isManagementHeadOffice']) { // fixme doesnb't work
             // check if there is already a head office for this ministry
             $check = selectSingleTuple("SELECT * from Facilities WHERE isManagementHeadOffice=1 AND ministryID=" . $record['ministryID'], $conn);
             if ($check != null && $check['facilityID'] != $record['id']) {
-                print("<div class='error'>There is already a head office for this ministry</div>");
+                show_error("There is already a head office for this ministry");
                 exit();
             }
 
         }
         if ($record['ministryID'] < 0 || $record['ministryID'] == null) {
-            print("<div class='error'>Ministry ID must be set</div>");
+            show_error("Ministry ID must be set");
             exit();
         }
         if ($record['name'] == null || $record['name'] == "") {
-            print("<div class='error'>Name must be set</div>");
+            show_error("Name must be set");
             exit();
         }
         if ($record['address'] == null || $record['address'] == "") {
-            print("<div class='error'>Address must be set</div>");
+            show_error("Address must be set");
             exit();
         }
         if ($record['city'] == null || $record['city'] == "") {
-            print("<div class='error'>City must be set</div>");
+            show_error("City must be set");
             exit();
         }
         if  ($record['capacity'] < 0) {
-            print("<div class='error'>Capacity cannot be negative</div>");
+            show_error("Capacity cannot be negative");
             exit();
         }
     } // end of ADD or EDIT

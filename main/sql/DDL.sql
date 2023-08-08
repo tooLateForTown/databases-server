@@ -74,8 +74,7 @@ CREATE TABLE Schedule (
     endTime int,
     PRIMARY KEY (personID, facilityID, workDate, startTime),
     FOREIGN KEY (personID, facilityID) REFERENCES Employees(personID, facilityID)
-#     FOREIGN KEY (personID) REFERENCES Employees(personID),
-#     FOREIGN KEY (facilityID) REFERENCES Employees(facilityID)
+        ON DELETE CASCADE
 );
 
 
@@ -130,14 +129,15 @@ CREATE TABLE Emails (
     emailID int,
     emailDate date,
     senderID int,
-    receiver varchar(60),
-    subject varchar(60),
-    emailBody varchar(80),
+    receiver varchar(200),
+    subject varchar(200),
+    emailBody varchar(1000),
     PRIMARY KEY (emailID),
     FOREIGN KEY (senderID) REFERENCES Facilities(facilityID)
 );
 
 # TRIGGERS
+# helper triggers for Students and Employees
 DROP TRIGGER IF EXISTS update_isStudent;
 CREATE TRIGGER update_isStudent
     AFTER INSERT ON Students
@@ -155,4 +155,22 @@ CREATE TRIGGER update_isEmployee
         SET isEmployee = true
         WHERE personID = NEW.personID;
     END;
+
+# Delete all schedules of an employee if the employee's employment endDate is updated to no longer be null.  Any schedules after that date are deleted
+DROP TRIGGER IF EXISTS DeleteSchedulesOnEndDateUpdate;
+CREATE TRIGGER DeleteSchedulesOnEndDateUpdate
+AFTER UPDATE ON Employees
+FOR EACH ROW
+BEGIN
+    IF NEW.endDate IS NOT NULL AND OLD.endDate IS NULL THEN
+        DELETE FROM Schedule
+        WHERE personID = NEW.personID
+          AND facilityID = NEW.facilityID
+          AND workDate > NEW.endDate;
+    END IF;
+END;
+
+
+
+
 

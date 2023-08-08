@@ -130,7 +130,7 @@ function generateMasterTableEmail($selectSQL){
 
 //        echo "<a href='emails.php'>Generate Email</a>";
         echo "<br/><br/>";
-        echo "<table class='table table-bordered table-hover table-sm'>";
+        echo "<table class='table table-bordered table-hover table-sm table-email'>";
         echo "<thead>";
         echo "<tr><th>Email ID</th><th>Email Date</th>";
         echo "<th>Sender</th>";
@@ -199,6 +199,21 @@ function selectSingleTuple($sql, $conn = null) {
     } else {
         return $row;
     }
+}
+
+function executeQueryAndReturnTable($sql, $conn) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    return $rows;
 }
 
 //create a function to generate new email ID
@@ -723,4 +738,5 @@ function nullOrValue($val) {
     else
         return $val;
 }
+
 ?>
