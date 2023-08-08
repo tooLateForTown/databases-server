@@ -1,6 +1,7 @@
-#Question 9
+#Question 9 - Fahad
 SELECT P.firstName,
        P.lastName,
+       ER.title,
        E.startDate AS StartDateOfWork,
        P.dateOfBirth,
        P.medicare,
@@ -14,6 +15,6 @@ SELECT P.firstName,
 FROM Employees E
 JOIN Persons P ON E.personID = P.personID
 JOIN Facilities F ON E.facilityID = F.facilityID
+JOIN EmploymentRoles ER ON E.primaryEmploymentRoleID = ER.employmentRoleID
 WHERE E.facilityID = 450            # pick facility ID
-ORDER BY E.primaryEmploymentRoleID ASC, P.firstName ASC, P.lastName ASC;
- # todo order by employment role NAME not id
+ORDER BY ER.title ASC, P.firstName ASC, P.lastName ASC;

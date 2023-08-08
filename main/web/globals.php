@@ -130,9 +130,9 @@ function generateMasterTableEmail($selectSQL){
 
 //        echo "<a href='emails.php'>Generate Email</a>";
         echo "<br/><br/>";
-        echo "<table class='table table-bordered table-hover table-sm'>";
+        echo "<table class='table table-bordered table-hover table-sm table-email'>";
         echo "<thead>";
-        echo "<tr><th>Email ID</th><th>Email Date</th>";
+        echo "<tr><th>Email ID</th><th>Date</th>";
         echo "<th>Sender</th>";
         echo "<th>Reciever</th><th>Subject</th>";
         echo "<th>Body</th>";
@@ -201,6 +201,21 @@ function selectSingleTuple($sql, $conn = null) {
     }
 }
 
+function executeQueryAndReturnTable($sql, $conn) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
+    return $rows;
+}
+
 //create a function to generate new email ID
 function generateEmailID($conn){
     $sql = "SELECT MAX(emailID) AS maxID FROM Emails";
@@ -209,6 +224,33 @@ function generateEmailID($conn){
     $maxID = $row['maxID'];
     $newID = $maxID + 1;
     return $newID;
+}
+
+function sendEmail($sender, $receiver, $subject, $body, $conn) {
+//    print "Sending email from $sender to $receiver with subject $subject and body $body<br>";
+//    return;
+//    $closeconn = false;
+//    if ($conn == null) {
+//        $conn = createConnection();
+//        $closeconn=true;
+//    }
+    $sql = "INSERT INTO Emails (sender, receiver, emailDate, subject, emailBody)";
+    $sql .= " VALUES(";
+    $sql .= "'".mysqli_real_escape_string($conn,$sender)."',";
+    $sql .= "'".mysqli_real_escape_string($conn,$receiver)."',";
+    $sql .= "NOW(),";
+    $sql .= "'" . mysqli_real_escape_string($conn, $subject) . "',";
+    $sql .= "'" . mysqli_real_escape_string($conn, $body) . "'";
+    $sql .= ");";
+
+    $success = mysqli_query($conn, $sql);
+    if (!$success) {
+        print("Failed to send email: " . $sql);
+    }
+//
+//    if ($closeconn) {
+////        mysqli_close($conn);
+//    }
 }
 
 
@@ -722,5 +764,35 @@ function nullOrValue($val) {
         return "NULL";
     else
         return $val;
+}
+
+function triggerAfterTeacherInfection($personID, $date,$conn) {
+    $closeconn = false;
+    if ($conn == null) {
+        $conn = createConnection();
+        $closeconn=true;
+    }
+    //we've been alerted that a person has an infection
+    //we need to check if that person works in a school
+    $sql = "SELECT facilityID FROM Employees NATURAL JOIN Facilities
+    WHERE personID=$personID AND startDate <= $date AND endDate IS NULL
+        AND (isSchoolPrimary = 1 OR isSchoolMiddle = 1 OR isSchoolHigh = 1)";
+    $result = mysqli_query($conn, $sql);
+    $schools = mysqli_fetch_all($result);
+    mysqli_free_result($result);
+    foreach($schools as $school) {
+        //get the principal of the school
+        $sql ="SELECT personID, firstName, lastName, email FROM Employees NATURAL JOIN Persons
+                WHERE facilityID=".$school[0]." AND startDate <= $date AND endDate IS NULL AND primaryEmploymentRoleID=1";
+        $result = mysqli_query($conn, $sql);
+        $principal = mysqli_fetch_assoc($result);
+
+
+    }
+
+
+    if ($closeconn) {
+        mysqli_close($conn);
+    }
 }
 ?>

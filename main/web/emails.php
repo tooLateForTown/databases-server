@@ -12,6 +12,7 @@
 <button>
     <a href="email_log.php">Generate Emails</a>
 </button>
+    <p>Warning:  You must wait a long time after clicking the button to see the results.  Be patient.</p>
 </main>
 </body>
 </html>
