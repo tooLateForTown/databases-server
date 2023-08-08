@@ -1,14 +1,14 @@
 <?php require('globals.php'); ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Comp 353 Project</title>
-    <?php commonHead(); ?>
-</head>
-<body>
-<?php commonNav(); ?>
-<main>
-<h1>Email Log</h1>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <title>Comp 353 Project</title>-->
+<!--    --><?php //commonHead(); ?>
+<!--</head>-->
+<!--<body>-->
+<?php //commonNav(); ?>
+<!--<main>-->
+<!--<h1>Email Log</h1>-->
 <?php
 
 
@@ -100,27 +100,33 @@ date_default_timezone_set('America/Montreal');
 
         $body = substr($body, 0, 80);
 
-        
-        // Generate the email ID
-        $emailID = generateEmailID($conn);
-        $sql = "INSERT INTO Emails (emailID, senderID, receiver, emailDate, subject, emailBody)";
-        $sql .= " VALUES(";
-        $sql .= $emailID . ",";
-        $sql .= $employee['facilityID'] . ",";
-        $sql .= $employee['personID'] . ",";
-        $sql .= "NOW(),";
-        $sql .= "'" . mysqli_real_escape_string($conn, $subject) . "',";
-        $sql .= "'" . mysqli_real_escape_string($conn, $body) . "'";
-        $sql .= ");";        
-        $success = mysqli_query($conn, $sql);
+        $sender=$employee['facilityName'];
+        $receiver=$employee['firstName'] . ' ' . $employee['lastName'];
 
-        if (!$success) {
-        // Commit FAILED!
-        echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
-        echo "<div class='debug'>";
-        print_r($_POST);
-        echo "</div>";
-    }
+        sendEmail($sender, $receiver, $subject, $body,$conn);
+
+
+
+//        // Generate the email ID
+//        $emailID = generateEmailID($conn);
+//        $sql = "INSERT INTO Emails (emailID, senderID, receiver, emailDate, subject, emailBody)";
+//        $sql .= " VALUES(";
+//        $sql .= $emailID . ",";
+//        $sql .= $employee['facilityID'] . ",";
+//        $sql .= $employee['personID'] . ",";
+//        $sql .= "NOW(),";
+//        $sql .= "'" . mysqli_real_escape_string($conn, $subject) . "',";
+//        $sql .= "'" . mysqli_real_escape_string($conn, $body) . "'";
+//        $sql .= ");";
+//        $success = mysqli_query($conn, $sql);
+
+//        if (!$success) {
+//        // Commit FAILED!
+//        echo "<div class='error'>FAILED!  SQL: " . $sql . "</div>";
+//        echo "<div class='debug'>";
+//        print_r($_POST);
+//        echo "</div>";
+//    }
 
 
     }
@@ -128,28 +134,29 @@ date_default_timezone_set('America/Montreal');
     // Close the database connection
     mysqli_close($conn);
 
-    echo "<div class='success'>Emails generated successfully!</div>";
+//    echo "<div class='success'>Emails generated successfully!</div>";
+    header("Location: emails_view.php");
 
 ?>
-
-
- <?php
-$sql = "SELECT 
-Emails.emailID,
-Emails.emailDate,
-Facilities.name AS sender,
-CONCAT(Persons.firstName, ' ', Persons.lastName) AS receiver,
-Emails.subject,
-LEFT(Emails.emailBody, 80) AS emailBody
-FROM 
-Emails
-JOIN Facilities ON Emails.senderID = Facilities.facilityID
-JOIN Employees ON Emails.receiver = Employees.personID
-JOIN Persons ON Employees.personID = Persons.personID
-ORDER BY Emails.emailDate ASC;
-";
-    generateMasterTableEmail($sql);
-?> 
-</main>
-</body>
-</html>
+<!---->
+<!---->
+<!-- --><?php
+//$sql = "SELECT
+//Emails.emailID,
+//Emails.emailDate,
+//Facilities.name AS sender,
+//CONCAT(Persons.firstName, ' ', Persons.lastName) AS receiver,
+//Emails.subject,
+//LEFT(Emails.emailBody, 80) AS emailBody
+//FROM
+//Emails
+//JOIN Facilities ON Emails.senderID = Facilities.facilityID
+//JOIN Employees ON Emails.receiver = Employees.personID
+//JOIN Persons ON Employees.personID = Persons.personID
+//ORDER BY Emails.emailDate ASC;
+//";
+//    generateMasterTableEmail($sql);
+//?><!-- -->
+<!--</main>-->
+<!--</body>-->
+<!--</html>-->

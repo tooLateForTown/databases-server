@@ -126,14 +126,12 @@ CREATE TABLE Vaccines (
 
 #Email stuff
 CREATE TABLE Emails (
-    emailID int,
+    emailID int PRIMARY KEY AUTO_INCREMENT,
     emailDate date,
-    senderID int,
-    receiver varchar(200),
+    sender varchar(200), # facility Name
+    receiver varchar(200),# first and last name
     subject varchar(200),
-    emailBody varchar(1000),
-    PRIMARY KEY (emailID),
-    FOREIGN KEY (senderID) REFERENCES Facilities(facilityID)
+    emailBody varchar(1000)
 );
 
 # TRIGGERS
