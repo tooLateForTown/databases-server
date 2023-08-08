@@ -6,6 +6,6 @@ SELECT
     E.emailBody
 FROM Emails AS E
 JOIN Facilities AS F ON E.senderID = F.facilityID
-WHERE E.senderID = 12 -- Replace with the ID of the given facility
+WHERE E.senderID = 12 -- enter id number
 ORDER BY E.emailDate;
 
