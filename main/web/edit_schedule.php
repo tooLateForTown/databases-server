@@ -140,9 +140,8 @@ if (isset($_POST['commit'])) {
             break; // nothing to do
 
     }
-
-    $success = commit($sql, $conn);
     print($sql);
+    $success = commit($sql, $conn);
     if ($success) {
         header("Location: edit_person.php?id=" . $_POST['personID'] . "&action=view&mode=employee"); // jump away.  Cannot have any html before header command.
     }
