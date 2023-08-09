@@ -1,6 +1,6 @@
 # Question 13 - Sam & Fahad
 SELECT
-    Persons.firstName,
+    DISTINCT Persons.firstName,
     Persons.lastName,
     CASE
         WHEN EmploymentRoles.employmentRoleID = 11 THEN 'Elementary'
