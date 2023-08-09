@@ -125,24 +125,24 @@ $queries[] = $q;
 $q = new Query();
 $q->id = 13;
 $q->sql="SELECT
-DISTINCT Persons.firstName,
-Persons.lastName,
-CASE
-    WHEN EmploymentRoles.title = 'Elementary Teacher' THEN 'Elementary'
-    WHEN EmploymentRoles.title = 'Secondary Teacher' THEN 'Secondary'
-    ELSE 'Other'
-END AS role
+    DISTINCT Persons.firstName,
+    Persons.lastName,
+    CASE
+        WHEN EmploymentRoles.employmentRoleID = 11 THEN 'Elementary'
+        WHEN EmploymentRoles.employmentRoleID = 12 THEN 'Secondary'
+        ELSE 'Other'
+    END AS role
 FROM
-Schedule
-JOIN Employees ON Schedule.personID = Employees.personID AND Schedule.facilityID = Employees.facilityID
-JOIN Persons ON Employees.personID = Persons.personID
-JOIN EmploymentRoles ON Employees.primaryEmploymentRoleID = EmploymentRoles.employmentRoleID
+    Schedule
+    JOIN Employees ON Schedule.personID = Employees.personID AND Schedule.facilityID = Employees.facilityID
+    JOIN Persons ON Employees.personID = Persons.personID
+    JOIN EmploymentRoles ON Employees.primaryEmploymentRoleID = EmploymentRoles.employmentRoleID
 WHERE
-Schedule.facilityID = 79 AND #input facilityID
-Schedule.workDate BETWEEN DATE_SUB(NOW(), INTERVAL 2 WEEK) AND NOW()
+    Schedule.facilityID = 79 AND
+    Schedule.workDate BETWEEN DATE_SUB(NOW(), INTERVAL 2 WEEK) AND NOW()
 ORDER BY
-role ASC,
-Persons.firstName ASC;";
+    role ASC,
+    Persons.firstName ASC;";
 $q->title = "Generate a list of all the teachers who have been on
 schedule to work in the last two weeks";
 $q->brief_title = "List Teachers Worked";
